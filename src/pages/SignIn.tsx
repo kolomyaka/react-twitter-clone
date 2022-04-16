@@ -18,6 +18,7 @@ import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import PeopleIcon from "@mui/icons-material/PeopleOutline";
 import MessageIcon from "@mui/icons-material/ChatBubbleOutline";
+import { Modal } from "../components/Modal/Modal";
 
 const Wrapper = styled("div")(
   ({ theme }) => `
@@ -99,6 +100,23 @@ const LoginContent = styled("div")(
 
 function SignIn() {
 
+  const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp'>();  // Указываем, что можем принимать только строку, в зависимости от которой отображаем мод. окно
+
+  const handleClickOpenSignIn = (): void => {  // Функция для входа в аккаунт
+    setVisibleModal('signIn');
+  };
+
+  const handleClickOpenSignUp = () => {  // Функция для регистрации
+    setVisibleModal('signUp');
+  };
+
+  const handleCloseModal = (): void => {
+    setVisibleModal(undefined)
+  }
+
+
+
+  
   return (
     <Wrapper>
       <ContentBox>
@@ -146,6 +164,7 @@ function SignIn() {
               Присоединяйтесь к Твиттеру прямо сейчас!
             </Typography>
             <Button
+              onClick={handleClickOpenSignUp}
               style={{ marginBottom: 20, borderRadius: 15, fontWeight: 700 }}
               variant="contained"
               color="primary"
@@ -154,7 +173,7 @@ function SignIn() {
               Зарегистрироваться
             </Button>
             <Button
-              onClick={handleClickOpen}
+              onClick={handleClickOpenSignIn}
               style={{ borderRadius: 15, fontWeight: 700 }}
               variant="outlined"
               color="primary"
@@ -163,8 +182,71 @@ function SignIn() {
               Войти
             </Button>
           </LoginContent>
-
-
+          <Modal title='Войти' visible={visibleModal === 'signIn'} handleClickClose={handleCloseModal}>
+          <FormControl component="fieldset" fullWidth>
+            <FormGroup aria-label="position" row>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="email"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="filled"
+              />
+              <TextField
+                variant="filled"
+                margin="dense"
+                id="password"
+                label="Password"
+                type="password"
+                fullWidth
+              />
+              <Button
+                style={{ borderRadius: 15, marginTop: 10 }}
+                onClick={handleCloseModal}
+                variant="contained"
+                fullWidth
+                color="primary"
+              >
+              Войти
+              </Button>
+            </FormGroup>
+          </FormControl>
+          </Modal>
+          <Modal title='Регистрация' visible={visibleModal === 'signUp'} handleClickClose={handleCloseModal}>
+          <FormControl component="fieldset" fullWidth>
+            <FormGroup aria-label="position" row>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="email"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="filled"
+              />
+              <TextField
+                variant="filled"
+                margin="dense"
+                id="password"
+                label="Password"
+                type="password"
+                fullWidth
+              />
+              <Button
+                style={{ borderRadius: 15, marginTop: 10 }}
+                onClick={handleCloseModal}
+                variant="contained"
+                fullWidth
+                color="primary"
+              >
+                Войти
+              </Button>
+            </FormGroup>
+          </FormControl>
+          
+          </Modal>
         </LoginSide>
       </ContentBox>
     </Wrapper>
