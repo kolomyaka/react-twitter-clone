@@ -98,6 +98,13 @@ const LoginContent = styled("div")(
     `
 );
 
+export const TextFieldEl = styled(TextField)(
+  ({ theme }) => `
+    margin-bottom: 10px;
+    
+  `
+)
+
 function SignIn() {
 
   const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp'>();  // Указываем, что можем принимать только строку, в зависимости от которой отображаем мод. окно
@@ -189,7 +196,7 @@ function SignIn() {
                 autoFocus
                 margin="dense"
                 id="email"
-                label="Email Address"
+                label="Электронная почта"
                 type="email"
                 fullWidth
                 variant="filled"
@@ -198,7 +205,7 @@ function SignIn() {
                 variant="filled"
                 margin="dense"
                 id="password"
-                label="Password"
+                label="Пароль"
                 type="password"
                 fullWidth
               />
@@ -214,23 +221,31 @@ function SignIn() {
             </FormGroup>
           </FormControl>
           </Modal>
-          <Modal title='Регистрация' visible={visibleModal === 'signUp'} handleClickClose={handleCloseModal}>
+          <Modal title='Создайте учетную запись' visible={visibleModal === 'signUp'} handleClickClose={handleCloseModal}>
           <FormControl component="fieldset" fullWidth>
             <FormGroup aria-label="position" row>
-              <TextField
+              <TextFieldEl
                 autoFocus
                 margin="dense"
-                id="email"
-                label="Email Address"
-                type="email"
+                id="name"
+                label="Имя"
+                type="name"
                 fullWidth
                 variant="filled"
               />
-              <TextField
+              <TextFieldEl
+                variant="filled" 
+                margin="dense"
+                id="email"
+                label="Электронная почта"
+                type="email"
+                fullWidth
+              />
+              <TextFieldEl
                 variant="filled"
                 margin="dense"
                 id="password"
-                label="Password"
+                label="Пароль"
                 type="password"
                 fullWidth
               />
@@ -238,10 +253,10 @@ function SignIn() {
                 style={{ borderRadius: 15, marginTop: 10 }}
                 onClick={handleCloseModal}
                 variant="contained"
-                fullWidth
                 color="primary"
+                fullWidth
               >
-                Войти
+                Регистрация
               </Button>
             </FormGroup>
           </FormControl>
