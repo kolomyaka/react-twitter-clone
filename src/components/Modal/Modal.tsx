@@ -30,7 +30,7 @@ export const Modal: React.FC<Props> = ({title, children, visible = false, handle
   return (
     <>
       <Dialog open={visible} onBackdropClick={handleClickClose}>
-        <DialogTitle id="form-dialog-title">
+        <DialogTitle id="form-dialog-title" style={{display: 'flex', alignItems: 'center'}}> 
           <IconButton onClick={handleClickClose} color="primary">
             <CloseIcon style={{ fontSize: 26 }} />
           </IconButton>

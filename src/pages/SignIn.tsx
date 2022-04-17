@@ -105,7 +105,7 @@ export const TextFieldEl = styled(TextField)(
   `
 )
 
-function SignIn() {
+export const SignIn: React.FC = () => {
 
   const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp'>();  // Указываем, что можем принимать только строку, в зависимости от которой отображаем мод. окно
 
@@ -121,9 +121,6 @@ function SignIn() {
     setVisibleModal(undefined)
   }
 
-
-
-  
   return (
     <Wrapper>
       <ContentBox>
