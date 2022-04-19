@@ -1,4 +1,4 @@
-import { IconButton, Typography } from '@mui/material'
+import { Button, Hidden, IconButton, Typography } from '@mui/material'
 import React from 'react'
 import NotificationIcon from '@mui/icons-material/NotificationsNone';
 import MessageIcon from '@mui/icons-material/MailOutline';
@@ -8,32 +8,48 @@ import UserIcon from '@mui/icons-material/PersonOutline';
 import TwitterIcon from "@mui/icons-material/Twitter";
 import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
+import CreateIcon from '@mui/icons-material/CreateOutlined';
 
 const IconsList = styled("ul")`
     list-style: none;
     margin: 0;
     padding-top: 10px;
+
 `
 
 const IconsListItem = styled('li')`
     display: flex;
     align-items: center;
     cursor: pointer;
+    margin-bottom: 10px;
+    max-width: 210px;
+    border-radius: 20px;
+    transition: all 300ms ease-in-out;
     & h6 {
         font-weight: 500;
         font-size: 20px;
         margin-left: 15px;
     }
     & svg {
-        font-size: 25px;
+        font-size: 27px;
+        & path {
+            transition: all 300ms ease-in-out;
+        }
     }
     &:hover {
-        background-color: rgb(245, 248, 250);
-        border-radius: 20px;
+        background-color: rgb(29, 161, 242, .1);
         color: rgb(29,161,242);
-        
+        & svg path {
+            fill: rgb(29,161,242);
+        }
+    }
+    @media (max-width: 880px) {
+        padding-right: 0;
+        max-width: 45px;
     }
 `
+
+
 
 type Props = {}
 
@@ -46,44 +62,62 @@ export const Sidebar = (props: Props) => {
                 </IconButton>
                 <IconsListItem>
                     <IconButton aria-label='delete'>
-                        <SearchIcon />
+                        <SearchIcon sx={{ color: '#000' }} />
                     </IconButton>
-                    <Typography variant='h6'>Поиск</Typography>
+                    <Hidden mdDown>
+                        <Typography variant='h6'>Поиск</Typography>
+                    </Hidden>
 
                 </IconsListItem>
                 <IconsListItem>
                     <IconButton aria-label='delete'>
-                        <NotificationIcon />
+                        <NotificationIcon sx={{ color: '#000' }} />
                     </IconButton>
-                    <Typography variant='h6'>Уведомления</Typography>
+                    <Hidden mdDown>
+                        <Typography variant='h6'>Уведомления</Typography>
+                    </Hidden>
                 </IconsListItem>
                 <IconsListItem>
                     <IconButton aria-label='delete'>
-                        <MessageIcon />
+                        <MessageIcon sx={{ color: '#000' }} />
                     </IconButton>
-                    <Typography variant='h6'>Сообщения</Typography>
+                    <Hidden mdDown>
+                        <Typography variant='h6'>Сообщения</Typography>
+                    </Hidden>
                 </IconsListItem>
                 <IconsListItem>
                     <IconButton aria-label='delete'>
-                        <BookmarkBorderIcon />
+                        <BookmarkBorderIcon sx={{ color: '#000' }} />
                     </IconButton>
-                    <Typography variant='h6'>Закладки</Typography>
+                    <Hidden mdDown>
+                        <Typography variant='h6'>Закладки</Typography>
+                    </Hidden>
+                </IconsListItem>
+                <IconsListItem>
+                    <IconButton aria-label='delete'>
+                        <ListIcon sx={{ color: '#000' }} />
+                    </IconButton>
+                    <Hidden mdDown>
+                        <Typography variant='h6'>Список</Typography>
+                    </Hidden>
+                </IconsListItem>
+                <IconsListItem>
+                    <IconButton aria-label='delete'>
+                        <UserIcon sx={{ color: '#000' }} />
+                    </IconButton>
+                    <Hidden mdDown>
+                        <Typography variant='h6'>Профиль</Typography>
+                    </Hidden>
+                </IconsListItem>
+                <Hidden mdUp>
+                    <CreateIcon sx={{ cursor: 'pointer', color: '#fff', borderRadius: 20, fontSize: 26, padding: 1, backgroundColor: 'rgb(29,161,242)' }} />
+                </Hidden>
+                <Hidden mdDown>
+                    <Button variant='contained' color='primary' fullWidth sx={{ borderRadius: '20px' }}>
+                        <Typography>Твитнуть</Typography>
+                    </Button>
+                </Hidden>
 
-                </IconsListItem>
-                <IconsListItem>
-                    <IconButton aria-label='delete'>
-                        <ListIcon />
-                    </IconButton>
-                    <Typography variant='h6'>Список</Typography>
-
-                </IconsListItem>
-                <IconsListItem>
-                    <IconButton aria-label='delete'>
-                        <UserIcon />
-                    </IconButton>
-                    <Typography variant='h6'>Профиль</Typography>
-
-                </IconsListItem>
             </IconsList>
         </>
     )

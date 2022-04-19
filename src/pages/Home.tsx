@@ -35,10 +35,10 @@ export const Home = () => {
     return (
         <Container maxWidth='lg'>
             <Grid container spacing={2}>
-                <Grid item xs={3} >
+                <Grid item md={3} sm={2}>
                     <Sidebar />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item md={6.5} sm={8}>
                     <Paper sx={{ borderBottom: 0, borderTop: 0, height: '100vh' }} variant='outlined'>
                         <Paper variant='outlined' sx={{ borderLeft: 0, borderRight: 0, padding: '10px 15px' }}>
                             <Typography variant='h6' sx={{ fontWeight: 700, borderRadius: 0 }}>Главная</Typography>
@@ -74,7 +74,7 @@ export const Home = () => {
                         </Paper>
                     </Paper>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item md={2.5} sm={2}>
                     <SearchTextField
                         fullWidth
                         placeholder='Поиск в Твиттере'

@@ -11,7 +11,7 @@ export const theme = createTheme({
             'Ubuntu',
             'Helvetica Neue',
             'sans-serif',
-          ].join(','),
+        ].join(','),
     },
     palette: {
         text: {
@@ -19,10 +19,10 @@ export const theme = createTheme({
                 main: 'rgb(29,161,242)',
                 dark: 'rgb(26,145,218)',
                 contrastText: '#fff',
-                
+
             },
             secondary: {
-                main: 'rgb(26,145,218)',
+                main: 'rgb(0,0,0)',
             },
             error: {
                 main: '#f44336'
@@ -36,10 +36,10 @@ export const theme = createTheme({
     components: {
         MuiFilledInput: {
             underline: {
-                '&:after' : {
+                '&:after': {
                     borderbottomWidth: '2px',
                 },
-                '&:before' : {
+                '&:before': {
                     borderColor: '#000',
                     borderbottomWidth: '2px',
                 },
@@ -63,12 +63,12 @@ export const theme = createTheme({
                 borderBottom: '1px solid rgb(204, 230, 230)',
                 marginBottom: 10,
                 padding: '10px 15px',
-                '& h2' : {
+                '& h2': {
                     display: 'flex',
                     alignItems: 'center',
                     fontWeight: 800,
                 },
-                '& button' : {
+                '& button': {
                     padding: 8,
                     marginRight: 20,
                 },

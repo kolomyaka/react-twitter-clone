@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 
 const СontentTweetWrapper = styled.div`
-    margin: 7px 15px;
+    margin: 7px 0px;
     &:hover {
     }
 `
@@ -30,6 +30,7 @@ const TweetsCounter = styled('span')`
 `
 
 const TweetWrapper = styled('div')`
+    display: flex;
     cursor: pointer;
     &:hover {
         background-color: rgb(245, 248, 250);
@@ -47,44 +48,41 @@ type User = {
     userName: string
 }
 
+const UserAvatarWrapper = styled('div')`
 
+`
 
 export const Tweet = ({ user }: Props) => {
     return (
         <>
             <Paper sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
                 <TweetWrapper>
-                    <Grid container spacing={1} sx={{ marginTop: '0' }}>
-                        <Grid item xs={1} >
-                            <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
-                        </Grid>
-                        <Grid item xs={11} >
-                            <СontentTweetWrapper>
-                                <Typography><b>{user.name}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>{user.userName} · 1ч</span></Typography>
-                                <Typography variant='body1'>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.
-                                </Typography>
-                                <FlexWrapper>
-                                    <IconButton>
-                                        <CommentIcon style={{ fontSize: '16px' }} />
-                                        <TweetsCounter>1</TweetsCounter>
-                                    </IconButton>
-                                    <IconButton>
-                                        <RepeatIcon style={{ fontSize: '16px' }} />
-                                    </IconButton>
-                                    <IconButton>
-                                        <LikeIcon style={{ fontSize: '16px' }} />
-                                    </IconButton>
-                                    <IconButton>
-                                        <ShareIcon style={{ fontSize: '16px' }} />
-                                    </IconButton>
-                                </FlexWrapper>
-                            </СontentTweetWrapper>
-
-                        </Grid>
-                    </Grid>
+                    <UserAvatarWrapper>
+                        <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
+                    </UserAvatarWrapper>
+                    <СontentTweetWrapper>
+                        <Typography><b>{user.name}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>{user.userName} · 1ч</span></Typography>
+                        <Typography variant='body1'>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.
+                        </Typography>
+                        <FlexWrapper>
+                            <IconButton>
+                                <CommentIcon style={{ fontSize: '19px' }} />
+                                <TweetsCounter>1</TweetsCounter>
+                            </IconButton>
+                            <IconButton>
+                                <RepeatIcon style={{ fontSize: '19px' }} />
+                            </IconButton>
+                            <IconButton>
+                                <LikeIcon style={{ fontSize: '19px' }} />
+                            </IconButton>
+                            <IconButton>
+                                <ShareIcon style={{ fontSize: '19px' }} />
+                            </IconButton>
+                        </FlexWrapper>
+                    </СontentTweetWrapper>
                 </TweetWrapper>
-            </Paper>
+            </Paper >
         </>
     )
 }
