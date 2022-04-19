@@ -14,6 +14,9 @@ const IconsList = styled("ul")`
     list-style: none;
     margin: 0;
     padding-top: 10px;
+    position: sticky;
+    top: 0;
+    left: 0;
 
 `
 
@@ -113,7 +116,7 @@ export const Sidebar = (props: Props) => {
                     <CreateIcon sx={{ cursor: 'pointer', color: '#fff', borderRadius: 20, fontSize: 26, padding: 1, backgroundColor: 'rgb(29,161,242)' }} />
                 </Hidden>
                 <Hidden mdDown>
-                    <Button variant='contained' color='primary' fullWidth sx={{ borderRadius: '20px' }}>
+                    <Button variant='contained' color='primary' fullWidth sx={{ borderRadius: '20px', marginTop: '10px' }}>
                         <Typography>Твитнуть</Typography>
                     </Button>
                 </Hidden>
