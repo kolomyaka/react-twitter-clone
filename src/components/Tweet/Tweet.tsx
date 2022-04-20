@@ -55,7 +55,7 @@ const UserAvatarWrapper = styled('div')`
 export const Tweet = ({ user }: Props) => {
     return (
         <>
-            <Paper sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
+            <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
                 <TweetWrapper>
                     <UserAvatarWrapper>
                         <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
