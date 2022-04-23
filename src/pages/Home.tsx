@@ -90,47 +90,47 @@ export const Home = () => {
                             <AddTweetForm />
                         </Paper>
                         <Paper variant='outlined'>
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'
                             }} />
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'
                             }} />
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'
                             }} />
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'
                             }} />
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'
                             }} />
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'
                             }} />
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'
                             }} />
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'
                             }} />
-                            <Tweet user={{
+                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
                                 name: 'Nikita',
                                 userName: '@Kolomyaka',
                                 avatarUrl: 'https://i.pravatar.cc/45'

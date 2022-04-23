@@ -38,8 +38,8 @@ const TweetWrapper = styled('div')`
 `
 
 type Props = {
+    text: string
     user: User
-
 }
 
 type User = {
@@ -52,7 +52,7 @@ const UserAvatarWrapper = styled('div')`
 
 `
 
-export const Tweet = ({ user }: Props) => {
+export const Tweet = ({ user, text }: Props) => {
     return (
         <>
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
@@ -63,7 +63,7 @@ export const Tweet = ({ user }: Props) => {
                     <СontentTweetWrapper>
                         <Typography><b>{user.name}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>{user.userName} · 1ч</span></Typography>
                         <Typography variant='body1'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.
+                            {text}
                         </Typography>
                         <FlexWrapper>
                             <IconButton>
