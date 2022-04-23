@@ -1,45 +1,43 @@
 import React from "react";
 import {
-  Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    FormControl,
-    FormGroup,
-    IconButton,
-    TextField,
-    Typography,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import Divider from '@mui/material/Divider';
+
 
 type Props = {
-  title: string
+  title?: string
   children: React.ReactNode
   visible?: boolean
-  handleClickClose : () => void
+  setWidth: number | string
+  setPadding: number
+  handleClickClose: () => void
 }
 
-export const Modal: React.FC<Props> = ({title, children, visible = false, handleClickClose}: Props ): React.ReactElement | null => {
-  
+export const Modal: React.FC<Props> = ({ title, setPadding, setWidth, children, visible = false, handleClickClose }: Props): React.ReactElement | null => {
+
   if (!visible) {
     return null;
   }
 
   return (
-    <>
+    <div>
       <Dialog open={visible} onBackdropClick={handleClickClose}>
-        <DialogTitle id="form-dialog-title" style={{display: 'flex', alignItems: 'center'}}> 
+        <DialogTitle id="form-dialog-title" style={{ display: 'flex', alignItems: 'center', padding: '5px' }}>
           <IconButton onClick={handleClickClose} color="primary">
             <CloseIcon style={{ fontSize: 26 }} />
           </IconButton>
           {title}
         </DialogTitle>
-        <DialogContent>
+        <Divider />
+        <DialogContent sx={{ width: setWidth, padding: setPadding }}>
           {children}
         </DialogContent>
       </Dialog>
-    </>
+    </div >
   );
 };

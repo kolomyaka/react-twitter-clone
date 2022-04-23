@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import SmileIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import styled from 'styled-components';
@@ -48,20 +48,40 @@ const FlexWrapper = styled('div')`
     align-items: center;
 `
 
-type Props = {}
+type Props = {
+    maxRows?: number
+}
 
-export const AddTweetForm = (props: Props) => {
+export const AddTweetForm = ({ maxRows }: Props) => {
+    const [text, setText] = useState<string>('');
+    const MAX_LIMIT = 280;
+    const textLimitPercent = Math.round((text.length / MAX_LIMIT) * 100);
+    const maxLength = MAX_LIMIT - text.length;
+
+    const handleClickAddTweet = () => {
+        setText('')
+    }
+
+    const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>) => {
+        if (e.currentTarget) {
+            setText(e.currentTarget.value);
+        }
+    }
+
     return (
         <>
-            <AddTweetWrapper>
+            <AddTweetWrapper style={{ padding: '5px' }}>
                 <AddTweetAvatar>
                     <img style={{ borderRadius: '50%', margin: '7px 10px' }} src='https://i.pravatar.cc/45' alt="userAvatar" />
                 </AddTweetAvatar>
                 <AddTweetTextField>
                     <TextareaAutosize
+                        onChange={handleChangeTextarea}
                         aria-label="empty textarea"
                         placeholder="Что происходит?"
-                        style={{ minHeight: '70px' }}
+                        style={{ minHeight: '60px' }}
+                        value={text}
+                        maxRows={maxRows}
                     />
                     <AddTweetFooter>
                         <FlexWrapper>
@@ -73,18 +93,30 @@ export const AddTweetForm = (props: Props) => {
                             </IconButton>
                         </FlexWrapper>
                         <FlexWrapper>
-                            <span>280</span>
-                            <CircularWrapper>
-                                <CircularProgress sx={{ position: 'absolute', top: 0, left: 0, color: 'rgba(29,161,242)' }} variant='determinate' size={20} value={20} />
-                                <CircularProgress
-                                    style={{ color: 'rgba(0,0,0,0.1)' }}
-                                    variant='determinate'
-                                    size={20}
-                                    thickness={4}
-                                    value={100}
-                                />
-                            </CircularWrapper>
-                            <Button variant='contained' sx={{ borderRadius: '20px' }}>Твитнуть</Button>
+                            {
+                                text && (
+                                    <>
+                                        <span>{maxLength}</span>
+                                        <CircularWrapper>
+                                            <CircularProgress
+                                                sx={{ position: 'absolute', top: 0, left: 0, color: 'rgba(29,161,242)' }}
+                                                variant='determinate'
+                                                size={20}
+                                                value={text.length > MAX_LIMIT ? 100 : textLimitPercent}
+                                                style={text.length > MAX_LIMIT ? { color: 'red' } : undefined}
+                                            />
+                                            <CircularProgress
+                                                style={{ color: 'rgba(0,0,0,0.1)' }}
+                                                variant='determinate'
+                                                size={20}
+                                                thickness={6}
+                                                value={100}
+                                            />
+                                        </CircularWrapper>
+                                    </>
+                                )
+                            }
+                            <Button onClick={handleClickAddTweet} disabled={text.length > MAX_LIMIT} variant='contained' sx={{ borderRadius: '20px' }}>Твитнуть</Button>
                         </FlexWrapper>
                     </AddTweetFooter>
                 </AddTweetTextField>

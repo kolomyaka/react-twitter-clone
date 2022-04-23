@@ -1,5 +1,5 @@
 import { Button, Hidden, IconButton, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import NotificationIcon from '@mui/icons-material/NotificationsNone';
 import MessageIcon from '@mui/icons-material/MailOutline';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
@@ -9,6 +9,8 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
 import CreateIcon from '@mui/icons-material/CreateOutlined';
+import { Modal } from './Modal/Modal';
+import { AddTweetForm } from './AddTweetForm';
 
 const IconsList = styled("ul")`
     list-style: none;
@@ -57,6 +59,17 @@ const IconsListItem = styled('li')`
 type Props = {}
 
 export const Sidebar = (props: Props) => {
+
+    const [addTweetVisible, setAddTweetVisible] = useState<boolean>(false)
+
+    const openAddTweet = () => {
+        setAddTweetVisible(true)
+    }
+
+    const onCloseAddTweet = () => {
+        setAddTweetVisible(false);
+    }
+
     return (
         <>
             <IconsList>
@@ -113,13 +126,17 @@ export const Sidebar = (props: Props) => {
                     </Hidden>
                 </IconsListItem>
                 <Hidden mdUp>
-                    <CreateIcon sx={{ cursor: 'pointer', color: '#fff', borderRadius: 20, fontSize: 26, padding: 1, backgroundColor: 'rgb(29,161,242)' }} />
+                    <CreateIcon onClick={openAddTweet} sx={{ cursor: 'pointer', color: '#fff', borderRadius: 20, fontSize: 26, padding: 1, backgroundColor: 'rgb(29,161,242)' }} />
                 </Hidden>
                 <Hidden mdDown>
-                    <Button variant='contained' color='primary' fullWidth sx={{ borderRadius: '20px', marginTop: '10px' }}>
+                    <Button onClick={openAddTweet} variant='contained' color='primary' fullWidth sx={{ borderRadius: '20px', marginTop: '10px' }}>
                         <Typography>Твитнуть</Typography>
                     </Button>
                 </Hidden>
+                <Modal setPadding={0} title='' setWidth={570} visible={addTweetVisible} handleClickClose={onCloseAddTweet}>
+                    <AddTweetForm maxRows={2} />
+                </Modal>
+
 
             </IconsList>
         </>

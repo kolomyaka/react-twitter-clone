@@ -1,18 +1,12 @@
-import { Button, CircularProgress, Container, Grid, IconButton, InputAdornment, Paper, TextareaAutosize, TextField, Typography } from '@mui/material'
+import { Container, Grid, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material'
 import React from 'react'
 
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
-import NotificationIcon from '@mui/icons-material/NotificationsNone';
-import MessageIcon from '@mui/icons-material/MailOutline';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import ListIcon from '@mui/icons-material/ListAlt';
-import UserIcon from '@mui/icons-material/PersonOutline';
 import { Tweet } from '../components/Tweet/Tweet';
 import { Sidebar } from '../components/Sidebar';
-import ImageIcon from '@mui/icons-material/ImageOutlined';
-import SmileIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import { AddTweetForm } from '../components/AddTweetForm';
+import AddPersonIcon from '@mui/icons-material/PersonAddOutlined';
 
 const SearchTextBlock = styled(TextField)`
     * {
@@ -50,10 +44,18 @@ const RightSide = styled('div')`
 `
 
 const RightSideBlock = styled('div')`
-    background-color: #E6ECF0;
+    background-color: #F5F8FA;
     margin-top: 20px;
+`
+
+const RightSideContent = styled('div')`
+    cursor: pointer;
+    
     div {
-        cursor: pointer;
+        &:hover {
+            background-color: #E6ECF0;
+            
+        }
     }
 `
 
@@ -62,48 +64,15 @@ const MainTheme = styled('span')`
     display: block;
 `
 
-
-const AddTweetWrapper = styled('div')`
+const FlexWrapper = styled.div`
     display: flex;
-    align-items: flex-start;
-
+    align-items: ${(props: FlexWrapperProps) => props.align};
+    flex-direction: ${(props: FlexWrapperProps) => props.direction};
 `
-
-const AddTweetAvatar = styled('div')`
-
-`
-
-const AddTweetTextField = styled('div')`
-    width: 100%;
-    padding-right: 15px;
-    margin-top: 5px;
-    
-    textarea {
-        border: none;
-        resize: none;
-        width: 100%;
-        font-size: 20px;
-        &:focus {
-            outline:none;
-        }
-    }
-`
-
-const AddTweetFooter = styled('div')`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-`
-
-const FlexWrapper = styled('div')`
-    display: flex;
-    align-items: center;
-`
-
-
-
-
+type FlexWrapperProps = {
+    direction?: string
+    align?: string
+}
 
 export const Home = () => {
     return (
@@ -184,21 +153,42 @@ export const Home = () => {
 
                         />
                         <RightSideBlock>
-                            <Paper square variant='outlined' sx={{ backgroundColor: '#E6ECF0', border: 'none' }}>
-                                <Typography variant='h6' sx={{ padding: '5px 10px', fontWeight: '700' }}>Актуальные темы</Typography>
+                            <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', border: 'none' }}>
+                                <Typography variant='h6' sx={{ padding: '5px 10px', fontWeight: '700', fontSize: '1' }}>Актуальные темы</Typography>
                             </Paper>
-                            <Paper square variant='outlined' sx={{ backgroundColor: '#E6ECF0', padding: '5px 10px', borderLeft: 'none', borderRight: 'none' }}>
-                                <MainTheme>Санкт-Петербург</MainTheme>
-                                <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 3 331</span>
+                            <RightSideContent>
+                                <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', padding: '5px 10px', borderLeft: 'none', borderRight: 'none' }}>
+                                    <MainTheme>Санкт-Петербург</MainTheme>
+                                    <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 3 331</span>
+                                </Paper>
+                                <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', padding: '5px 10px', border: 'none' }}>
+                                    <MainTheme>#Коронавирус</MainTheme>
+                                    <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 163 122</span>
+                                </Paper>
+                                <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', padding: '5px 10px', borderLeft: 'none', borderRight: 'none' }}>
+                                    <MainTheme>Беларусь</MainTheme>
+                                    <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 13 553</span>
+                                </Paper>
+                            </RightSideContent>
+                        </RightSideBlock>
+                        <RightSideBlock>
+                            <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', border: 'none' }}>
+                                <Typography variant='h6' sx={{ padding: '5px 10px', fontWeight: '700', fontSize: '1' }}>Кого читать</Typography>
                             </Paper>
-                            <Paper square variant='outlined' sx={{ backgroundColor: '#E6ECF0', padding: '5px 10px', border: 'none' }}>
-                                <MainTheme>#Коронавирус</MainTheme>
-                                <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 163 122</span>
-                            </Paper>
-                            <Paper square variant='outlined' sx={{ backgroundColor: '#E6ECF0', padding: '5px 10px', borderLeft: 'none', borderRight: 'none' }}>
-                                <MainTheme>Беларусь</MainTheme>
-                                <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 13 553</span>
-                            </Paper>
+                            <RightSideContent>
+                                <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', padding: '5px 10px', borderLeft: 'none', borderRight: 'none' }}>
+                                    <FlexWrapper align='center'>
+                                        <img src="https://i.pravatar.cc/35" alt="userAvatar" style={{ borderRadius: '50%', margin: '5px 9px 0 0' }} />
+                                        <FlexWrapper direction='column' >
+                                            <div style={{ fontSize: "15px", fontWeight: 700 }}>Dock of Shame</div>
+                                            <div style={{ fontSize: "12px", color: '#9e9e9e' }}>@FavDockOfShame</div>
+                                        </FlexWrapper>
+                                        <IconButton sx={{ marginLeft: '10px' }}>
+                                            <AddPersonIcon color='primary' />
+                                        </IconButton>
+                                    </FlexWrapper>
+                                </Paper>
+                            </RightSideContent>
                         </RightSideBlock>
                     </RightSide>
 

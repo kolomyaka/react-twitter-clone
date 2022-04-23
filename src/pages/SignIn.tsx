@@ -186,78 +186,78 @@ export const SignIn: React.FC = () => {
               Войти
             </Button>
           </LoginContent>
-          <Modal title='Войти' visible={visibleModal === 'signIn'} handleClickClose={handleCloseModal}>
-          <FormControl component="fieldset" fullWidth>
-            <FormGroup aria-label="position" row>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="email"
-                label="Электронная почта"
-                type="email"
-                fullWidth
-                variant="filled"
-              />
-              <TextField
-                variant="filled"
-                margin="dense"
-                id="password"
-                label="Пароль"
-                type="password"
-                fullWidth
-              />
-              <Button
-                style={{ borderRadius: 15, marginTop: 10 }}
-                onClick={handleCloseModal}
-                variant="contained"
-                fullWidth
-                color="primary"
-              >
-              Войти
-              </Button>
-            </FormGroup>
-          </FormControl>
+          <Modal setPadding={2} setWidth={'auto'} title='Войти' visible={visibleModal === 'signIn'} handleClickClose={handleCloseModal}>
+            <FormControl component="fieldset" fullWidth>
+              <FormGroup aria-label="position" row>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="email"
+                  label="Электронная почта"
+                  type="email"
+                  fullWidth
+                  variant="filled"
+                />
+                <TextField
+                  variant="filled"
+                  margin="dense"
+                  id="password"
+                  label="Пароль"
+                  type="password"
+                  fullWidth
+                />
+                <Button
+                  style={{ borderRadius: 15, marginTop: 10 }}
+                  onClick={handleCloseModal}
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                >
+                  Войти
+                </Button>
+              </FormGroup>
+            </FormControl>
           </Modal>
-          <Modal title='Создайте учетную запись' visible={visibleModal === 'signUp'} handleClickClose={handleCloseModal}>
-          <FormControl component="fieldset" fullWidth>
-            <FormGroup aria-label="position" row>
-              <TextFieldEl
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Имя"
-                type="name"
-                fullWidth
-                variant="filled"
-              />
-              <TextFieldEl
-                variant="filled" 
-                margin="dense"
-                id="email"
-                label="Электронная почта"
-                type="email"
-                fullWidth
-              />
-              <TextFieldEl
-                variant="filled"
-                margin="dense"
-                id="password"
-                label="Пароль"
-                type="password"
-                fullWidth
-              />
-              <Button
-                style={{ borderRadius: 15, marginTop: 10 }}
-                onClick={handleCloseModal}
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Регистрация
-              </Button>
-            </FormGroup>
-          </FormControl>
-          
+          <Modal setPadding={2} setWidth={'auto'} title='Создайте учетную запись' visible={visibleModal === 'signUp'} handleClickClose={handleCloseModal}>
+            <FormControl component="fieldset" fullWidth>
+              <FormGroup aria-label="position" row>
+                <TextFieldEl
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Имя"
+                  type="name"
+                  fullWidth
+                  variant="filled"
+                />
+                <TextFieldEl
+                  variant="filled"
+                  margin="dense"
+                  id="email"
+                  label="Электронная почта"
+                  type="email"
+                  fullWidth
+                />
+                <TextFieldEl
+                  variant="filled"
+                  margin="dense"
+                  id="password"
+                  label="Пароль"
+                  type="password"
+                  fullWidth
+                />
+                <Button
+                  style={{ borderRadius: 15, marginTop: 10 }}
+                  onClick={handleCloseModal}
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                >
+                  Регистрация
+                </Button>
+              </FormGroup>
+            </FormControl>
+
           </Modal>
         </LoginSide>
       </ContentBox>
