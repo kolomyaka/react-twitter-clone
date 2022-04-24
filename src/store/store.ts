@@ -1,6 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import tweetsSliceReducer from './slices/Tweets/tweetSlice'
 import createSagaMiddleware from 'redux-saga';
+import tweetsSaga from './sagas/sagaTweets';
+
 
 const rootReducer = combineReducers({
     tweets: tweetsSliceReducer
@@ -12,6 +14,8 @@ export const store = configureStore({
     reducer: rootReducer,
     middleware: [saga]
 })
+
+saga.run(tweetsSaga);
 
 // Состояние rootState
 export type RootState = ReturnType<typeof store.getState>;

@@ -4,8 +4,9 @@ import { Tweet } from '../store/slices/Tweets/tweetSliceTypes';
 
 
 export const tweetsApi = {
-    fetchTweets(): Promise<Tweet[]> {
-        return axios.get('https://trycode.pw/c/S2F9Q.json').then(({data}) => data);
+    async fetchTweets(): Promise<Tweet[]> {
+        const { data } = await axios.get('https://trycode.pw/c/S2F9Q.json');
+        return data;
     }
 }
 
