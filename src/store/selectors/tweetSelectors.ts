@@ -6,4 +6,4 @@ export const selectTweets = (state: RootState): TweetsState => state.tweets;
 
 export const selectTweetsItems = createSelector(selectTweets, tweets => tweets.items); 
 
-export const loadingState = (state: RootState) => selectTweets(state).loadingStatus;
+export const selectloadingStatus = (state: RootState) => selectTweets(state).loadingStatus;

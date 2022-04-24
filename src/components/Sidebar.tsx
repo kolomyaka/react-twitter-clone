@@ -15,7 +15,8 @@ import { AddTweetForm } from './AddTweetForm';
 const IconsList = styled("ul")`
     list-style: none;
     margin: 0;
-    padding-top: 10px;
+    margin-top: 10px;
+    padding-left: 20px;
     position: sticky;
     top: 0;
     left: 0;
@@ -26,8 +27,8 @@ const IconsListItem = styled('li')`
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-bottom: 10px;
-    max-width: 210px;
+    margin-bottom: 15px;
+    max-width: 270px;
     border-radius: 20px;
     transition: all 300ms ease-in-out;
     & h6 {
@@ -36,7 +37,7 @@ const IconsListItem = styled('li')`
         margin-left: 15px;
     }
     & svg {
-        font-size: 27px;
+        font-size: 30px;
         & path {
             transition: all 300ms ease-in-out;
         }

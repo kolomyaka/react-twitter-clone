@@ -1,4 +1,4 @@
-import { Container, Grid, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material'
+import { Container, Grid, IconButton, InputAdornment, Paper, TextField, Typography, CircularProgress } from '@mui/material'
 import React, { useEffect } from 'react'
 
 import styled from 'styled-components'
@@ -9,7 +9,7 @@ import { AddTweetForm } from '../components/AddTweetForm';
 import AddPersonIcon from '@mui/icons-material/PersonAddOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTweetsFetch } from '../store/slices/Tweets/tweetSlice';
-import { selectTweetsItems } from '../store/selectors/tweetSelectors';
+import { selectloadingStatus, selectTweetsItems } from '../store/selectors/tweetSelectors';
 
 const SearchTextBlock = styled(TextField)`
     * {
@@ -80,13 +80,14 @@ type FlexWrapperProps = {
 export const Home = () => {
 
     const dispatch = useDispatch();
-    const tweets = useSelector(selectTweetsItems)
+    const tweets = useSelector(selectTweetsItems);
+    const loadingStatus = useSelector(selectloadingStatus);
 
     useEffect(() => {
         dispatch(getTweetsFetch())
     }, [])
     
-    console.log(tweets);
+    console.log(loadingStatus);
     
     return (
         <Container maxWidth='lg'>
@@ -102,14 +103,15 @@ export const Home = () => {
                         <Paper square variant='outlined' sx={{ borderBottomWidth: '5px' }}>
                             <AddTweetForm />
                         </Paper>
-                        <Paper variant='outlined'>
+                        
                             {
-                                tweets && tweets.map((tweet) => (
-                                    <Tweet key={tweet._id} user={{ fullname: tweet.user.fullname, username: tweet.user.username, avatarUrl: tweet.user.avatarUrl}}  text={tweet.text} />
-                                ))
+                                loadingStatus === 'LOADED' ? tweets.map((tweet) => (
+                                    <Paper variant='outlined'>
+                                        <Tweet key={tweet._id} user={{ fullname: tweet.user.fullname, username: tweet.user.username, avatarUrl: tweet.user.avatarUrl}}  text={tweet.text} />
+                                    </Paper>
+                                )) : <div style={{ width: '25px', margin: '40px auto'}}><CircularProgress /></div>
                             }
 
-                        </Paper>
                     </Paper>
                 </Grid>
                 <Grid item md={2.5} sm={2}>

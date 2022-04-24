@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 const СontentTweetWrapper = styled.div`
     margin: 7px 0px;
+    width: 100%;
     &:hover {
     }
 `
@@ -32,6 +33,7 @@ const TweetsCounter = styled('span')`
 const TweetWrapper = styled('div')`
     display: flex;
     cursor: pointer;
+    padding-right: 15px;
     &:hover {
         background-color: rgb(245, 248, 250);
     }
