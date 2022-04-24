@@ -10,13 +10,13 @@ export interface Tweet {
     _id: string
     text: string
     user: {
-        name: string
+        fullname: string
         avatarUrl: string
-        userName: string
+        username: string
     }
 }
 
 export interface TweetsState {
-    items: Tweet[]
+    items: Array<Tweet>
     loadingStatus: LoadingState
 }

@@ -1,5 +1,5 @@
 import { Container, Grid, IconButton, InputAdornment, Paper, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
@@ -7,6 +7,9 @@ import { Tweet } from '../components/Tweet/Tweet';
 import { Sidebar } from '../components/Sidebar';
 import { AddTweetForm } from '../components/AddTweetForm';
 import AddPersonIcon from '@mui/icons-material/PersonAddOutlined';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTweetsFetch } from '../store/slices/Tweets/tweetSlice';
+import { selectTweetsItems } from '../store/selectors/tweetSelectors';
 
 const SearchTextBlock = styled(TextField)`
     * {
@@ -75,6 +78,16 @@ type FlexWrapperProps = {
 }
 
 export const Home = () => {
+
+    const dispatch = useDispatch();
+    const tweets = useSelector(selectTweetsItems)
+
+    useEffect(() => {
+        dispatch(getTweetsFetch())
+    }, [])
+    
+    console.log(tweets);
+    
     return (
         <Container maxWidth='lg'>
             <Grid container spacing={3}>
@@ -90,51 +103,12 @@ export const Home = () => {
                             <AddTweetForm />
                         </Paper>
                         <Paper variant='outlined'>
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
-                            <Tweet text={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ducimus voluptatibus obcaecati eos nesciunt magni nemo dolores architecto eaque id voluptatum, minus quidem nulla.'} user={{
-                                name: 'Nikita',
-                                userName: '@Kolomyaka',
-                                avatarUrl: 'https://i.pravatar.cc/45'
-                            }} />
+                            {
+                                tweets && tweets.map((tweet) => (
+                                    <Tweet key={tweet._id} user={{ fullname: tweet.user.fullname, username: tweet.user.username, avatarUrl: tweet.user.avatarUrl}}  text={tweet.text} />
+                                ))
+                            }
+
                         </Paper>
                     </Paper>
                 </Grid>

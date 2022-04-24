@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoadingState, TweetsState } from "./tweetSliceTypes";
+import { LoadingState, Tweet, TweetsState } from "./tweetSliceTypes";
 
 
 
@@ -17,7 +17,7 @@ export const tweetsSlice = createSlice({
         getTweetsFetch(state) {
             state.loadingStatus = LoadingState.LOADING;
         },
-        getTweetsSuccess(state, action) {
+        getTweetsSuccess(state, action: PayloadAction<Tweet[]>) {
             state.loadingStatus = LoadingState.LOADED
             state.items = action.payload;
         },

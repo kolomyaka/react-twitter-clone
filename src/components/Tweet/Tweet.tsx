@@ -43,9 +43,9 @@ type Props = {
 }
 
 type User = {
-    name: string
+    fullname: string
     avatarUrl: string
-    userName: string
+    username: string
 }
 
 const UserAvatarWrapper = styled('div')`
@@ -61,7 +61,7 @@ export const Tweet = ({ user, text }: Props) => {
                         <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
                     </UserAvatarWrapper>
                     <СontentTweetWrapper>
-                        <Typography><b>{user.name}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>{user.userName} · 1ч</span></Typography>
+                        <Typography><b>{user.fullname}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>{user.username} · 1ч</span></Typography>
                         <Typography variant='body1'>
                             {text}
                         </Typography>
