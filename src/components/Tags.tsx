@@ -1,22 +1,30 @@
 import { CircularProgress, Paper, Typography } from "@mui/material";
-import React from "react";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { selectTagsItems, selectTagsLoadingStatus } from "../store/selectors/tagsSelector";
+import { LoadingState, Tag } from "../store/slices/Tags/tagsSliceTypes";
 
 const RightSideBlock = styled('div')`
     background-color: #F5F8FA;
+    border-radius: 20px;
     margin-top: 20px;
+    
 `
 const RightSideContent = styled('div')`
     cursor: pointer;
-    
+    border-radius: 20px;
+
     div {
         &:hover {
             background-color: #E6ECF0;
+            transition: all 300ms ease-in-out;
             
         }
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
     }
 `
 const MainTheme = styled('span')`
@@ -28,15 +36,13 @@ const CenterLoader = styled('div')`
     margin-top: 20px;
 `
 
-type Props = {};
+type Props = {
+};
 
-export const Tags = (props: Props) => {
+export const Tags: React.FC = ({}: Props) => {
 
-    const dispatch = useDispatch();
     const tags = useSelector(selectTagsItems);
     const tagsLoadingStatus = useSelector(selectTagsLoadingStatus);
-
-
 
   return (
     <>
@@ -44,11 +50,11 @@ export const Tags = (props: Props) => {
         <Paper
           square
           variant="outlined"
-          sx={{ backgroundColor: "#F5F8FA", border: "none" }}
+          sx={{ backgroundColor: "#F5F8FA", border: "none", borderRadius: '20px' }}
         >
           <Typography
             variant="h6"
-            sx={{ padding: "5px 10px", fontWeight: "700", fontSize: "1" }}
+            sx={{ padding: "13px", fontWeight: "700", fontSize: "1" }}
           >
             Актуальные темы
           </Typography>
@@ -57,19 +63,21 @@ export const Tags = (props: Props) => {
           {tagsLoadingStatus === "LOADED" ? (
             tags.map((tag) => (
               <Paper
+                key={tag.name}
                 square
                 variant="outlined"
                 sx={{
                   backgroundColor: "#F5F8FA",
-                  padding: "5px 10px",
-                  borderLeft: "none",
-                  borderRight: "none",
+                  padding: "13px",
+                  border: 'none'
                 }}
               >
+                <Link to={`/home/search?q=${tag.name}`}>
                 <MainTheme>{tag.name}</MainTheme>
                 <span style={{ color: "rgba(0,0,0,0.5)" }}>
                   Твитов: {tag.count}
                 </span>
+                </Link>
               </Paper>
             ))
           ) : (
@@ -77,6 +85,18 @@ export const Tags = (props: Props) => {
               <CircularProgress />
             </CenterLoader>
           )}
+        <Paper
+          square
+          variant="outlined"
+          sx={{ backgroundColor: "#F5F8FA", border: "none", borderEndEndRadius: '20px', borderBottomLeftRadius: '20px' }}
+        >
+          <Typography
+            variant="h6"
+            sx={{ padding: "13px", fontWeight: "400", color: '#1976d2', fontSize: "15px" }}
+          >
+            Показать еще
+          </Typography>
+        </Paper>
         </RightSideContent>
       </RightSideBlock>
     </>
