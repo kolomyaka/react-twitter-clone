@@ -97,6 +97,8 @@ type FlexWrapperProps = {
   align?: string;
 };
 
+
+
 export const Home = () => {
   const dispatch = useDispatch();
   const tweets = useSelector(selectTweetsItems);
@@ -142,26 +144,24 @@ export const Home = () => {
             <Paper square variant="outlined" sx={{ borderBottomWidth: "5px" }}>
               <AddTweetForm />
             </Paper>
-
-              {tweetsLoadingStatus === "LOADED" ? (
-                tweets.map((tweet) => ( 
-                    <Paper key={tweet._id}>
-                    <Tweet 
-                         user={{
-                            fullname: tweet.user.fullname,
-                            username: tweet.user.username,
-                            avatarUrl: tweet.user.avatarUrl,
-                           }}
-                         text={tweet.text}
-                         />
-                    </Paper>
-                ))
-              ) : (
-                <CenterLoader>
-                  <CircularProgress />
-                </CenterLoader>
-              )}
-
+            {tweetsLoadingStatus === "LOADED" ? (
+              tweets.map((tweet) => (
+                <Paper key={tweet._id}>
+                  <Tweet
+                    user={{
+                      fullname: tweet.user.fullname,
+                      username: tweet.user.username,
+                      avatarUrl: tweet.user.avatarUrl,
+                    }}
+                    text={tweet.text}
+                  />
+                </Paper>
+              ))
+            ) : (
+              <CenterLoader>
+                <CircularProgress />
+              </CenterLoader>
+            )}
           </Paper>
         </Grid>
         <Grid item md={2.5} sm={2} xl={3}>
