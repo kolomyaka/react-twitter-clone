@@ -10,6 +10,8 @@ import AddPersonIcon from '@mui/icons-material/PersonAddOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTweetsFetch } from '../store/slices/Tweets/tweetSlice';
 import { selectloadingStatus, selectTweetsItems } from '../store/selectors/tweetSelectors';
+import { getTagsFetch } from '../store/slices/Tags/tagsSlice';
+import { selectTagsItems, selectTagsLoadingStatus } from '../store/selectors/tagsSelector';
 
 const SearchTextBlock = styled(TextField)`
     * {
@@ -62,6 +64,11 @@ const RightSideContent = styled('div')`
     }
 `
 
+const CenterLoader = styled('div')`
+    text-align: center;
+    margin-top: 20px;
+`
+
 const MainTheme = styled('span')`
     font-weight: 700;
     display: block;
@@ -77,14 +84,19 @@ type FlexWrapperProps = {
     align?: string
 }
 
+
+
 export const Home = () => {
 
     const dispatch = useDispatch();
     const tweets = useSelector(selectTweetsItems);
-    const loadingStatus = useSelector(selectloadingStatus);
+    const tags = useSelector(selectTagsItems);
+    const tweetsLoadingStatus = useSelector(selectloadingStatus);
+    const tagsLoadingStatus = useSelector(selectTagsLoadingStatus);
 
     useEffect(() => {
-        dispatch(getTweetsFetch())
+        dispatch(getTweetsFetch());
+        dispatch(getTagsFetch());
     }, [dispatch])
     
     
@@ -104,11 +116,11 @@ export const Home = () => {
                         </Paper>
                         
                             {
-                                loadingStatus === 'LOADED' ? tweets.map((tweet) => (
+                                tweetsLoadingStatus === 'LOADED' ? tweets.map((tweet) => (
                                     <Paper key={tweet._id} variant='outlined'>
                                         <Tweet user={{ fullname: tweet.user.fullname, username: tweet.user.username, avatarUrl: tweet.user.avatarUrl}}  text={tweet.text} />
                                     </Paper>
-                                )) : <div style={{ width: '25px', margin: '40 px auto'}}><CircularProgress /></div>
+                                )) : <CenterLoader><CircularProgress /></CenterLoader>
                             }
 
                     </Paper>
@@ -132,18 +144,15 @@ export const Home = () => {
                                 <Typography variant='h6' sx={{ padding: '5px 10px', fontWeight: '700', fontSize: '1' }}>Актуальные темы</Typography>
                             </Paper>
                             <RightSideContent>
-                                <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', padding: '5px 10px', borderLeft: 'none', borderRight: 'none' }}>
-                                    <MainTheme>Санкт-Петербург</MainTheme>
-                                    <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 3 331</span>
-                                </Paper>
-                                <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', padding: '5px 10px', border: 'none' }}>
-                                    <MainTheme>#Коронавирус</MainTheme>
-                                    <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 163 122</span>
-                                </Paper>
-                                <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', padding: '5px 10px', borderLeft: 'none', borderRight: 'none' }}>
-                                    <MainTheme>Беларусь</MainTheme>
-                                    <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: 13 553</span>
-                                </Paper>
+                                {
+                                    tagsLoadingStatus === 'LOADED' ? tags.map((tag) => (
+                                        <Paper square variant='outlined' sx={{ backgroundColor: '#F5F8FA', padding: '5px 10px', borderLeft: 'none', borderRight: 'none' }}>
+                                            <MainTheme>{tag.name}</MainTheme>
+                                            <span style={{ color: 'rgba(0,0,0,0.5)' }}>Твитов: {tag.count}</span>
+                                        </Paper>
+                                    )) : <CenterLoader><CircularProgress /></CenterLoader>
+                                }
+
                             </RightSideContent>
                         </RightSideBlock>
                         <RightSideBlock>
