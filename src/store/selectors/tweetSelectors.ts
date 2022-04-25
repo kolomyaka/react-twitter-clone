@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { Tweet, TweetsState } from './../slices/Tweets/tweetSliceTypes';
+import { TweetsState } from './../slices/Tweets/tweetSliceTypes';
 
 export const selectTweets = (state: RootState): TweetsState => state.tweets;
 

@@ -85,9 +85,8 @@ export const Home = () => {
 
     useEffect(() => {
         dispatch(getTweetsFetch())
-    }, [])
+    }, [dispatch])
     
-    console.log(loadingStatus);
     
     return (
         <Container maxWidth='lg'>
@@ -106,10 +105,10 @@ export const Home = () => {
                         
                             {
                                 loadingStatus === 'LOADED' ? tweets.map((tweet) => (
-                                    <Paper variant='outlined'>
-                                        <Tweet key={tweet._id} user={{ fullname: tweet.user.fullname, username: tweet.user.username, avatarUrl: tweet.user.avatarUrl}}  text={tweet.text} />
+                                    <Paper key={tweet._id} variant='outlined'>
+                                        <Tweet user={{ fullname: tweet.user.fullname, username: tweet.user.username, avatarUrl: tweet.user.avatarUrl}}  text={tweet.text} />
                                     </Paper>
-                                )) : <div style={{ width: '25px', margin: '40px auto'}}><CircularProgress /></div>
+                                )) : <div style={{ width: '25px', margin: '40 px auto'}}><CircularProgress /></div>
                             }
 
                     </Paper>

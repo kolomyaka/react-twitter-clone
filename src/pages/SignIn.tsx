@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
   FormControl,
   FormGroup,
-  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
@@ -77,17 +70,6 @@ const BlueSideListItem = styled("li")(
     `
 );
 
-const LoginSideTitle = styled("h2")(
-  ({ theme }) => `
-        
-    `
-);
-
-const LoginSideText = styled("span")(
-  ({ theme }) => `
-
-    `
-);
 
 const LoginContent = styled("div")(
   ({ theme }) => `

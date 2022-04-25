@@ -1,0 +1,82 @@
+{
+    "tweets": [
+        {
+          "_id": "6265b16dbc894e19029b6325",
+          "text": "Irure eu nostrud minim ad anim eu sint officia. Labore dolore qui ex minim amet deserunt ad dolor laboris ad non. Minim officia do sit et ipsum qui id et reprehenderit sint qui. Aliqua consequat aute culpa nisi non anim eiusmod cillum esse laboris.",
+          "user": {
+            "fullname": "Daugherty Hood",
+            "username": "@Zepitope",
+            "avatarUrl": "https://i.pravatar.cc/45?u=$8"
+          }
+        },
+        {
+          "_id": "6265b16d8b907f1c7581f866",
+          "text": "Sint mollit voluptate incididunt cillum eiusmod pariatur cillum sit nulla ut id sit dolore. Pariatur elit qui proident ipsum velit sit cupidatat et enim deserunt pariatur Lorem eiusmod. Sunt ipsum fugiat est id.",
+          "user": {
+            "fullname": "Workman Obrien",
+            "username": "@Fuelworks",
+            "avatarUrl": "https://i.pravatar.cc/45?u=$8"
+          }
+        },
+        {
+          "_id": "6265b16dd1e8dbf4472c7eba",
+          "text": "Occaecat aliqua sint ullamco tempor cillum consequat incididunt anim ad excepteur anim eiusmod Lorem ut. Non aliqua pariatur quis tempor sint nisi aute exercitation minim cupidatat id anim est. Ea nisi laborum non et occaecat culpa reprehenderit consequat ea.",
+          "user": {
+            "fullname": "Mariana Velez",
+            "username": "@Orbin",
+            "avatarUrl": "https://i.pravatar.cc/45?u=$6"
+          }
+        },
+        {
+          "_id": "6265b16dcdb8367fbfe2fec9",
+          "text": "Incididunt incididunt nisi laboris culpa qui proident irure.",
+          "user": {
+            "fullname": "Zelma Frank",
+            "username": "@Beadzza",
+            "avatarUrl": "https://i.pravatar.cc/45?u=$5"
+          }
+        },
+        {
+          "_id": "6265b16d84fa731c54b87d8c",
+          "text": "Dolor nisi occaecat fugiat nisi consectetur et sint irure elit esse labore sunt.",
+          "user": {
+            "fullname": "Mercado Christian",
+            "username": "@Bunga",
+            "avatarUrl": "https://i.pravatar.cc/45?u=$8"
+          }
+        },
+        {
+          "_id": "6265b16d20448fd640a143e9",
+          "text": "Cupidatat sunt minim id consequat reprehenderit Lorem. Elit eiusmod aliquip quis aute in officia nostrud. Occaecat amet labore aute anim et.",
+          "user": {
+            "fullname": "Lane Gross",
+            "username": "@Duoflex",
+            "avatarUrl": "https://i.pravatar.cc/45?u=$1"
+          }
+        },
+        {
+          "_id": "6265b16d82dfdc2b3dc3a0cd",
+          "text": "Excepteur labore esse voluptate et veniam laboris ad aliquip excepteur. Aute elit sit ut ut fugiat ad mollit do. Est mollit quis dolor proident aute nisi Lorem non.",
+          "user": {
+            "fullname": "Callahan Willis",
+            "username": "@Klugger",
+            "avatarUrl": "https://i.pravatar.cc/45?u=$1"
+          }
+        },
+        {
+          "_id": "6265b16d1e5e8339d72074d2",
+          "text": "Dolore esse commodo do non officia.",
+          "user": {
+            "fullname": "Allison Hamilton",
+            "username": "@Pyramax",
+            "avatarUrl": "https://i.pravatar.cc/45?u=$5"
+          }
+        }
+    ],
+    "user": {
+        "_id": "6265b16dbc894e19029b6325",
+        "fullname": "Kolomoycev Nikita",
+        "username": "@Kolomyaka",
+        "avatarUrl": "https://i.pravatar.cc/45?u=$8"
+    }
+}
