@@ -155,7 +155,7 @@ export const Sidebar = (props: Props) => {
           visible={addTweetVisible}
           handleClickClose={onCloseAddTweet}
         >
-          <AddTweetForm maxRows={2} />
+          <AddTweetForm  />
         </Modal>
       </IconsList>
     </>

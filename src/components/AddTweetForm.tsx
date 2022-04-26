@@ -49,10 +49,10 @@ const FlexWrapper = styled('div')`
 `
 
 type Props = {
-    maxRows?: number
+    
 }
 
-export const AddTweetForm = ({ maxRows }: Props) => {
+export const AddTweetForm = ({  }: Props) => {
     const [text, setText] = useState<string>('');
     const MAX_LIMIT = 280;
     const textLimitPercent = Math.round((text.length / MAX_LIMIT) * 100);
@@ -81,7 +81,6 @@ export const AddTweetForm = ({ maxRows }: Props) => {
                         placeholder="Что происходит?"
                         style={{ minHeight: '60px' }}
                         value={text}
-                        maxRows={maxRows}
                     />
                     <AddTweetFooter>
                         <FlexWrapper>

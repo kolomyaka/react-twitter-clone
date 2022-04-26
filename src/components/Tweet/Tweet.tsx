@@ -5,6 +5,7 @@ import RepeatIcon from '@mui/icons-material/RepeatOutlined';
 import LikeIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShareIcon from '@mui/icons-material/ReplyOutlined';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 
 const СontentTweetWrapper = styled.div`
@@ -58,6 +59,7 @@ export const Tweet = ({ user, text }: Props) => {
     return (
         <>
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
+                <Link to='home/tweet' style={{ color: 'inherit', textDecoration: 'none'}}>
                 <TweetWrapper>
                     <UserAvatarWrapper>
                         <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
@@ -84,6 +86,7 @@ export const Tweet = ({ user, text }: Props) => {
                         </FlexWrapper>
                     </СontentTweetWrapper>
                 </TweetWrapper>
+                </Link>
             </Paper >
         </>
     )
