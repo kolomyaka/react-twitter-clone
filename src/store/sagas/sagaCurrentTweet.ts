@@ -7,7 +7,6 @@ import { setCurrentTweetAction } from "../slices/currentTweet/currentTweetSliceT
 
 function* workGetCurrentTweetData({ payload }: setCurrentTweetAction): Iterator<any> {
     try {
-        console.log(payload);
         const data = yield call(tweetsApi.fetchCurrentTweet, payload);
         if (data) {
             yield put(getCurrentTweetData(data[0]));

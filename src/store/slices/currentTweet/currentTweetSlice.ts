@@ -1,5 +1,5 @@
 import { Tweet } from './../Tweets/tweetSliceTypes';
-import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LoadingState } from "../Tweets/tweetSliceTypes";
 import { CurrentTweetState } from "./currentTweetSliceTypes";
 
@@ -11,9 +11,9 @@ const initialState: CurrentTweetState = {
 
 export const currentTweetSlice = createSlice({
     name: 'currentTweetSlice',
-    initialState, 
+    initialState,
     reducers: {
-        setCurrentTweet(state) {
+        setCurrentTweet(state, action) {
             state.loadingStatus = LoadingState.LOADING;
             state.data = null;
         },
