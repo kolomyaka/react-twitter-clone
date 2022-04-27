@@ -72,7 +72,7 @@ export const Sidebar = (props: Props) => {
   return (
     <>
       <IconsList>
-        <Link to={`/home`}>
+        <Link to={`/`}>
           <IconButton aria-label="delete" color="primary">
             <TwitterIcon fontSize={"large"} color="primary" />
           </IconButton>

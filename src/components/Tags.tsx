@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { selectTagsItems, selectTagsLoadingStatus } from "../store/selectors/tagsSelector";
-import { LoadingState, Tag } from "../store/slices/Tags/tagsSliceTypes";
 
 const RightSideBlock = styled('div')`
     background-color: #F5F8FA;
@@ -72,7 +71,7 @@ export const Tags: React.FC = ({}: Props) => {
                   border: 'none'
                 }}
               >
-                <Link to={`/home/search?q=${tag.name}`}>
+                <Link to={`/search?q=${tag.name}`}>
                 <MainTheme>{tag.name}</MainTheme>
                 <span style={{ color: "rgba(0,0,0,0.5)" }}>
                   Твитов: {tag.count}

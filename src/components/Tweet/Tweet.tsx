@@ -43,6 +43,7 @@ const TweetWrapper = styled('div')`
 type Props = {
     text: string
     user: User
+    id: string
 }
 
 type User = {
@@ -55,11 +56,11 @@ const UserAvatarWrapper = styled('div')`
 
 `
 
-export const Tweet = ({ user, text }: Props) => {
+export const Tweet = ({ user, text,id }: Props) => {
     return (
         <>
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
-                <Link to='home/tweet' style={{ color: 'inherit', textDecoration: 'none'}}>
+                <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none'}}>
                 <TweetWrapper>
                     <UserAvatarWrapper>
                         <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
