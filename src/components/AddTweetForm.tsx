@@ -52,7 +52,7 @@ type Props = {
     
 }
 
-export const AddTweetForm = ({  }: Props) => {
+export const AddTweetForm = () => {
     const [text, setText] = useState<string>('');
     const MAX_LIMIT = 280;
     const textLimitPercent = Math.round((text.length / MAX_LIMIT) * 100);

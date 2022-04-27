@@ -4,7 +4,7 @@ import { LoadingState } from './../Tags/tagsSliceTypes';
 
 
 export interface CurrentTweetState {
-    data?: Tweet;
+    data?: Tweet | null;
     currentId? : string;
     loadingStatus: LoadingState
 }

@@ -5,7 +5,7 @@ import { CurrentTweetState } from "./currentTweetSliceTypes";
 
 
 const initialState: CurrentTweetState = {
-    data: undefined,
+    data: null,
     loadingStatus: LoadingState.NEVER
 }
 
@@ -13,21 +13,20 @@ export const currentTweetSlice = createSlice({
     name: 'currentTweetSlice',
     initialState, 
     reducers: {
-        //  getCurrentTweetFetch(state) {
-        //      state.loadingStatus = LoadingState.LOADING;
-        //      state.data = undefined;
-        //  },
-
-        //  getCurrentTweetSuccess(state, action: PayloadAction<Tweet>) {
-        //     state.data = action.payload;
-        //     state.loadingStatus = LoadingState.LOADED;
-        //  },
-        //  getCurrentTweetError(state) {
-        //      state.loadingStatus = LoadingState.ERROR;
-        //  }
+        setCurrentTweet(state) {
+            state.loadingStatus = LoadingState.LOADING;
+            state.data = null;
+        },
+        getCurrentTweetData(state, action: PayloadAction<Tweet>) {
+            state.data = action.payload;
+            state.loadingStatus = LoadingState.LOADED;
+        },
+        setCurrentTweetError(state) {
+            state.loadingStatus = LoadingState.ERROR;
+        }
     }
 })
 
-// export const { getCurrentTweetFetch, getCurrentTweetSuccess, getCurrentTweetError} = currentTweetSlice.actions;
+export const { setCurrentTweet, getCurrentTweetData, setCurrentTweetError } = currentTweetSlice.actions;
 
 export default currentTweetSlice.reducer; 
