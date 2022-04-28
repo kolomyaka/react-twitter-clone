@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 const CenterLoader = styled("div")`
   text-align: center;
-  margin-top: 20px;
+  margin: 30px 0;
 `;
 
 
@@ -23,7 +23,7 @@ export const CurrentTweet = (props: Props) => {
 
     const currentTweetData = useSelector(selectTweetItem);
     const isLoading = useSelector(selectLoadingStatus);
-    console.log(isLoading);
+
 
     useEffect(() => {
         if (id) {
@@ -31,7 +31,6 @@ export const CurrentTweet = (props: Props) => {
         }
     }, [id])
 
-    if (!currentTweetData) return null;
 
     if (isLoading === 'LOADING' || isLoading === 'NEVER') {
         return (

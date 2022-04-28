@@ -27,6 +27,8 @@ import { Tags } from "../components/Tags";
 import { getTagsFetch } from "../store/slices/Tags/tagsSlice";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import { HeaderTitle } from "../components/HeaderTitle";
+import { Route, Routes } from 'react-router'
+import { CurrentTweet } from '../components/CurrentTweet';
 
 const SearchTextBlock = styled(TextField)`
   * {
@@ -121,27 +123,34 @@ export const Home = () => {
           >
             <HeaderTitle />
             <Paper square variant="outlined" sx={{ borderBottomWidth: "5px" }}>
-              <Outlet />
+              <Routes>
+                <Route path='/' element={<AddTweetForm />} />
+                <Route path='/search' element={<AddTweetForm />} />
+                <Route path='/tweet/:id' element={<CurrentTweet />} />
+              </Routes>
             </Paper>
-            {tweetsLoadingStatus === "LOADED" ? (
-              tweets.map((tweet) => (
-                <Paper key={tweet._id}>
-                  <Tweet
-                    id={tweet._id}
-                    user={{
-                      fullname: tweet.user.fullname,
-                      username: tweet.user.username,
-                      avatarUrl: tweet.user.avatarUrl,
-                    }}
-                    text={tweet.text}
-                  />
-                </Paper>
-              ))
-            ) : (
-              <CenterLoader>
-                <CircularProgress />
-              </CenterLoader>
-            )}
+            <Routes>
+              <Route path='/' element={tweetsLoadingStatus === "LOADED" ? (
+                tweets.map((tweet) => (
+                  <Paper key={tweet._id}>
+                    <Tweet
+                      id={tweet._id}
+                      user={{
+                        fullname: tweet.user.fullname,
+                        username: tweet.user.username,
+                        avatarUrl: tweet.user.avatarUrl,
+                      }}
+                      text={tweet.text}
+                    />
+                  </Paper>
+                ))
+              ) : (
+                <CenterLoader>
+                  <CircularProgress />
+                </CenterLoader>
+              )} />
+            </Routes>
+
           </Paper>
         </Grid>
         <Grid item md={2.5} sm={2} xl={3}>

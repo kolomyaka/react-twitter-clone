@@ -38,10 +38,10 @@ const CenterLoader = styled('div')`
 type Props = {
 };
 
-export const Tags: React.FC = ({}: Props) => {
+export const Tags: React.FC = ({ }: Props) => {
 
-    const tags = useSelector(selectTagsItems);
-    const tagsLoadingStatus = useSelector(selectTagsLoadingStatus);
+  const tags = useSelector(selectTagsItems);
+  const tagsLoadingStatus = useSelector(selectTagsLoadingStatus);
 
   return (
     <>
@@ -72,10 +72,10 @@ export const Tags: React.FC = ({}: Props) => {
                 }}
               >
                 <Link to={`/search?q=${tag.name}`}>
-                <MainTheme>{tag.name}</MainTheme>
-                <span style={{ color: "rgba(0,0,0,0.5)" }}>
-                  Твитов: {tag.count}
-                </span>
+                  <MainTheme>#{tag.name}</MainTheme>
+                  <span style={{ color: "rgba(0,0,0,0.5)" }}>
+                    Твитов: {tag.count}
+                  </span>
                 </Link>
               </Paper>
             ))
@@ -84,18 +84,18 @@ export const Tags: React.FC = ({}: Props) => {
               <CircularProgress />
             </CenterLoader>
           )}
-        <Paper
-          square
-          variant="outlined"
-          sx={{ backgroundColor: "#F5F8FA", border: "none", borderEndEndRadius: '20px', borderBottomLeftRadius: '20px' }}
-        >
-          <Typography
-            variant="h6"
-            sx={{ padding: "13px", fontWeight: "400", color: '#1976d2', fontSize: "15px" }}
+          <Paper
+            square
+            variant="outlined"
+            sx={{ backgroundColor: "#F5F8FA", border: "none", borderEndEndRadius: '20px', borderBottomLeftRadius: '20px' }}
           >
-            Показать еще
-          </Typography>
-        </Paper>
+            <Typography
+              variant="h6"
+              sx={{ padding: "13px", fontWeight: "400", color: '#1976d2', fontSize: "15px" }}
+            >
+              Показать еще
+            </Typography>
+          </Paper>
         </RightSideContent>
       </RightSideBlock>
     </>

@@ -56,37 +56,40 @@ const UserAvatarWrapper = styled('div')`
 
 `
 
-export const Tweet = ({ user, text,id }: Props) => {
+export const Tweet = ({ user, text, id }: Props) => {
+
+
+
     return (
         <>
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
-                <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none'}}>
-                <TweetWrapper>
-                    <UserAvatarWrapper>
-                        <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
-                    </UserAvatarWrapper>
-                    <СontentTweetWrapper>
-                        <Typography><b>{user.fullname}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>{user.username} · 1ч</span></Typography>
-                        <Typography variant='body1'>
-                            {text}
-                        </Typography>
-                        <FlexWrapper>
-                            <IconButton>
-                                <CommentIcon style={{ fontSize: '19px' }} />
-                                <TweetsCounter>1</TweetsCounter>
-                            </IconButton>
-                            <IconButton>
-                                <RepeatIcon style={{ fontSize: '19px' }} />
-                            </IconButton>
-                            <IconButton>
-                                <LikeIcon style={{ fontSize: '19px' }} />
-                            </IconButton>
-                            <IconButton>
-                                <ShareIcon style={{ fontSize: '19px' }} />
-                            </IconButton>
-                        </FlexWrapper>
-                    </СontentTweetWrapper>
-                </TweetWrapper>
+                <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                    <TweetWrapper>
+                        <UserAvatarWrapper>
+                            <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
+                        </UserAvatarWrapper>
+                        <СontentTweetWrapper>
+                            <Typography><b>{user.fullname}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>{user.username} · 1ч</span></Typography>
+                            <Typography variant='body1'>
+                                {text}
+                            </Typography>
+                            <FlexWrapper>
+                                <IconButton>
+                                    <CommentIcon style={{ fontSize: '19px' }} />
+                                    <TweetsCounter>1</TweetsCounter>
+                                </IconButton>
+                                <IconButton>
+                                    <RepeatIcon style={{ fontSize: '19px' }} />
+                                </IconButton>
+                                <IconButton>
+                                    <LikeIcon style={{ fontSize: '19px' }} />
+                                </IconButton>
+                                <IconButton>
+                                    <ShareIcon style={{ fontSize: '19px' }} />
+                                </IconButton>
+                            </FlexWrapper>
+                        </СontentTweetWrapper>
+                    </TweetWrapper>
                 </Link>
             </Paper >
         </>

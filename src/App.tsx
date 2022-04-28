@@ -11,10 +11,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="*" element={<Home />} >
-          <Route path='/*' element={<AddTweetForm />} />
+        <Route path="/*" element={<Home />} >
+          {/* <Route path='/*' element={<AddTweetForm />} />
           <Route path="tweet/:id" element={<CurrentTweet />} />
-          <Route path='search/*' element={<AddTweetForm />} />
+          <Route path='search/*' element={<AddTweetForm />} /> */}
         </Route>
         <Route path="/signin" element={<SignIn />} />
       </Routes>
