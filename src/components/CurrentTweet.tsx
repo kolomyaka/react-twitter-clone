@@ -32,7 +32,7 @@ export const CurrentTweet = (props: Props) => {
     }, [id])
 
 
-    if (isLoading === 'LOADING' || isLoading === 'NEVER') {
+    if (isLoading === 'LOADING') {
         return (
             <CenterLoader>
                 <CircularProgress />

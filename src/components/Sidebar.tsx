@@ -17,10 +17,13 @@ const IconsList = styled("ul")`
   list-style: none;
   margin: 0;
   margin-top: 10px;
+  margin-right: 0;
   padding-left: 20px;
   position: sticky;
   top: 0;
   left: 0;
+  max-width: 230px;
+
 `;
 
 const IconsListItem = styled("li")`
@@ -29,7 +32,6 @@ const IconsListItem = styled("li")`
   cursor: pointer;
   margin-bottom: 15px;
   margin-right: 0;
-  max-width: 251px;
   border-radius: 20px;
   transition: all 300ms ease-in-out;
   & h6 {
@@ -143,7 +145,7 @@ export const Sidebar = (props: Props) => {
             onClick={openAddTweet}
             variant="contained"
             color="primary"
-            sx={{ borderRadius: "20px", marginTop: "10px", width: "250px" }}
+            sx={{ borderRadius: "20px", marginTop: "10px", width: "230px" }}
           >
             <Typography>Твитнуть</Typography>
           </Button>
@@ -155,7 +157,7 @@ export const Sidebar = (props: Props) => {
           visible={addTweetVisible}
           handleClickClose={onCloseAddTweet}
         >
-          <AddTweetForm  />
+          <AddTweetForm />
         </Modal>
       </IconsList>
     </>
