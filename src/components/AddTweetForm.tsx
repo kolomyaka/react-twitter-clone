@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import SmileIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import styled from 'styled-components';
@@ -12,6 +12,10 @@ import { AddTweetLoadingState } from '../store/slices/Tweets/tweetSliceTypes';
 const AddTweetWrapper = styled('div')`
     display: flex;
     align-items: flex-start;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-left: none;
+    border-right: none;
 `
 
 const AddTweetAvatar = styled('div')`
@@ -53,9 +57,6 @@ const FlexWrapper = styled('div')`
     align-items: center;
 `
 
-type Props = {
-
-}
 
 export const AddTweetForm = () => {
     const dispatch = useDispatch();
@@ -78,7 +79,7 @@ export const AddTweetForm = () => {
 
     return (
         <>
-            <AddTweetWrapper style={{ padding: '5px' }}>
+            <AddTweetWrapper>
                 <AddTweetAvatar>
                     <img style={{ borderRadius: '50%', margin: '7px 10px' }} src='https://i.pravatar.cc/45' alt="userAvatar" />
                 </AddTweetAvatar>

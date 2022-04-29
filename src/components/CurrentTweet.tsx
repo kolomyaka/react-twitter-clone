@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router';
-import { Tweet } from './Tweet/Tweet'
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTweet } from '../store/slices/currentTweet/currentTweetSlice';
 import { selectLoadingStatus, selectTweetItem } from '../store/selectors/currentTweetSelector';
-import { CircularProgress, Paper, Typography } from '@mui/material';
+import { CircularProgress, IconButton, Paper, Typography } from '@mui/material';
 import styled from 'styled-components';
-
+import CommentIcon from '@mui/icons-material/ModeCommentOutlined';
+import RepeatIcon from '@mui/icons-material/RepeatOutlined';
+import LikeIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ShareIcon from '@mui/icons-material/ReplyOutlined';
 
 const CenterLoader = styled("div")`
   text-align: center;
@@ -46,6 +48,14 @@ const UserAvatarWrapper = styled('div')`
     margin-right: 15px;
 `
 
+const IconsButtonsWrapper = styled('div')`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 450px;
+    margin: 3px auto;
+`
+
 
 type Props = {}
 
@@ -62,7 +72,7 @@ export const CurrentTweet = (props: Props) => {
         if (id) {
             dispatch(setCurrentTweet(id));
         }
-    }, [id])
+    }, [dispatch, id])
 
 
     if (isLoading === 'LOADING') {
@@ -75,7 +85,7 @@ export const CurrentTweet = (props: Props) => {
 
     if (currentTweetData) {
         return (
-            <Paper square sx={{ border: 'none' }} variant='outlined'>
+            <Paper square sx={{ borderBottom: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
                 <TweetWrapper>
                     <СontentTweetWrapper>
                         <UserAvatarWrapper>
@@ -86,10 +96,27 @@ export const CurrentTweet = (props: Props) => {
                             <Typography sx={{ color: '#9e9e9e' }}>@{currentTweetData.user.username}</Typography>
                         </FlexWrapper>
                     </СontentTweetWrapper>
-                    <Typography variant='body1'>
+                    <Typography variant='body1' style={{ wordBreak: 'break-word' }}>
                         {currentTweetData.text}
                     </Typography>
                 </TweetWrapper>
+                <Paper variant='outlined' square sx={{ borderLeft: 'none', borderRight: 'none' }}>
+                    <IconsButtonsWrapper>
+                        <IconButton>
+                            <CommentIcon style={{ fontSize: '19px' }} />
+                            <TweetsCounter>1</TweetsCounter>
+                        </IconButton>
+                        <IconButton>
+                            <RepeatIcon style={{ fontSize: '19px' }} />
+                        </IconButton>
+                        <IconButton>
+                            <LikeIcon style={{ fontSize: '19px' }} />
+                        </IconButton>
+                        <IconButton>
+                            <ShareIcon style={{ fontSize: '19px' }} />
+                        </IconButton>
+                    </IconsButtonsWrapper>
+                </Paper>
             </Paper >
         )
     }

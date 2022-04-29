@@ -11,11 +11,11 @@ import {
 import React, { useEffect } from "react";
 
 import styled from "styled-components";
-import SearchIcon from "@mui/icons-material/Search";
 import { Tweet } from "../components/Tweet/Tweet";
 import { Sidebar } from "../components/Sidebar";
 import { AddTweetForm } from "../components/AddTweetForm";
 import AddPersonIcon from "@mui/icons-material/PersonAddOutlined";
+import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { getTweetsFetch } from "../store/slices/Tweets/tweetSlice";
 import {
@@ -25,7 +25,6 @@ import {
 
 import { Tags } from "../components/Tags";
 import { getTagsFetch } from "../store/slices/Tags/tagsSlice";
-import { Outlet, useLocation, useNavigate } from "react-router";
 import { HeaderTitle } from "../components/HeaderTitle";
 import { Route, Routes } from 'react-router'
 import { CurrentTweet } from '../components/CurrentTweet';
@@ -92,7 +91,7 @@ const FlexWrapper = styled.div`
   align-items: ${(props: FlexWrapperProps) => props.align};
   flex-direction: ${(props: FlexWrapperProps) => props.direction};
 `;
-type FlexWrapperProps = {
+export type FlexWrapperProps = {
   direction?: string;
   align?: string;
 };
@@ -122,7 +121,7 @@ export const Home = () => {
             variant="outlined"
           >
             <HeaderTitle />
-            <Paper square variant="outlined" sx={{ borderBottomWidth: "5px" }}>
+            <Paper square variant="outlined" sx={{ border: 'none' }}>
               <Routes>
                 <Route path='/' element={<AddTweetForm />} />
                 <Route path='/search' element={<AddTweetForm />} />

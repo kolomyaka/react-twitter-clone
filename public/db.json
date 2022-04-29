@@ -9,16 +9,6 @@
         "username": "Gagatun",
         "avatarUrl": "https://i.pravatar.cc/45?u=$8"
       }
-    },
-    {
-      "_id": "u7hmlhx4vpl",
-      "text": "Всемпривет!",
-      "user": {
-        "fullname": "test user",
-        "username": "test",
-        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
-      },
-      "id": 2
     }
   ],
   "tags": [
