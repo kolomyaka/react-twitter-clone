@@ -3,6 +3,8 @@ import ImageIcon from '@mui/icons-material/ImageOutlined';
 import SmileIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import styled from 'styled-components';
 import { Button, CircularProgress, IconButton, TextareaAutosize } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { setTextForNewTweet } from '../store/slices/Tweets/tweetSlice';
 
 const AddTweetWrapper = styled('div')`
     display: flex;
@@ -49,16 +51,18 @@ const FlexWrapper = styled('div')`
 `
 
 type Props = {
-    
+
 }
 
 export const AddTweetForm = () => {
+    const dispatch = useDispatch();
     const [text, setText] = useState<string>('');
     const MAX_LIMIT = 280;
     const textLimitPercent = Math.round((text.length / MAX_LIMIT) * 100);
     const maxLength = MAX_LIMIT - text.length;
 
     const handleClickAddTweet = () => {
+        dispatch(setTextForNewTweet(text));
         setText('')
     }
 
@@ -115,7 +119,7 @@ export const AddTweetForm = () => {
                                     </>
                                 )
                             }
-                            <Button onClick={handleClickAddTweet} disabled={text.length > MAX_LIMIT} variant='contained' sx={{ borderRadius: '20px' }}>Твитнуть</Button>
+                            <Button onClick={handleClickAddTweet} disabled={text.length > MAX_LIMIT || text.length === 0} variant='contained' sx={{ borderRadius: '20px' }}>Твитнуть</Button>
                         </FlexWrapper>
                     </AddTweetFooter>
                 </AddTweetTextField>

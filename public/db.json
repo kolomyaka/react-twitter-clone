@@ -2,26 +2,6 @@
   "tweets": [
     {
       "id": 1,
-      "_id": "6265b16dbc894123029b6325",
-      "text": "test tweet",
-      "user": {
-        "fullname": "test user",
-        "username": "@UserTest",
-        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
-      }
-    },
-    {
-      "_id": "62612316dbc894123029b6325",
-      "text": "test tweet",
-      "user": {
-        "fullname": "test user",
-        "username": "@UserTest",
-        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
-      },
-      "id": 2
-    },
-    {
-      "id": 3,
       "_id": "6265b16dbc894e19029b6325",
       "text": "Не припомню, когда я в последний раз так надолго забрасывал твиттер, но жизнь начинает играть новыми красками, когда тебе на глаза не попадается здешняя истерика",
       "user": {
@@ -29,16 +9,6 @@
         "username": "@Gagatun",
         "avatarUrl": "https://i.pravatar.cc/45?u=$8"
       }
-    },
-    {
-      "_id": "4zqjlmu51d5",
-      "text": "Всем привет!",
-      "user": {
-        "fullname": "test user",
-        "username": "test",
-        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
-      },
-      "id": 4
     }
   ],
   "tags": [
