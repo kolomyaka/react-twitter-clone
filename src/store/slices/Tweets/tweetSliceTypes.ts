@@ -6,11 +6,12 @@ export enum LoadingState {
     LOADING = 'LOADING'
 }
 
+
 export enum AddTweetLoadingState {
     LOADED = 'LOADED',
     ERROR = 'ERROR',
     NEVER = 'NEVER',
-    LOADING = 'LOADING'
+    LOADING = 'LOADING',
 }
 
 export interface Tweet {

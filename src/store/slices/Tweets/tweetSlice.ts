@@ -31,10 +31,13 @@ export const tweetsSlice = createSlice({
         addTweet(state, action: PayloadAction<Tweet>) {
             state.items.push(action.payload);
             state.addTweetLoadingStatus = AddTweetLoadingState.LOADED;
+        },
+        setTweetLoadingState(state, action: PayloadAction<AddTweetLoadingState>) {
+            state.addTweetLoadingStatus = action.payload;
         }
     }
 })
 
-export const { getTweetsFetch, getTweetsSuccess, getTweetsError, setTextForNewTweet, addTweet } = tweetsSlice.actions;
+export const { getTweetsFetch, getTweetsSuccess, getTweetsError, setTextForNewTweet, addTweet, setTweetLoadingState } = tweetsSlice.actions;
 
 export default tweetsSlice.reducer;

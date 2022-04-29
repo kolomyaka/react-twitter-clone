@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ImageIcon from '@mui/icons-material/ImageOutlined';
 import SmileIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import styled from 'styled-components';
-import { Button, CircularProgress, IconButton, TextareaAutosize } from '@mui/material';
+import { Alert, Button, CircularProgress, IconButton, TextareaAutosize } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setTextForNewTweet } from '../store/slices/Tweets/tweetSlice';
+import { useSelector } from 'react-redux';
+import { selectAddTweetLoadingStatus } from '../store/selectors/tweetSelectors';
+import { AddTweetLoadingState } from '../store/slices/Tweets/tweetSliceTypes';
 
 const AddTweetWrapper = styled('div')`
     display: flex;
@@ -60,6 +63,7 @@ export const AddTweetForm = () => {
     const MAX_LIMIT = 280;
     const textLimitPercent = Math.round((text.length / MAX_LIMIT) * 100);
     const maxLength = MAX_LIMIT - text.length;
+    const addTweetIsLoading = useSelector(selectAddTweetLoadingStatus);
 
     const handleClickAddTweet = () => {
         dispatch(setTextForNewTweet(text));
@@ -119,11 +123,18 @@ export const AddTweetForm = () => {
                                     </>
                                 )
                             }
-                            <Button onClick={handleClickAddTweet} disabled={text.length > MAX_LIMIT || text.length === 0} variant='contained' sx={{ borderRadius: '20px' }}>Твитнуть</Button>
+                            <Button
+                                onClick={handleClickAddTweet}
+                                disabled={!text || text.length > MAX_LIMIT}
+                                variant='contained' sx={{ borderRadius: '20px' }}>
+                                {addTweetIsLoading === AddTweetLoadingState.LOADING ? <CircularProgress size={17} /> : "Твитнуть"}
+                            </Button>
                         </FlexWrapper>
                     </AddTweetFooter>
                 </AddTweetTextField>
             </AddTweetWrapper>
+            {addTweetIsLoading === AddTweetLoadingState.ERROR ? <Alert severity="error">Ошибка при добавлении поста! 😥</Alert> : null}
+
         </>
     )
 }

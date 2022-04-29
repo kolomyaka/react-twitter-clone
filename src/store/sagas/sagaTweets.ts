@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { tweetsApi } from '../../services/tweetsApi';
-import { getTweetsError, getTweetsSuccess, addTweet } from '../slices/Tweets/tweetSlice'
-import { postNewTweetAction } from '../slices/Tweets/tweetSliceTypes';
+import { getTweetsError, getTweetsSuccess, addTweet, setTweetLoadingState } from '../slices/Tweets/tweetSlice'
+import { AddTweetLoadingState, postNewTweetAction } from '../slices/Tweets/tweetSliceTypes';
 
 function* workGetTweetsFetch(): Iterator<any> {
     try {
@@ -29,7 +29,7 @@ function* addTweetRequest({ payload }: postNewTweetAction): Iterator<any> {
                 avatarUrl: `https://i.pravatar.cc/45?u=$4`
             }
         }
-        // Полученный твит отправляем запросов на сервер
+        // Полученный твит отправляем запросом на сервер
         const data = yield call(tweetsApi.addTweet, tweetData);
         if (data) {
             // В случае если получили данные от сервера добавляем в наш state
@@ -37,6 +37,7 @@ function* addTweetRequest({ payload }: postNewTweetAction): Iterator<any> {
         }
     } catch (error) {
         console.log(error);
+        yield put(setTweetLoadingState(AddTweetLoadingState.ERROR));
     }
 }
 

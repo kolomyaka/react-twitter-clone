@@ -34,7 +34,7 @@ const TweetsCounter = styled('span')`
 const TweetWrapper = styled('div')`
     display: flex;
     cursor: pointer;
-    padding-right: 15px;
+    padding: 10px;
     &:hover {
         background-color: rgb(245, 248, 250);
     }
@@ -58,8 +58,6 @@ const UserAvatarWrapper = styled('div')`
 
 export const Tweet = ({ user, text, id }: Props) => {
 
-
-
     return (
         <>
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
@@ -69,7 +67,7 @@ export const Tweet = ({ user, text, id }: Props) => {
                             <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
                         </UserAvatarWrapper>
                         <СontentTweetWrapper>
-                            <Typography><b>{user.fullname}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>{user.username} · 1ч</span></Typography>
+                            <Typography><b>{user.fullname}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>@{user.username} · 1ч</span></Typography>
                             <Typography variant='body1'>
                                 {text}
                             </Typography>

@@ -6,39 +6,19 @@
       "text": "Не припомню, когда я в последний раз так надолго забрасывал твиттер, но жизнь начинает играть новыми красками, когда тебе на глаза не попадается здешняя истерика",
       "user": {
         "fullname": "Гагатун",
-        "username": "@Gagatun",
+        "username": "Gagatun",
         "avatarUrl": "https://i.pravatar.cc/45?u=$8"
       }
     },
     {
-      "_id": "hm22euixdrk",
-      "text": "Всем привет!",
+      "_id": "u7hmlhx4vpl",
+      "text": "Всемпривет!",
       "user": {
         "fullname": "test user",
         "username": "test",
         "avatarUrl": "https://i.pravatar.cc/45?u=$4"
       },
       "id": 2
-    },
-    {
-      "_id": "8ge55deff94",
-      "text": "ыфвфыв",
-      "user": {
-        "fullname": "test user",
-        "username": "test",
-        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
-      },
-      "id": 3
-    },
-    {
-      "_id": "t0aljbdyeam",
-      "text": "ыы",
-      "user": {
-        "fullname": "test user",
-        "username": "test",
-        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
-      },
-      "id": 4
     }
   ],
   "tags": [
