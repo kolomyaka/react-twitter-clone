@@ -9,6 +9,36 @@
         "username": "Gagatun",
         "avatarUrl": "https://i.pravatar.cc/45?u=$8"
       }
+    },
+    {
+      "_id": "2wv1gzunjdk",
+      "text": "Тестовый твит",
+      "user": {
+        "fullname": "test user",
+        "username": "test",
+        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
+      },
+      "id": 2
+    },
+    {
+      "_id": "7et0xcuqcuk",
+      "text": "Вывод новых постов с верху",
+      "user": {
+        "fullname": "test user",
+        "username": "test",
+        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
+      },
+      "id": 3
+    },
+    {
+      "_id": "638u1rtpydm",
+      "text": "Вывод постов с верху",
+      "user": {
+        "fullname": "test user",
+        "username": "test",
+        "avatarUrl": "https://i.pravatar.cc/45?u=$4"
+      },
+      "id": 4
     }
   ],
   "tags": [
