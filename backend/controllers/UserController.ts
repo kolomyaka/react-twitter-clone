@@ -1,6 +1,7 @@
 import express from 'express';
 import { validationResult } from 'express-validator';
 import { UserModel } from '../models/UserModel';
+import { generateMD5 } from '../utils/generateHash';
 
 // Создаем контроллер для User
 class UserController {
@@ -36,6 +37,7 @@ class UserController {
                 username: req.body.username,
                 fullname: req.body.fullname,
                 password: req.body.password,
+                confirm_hash: generateMD5(Math.random().toString())
             };
             // Создаем нового пользователя
             const user = await UserModel.create(data);
