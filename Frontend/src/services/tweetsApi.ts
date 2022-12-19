@@ -5,7 +5,7 @@ import { Tweet } from '../store/slices/Tweets/tweetSliceTypes';
 
 export const tweetsApi = {
     async fetchTweets(): Promise<Tweet[]> {
-        const { data } = await axios.get<Tweet[]>('/tweets?sortBy=id&asc=desc');
+        const { data } = await axios.get<Tweet[]>('/tweets?_sort=id&_order=desc');
         return data;
     },
     async fetchCurrentTweet(id: string): Promise<Tweet> {

@@ -109,7 +109,7 @@ export const Home = () => {
   }, [dispatch]);
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="xl">
       <Grid container spacing={2}>
         <Grid item md={3} sm={2} xl={3}>
           <Sidebar />

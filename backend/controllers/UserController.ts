@@ -1,7 +1,7 @@
 import express from 'express';
 import { validationResult } from 'express-validator';
-import { UserModel } from '../models/UserModel';
-import { generateMD5 } from '../utils/generateHash';
+import { UserModel } from '../models/UserModel.js';
+import { generateMD5 } from '../utils/generateHash.js';
 
 // Создаем контроллер для User
 class UserController {

@@ -29,7 +29,7 @@ export const tweetsSlice = createSlice({
             state.addTweetLoadingStatus = AddTweetLoadingState.LOADING;
         },
         addTweet(state, action: PayloadAction<Tweet>) {
-            state.items.splice(0, 0, action.payload);
+            state.items = [action.payload, ...state.items]
             state.addTweetLoadingStatus = AddTweetLoadingState.LOADED;
         },
         setTweetLoadingState(state, action: PayloadAction<AddTweetLoadingState>) {
