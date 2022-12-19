@@ -160,6 +160,13 @@
       "fullname": "Mercado Christian",
       "username": "@Bunga",
       "avatarUrl": "https://i.pravatar.cc/45?u=$8"
+    },
+    {
+      "id": "1",
+      "email": "kolomyakan@mail.ru",
+      "fullname": "Kolomoycev",
+      "username": "Kolomyaka",
+      "password": "Qwerty5!"
     }
   ],
   "user": {

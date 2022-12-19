@@ -4,7 +4,7 @@ const { model, Schema } = pkg;
 
 // Описываем схему
 const UserSchema = new Schema({
-    emai: {
+    email: {
         unique: true,
         required: true,
         type: String,
@@ -18,18 +18,18 @@ const UserSchema = new Schema({
         required: true,
         type: String,
     },
-    location: String,
     password: {
         required: true,
         type: String,
     },
+    confirmHash: {
+        required: true,
+        type: String
+    },
+    location: String,
     confirmed: {
       type: Boolean,
       default: false
-    },
-    confirmed_hash: {
-        required: true,
-        type: String
     },
     about: String,
     website: String,

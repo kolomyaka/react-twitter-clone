@@ -37,7 +37,7 @@ class UserController {
                 username: req.body.username,
                 fullname: req.body.fullname,
                 password: req.body.password,
-                confirm_hash: generateMD5(Math.random().toString())
+                confirmHash: generateMD5(process.env.SECRET_KEY || Math.random().toString())
             };
             // Создаем нового пользователя
             const user = await UserModel.create(data);
