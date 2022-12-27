@@ -1,9 +1,20 @@
 import pkg from 'mongoose';
 const { model, Schema } = pkg;
 
+interface UserModelInterface {
+    email:string
+    fullname:string
+    username:string
+    password:string
+    confirmHash:string
+    confirmed:boolean
+    location?:string
+    about?:string
+    website?: string
+}
 
 // Описываем схему
-const UserSchema = new Schema({
+const UserSchema = new Schema<UserModelInterface>({
     email: {
         unique: true,
         required: true,
@@ -26,11 +37,11 @@ const UserSchema = new Schema({
         required: true,
         type: String
     },
-    location: String,
     confirmed: {
-      type: Boolean,
-      default: false
+        type: Boolean,
+        default: false
     },
+    location: String,
     about: String,
     website: String,
 });

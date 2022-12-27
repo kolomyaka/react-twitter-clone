@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
+import dotenv from "dotenv";
+dotenv.config()
 
 mongoose.Promise = Promise;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27014/twitter', {
+mongoose.connect(`${process.env.MONGO_DB}` || 'mongodb://127.0.0.1:27014/twitter', {
     
 });
 
