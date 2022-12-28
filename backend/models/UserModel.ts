@@ -1,7 +1,9 @@
 import pkg from 'mongoose';
+import mongoose from "mongoose";
+import {TweetModelInterface} from "./TweetModel";
 const { model, Schema, Document } = pkg;
 
-export interface UserModelInterface {
+export interface UserModelInterface extends mongoose.Document {
     _id?: string
     email:string
     fullname:string
@@ -12,12 +14,10 @@ export interface UserModelInterface {
     location?:string
     about?:string
     website?: string
-}
-
-export type UserModelDocumentInterface = Document & UserModelInterface
+};
 
 // Описываем схему
-const UserSchema = new Schema<UserModelInterface>({
+const UserSchema = new Schema({
     email: {
         unique: true,
         required: true,
@@ -57,4 +57,4 @@ UserSchema.set('toJSON', {
     }
 })
 
-export const UserModel = model('User', UserSchema);
+export const UserModel = model<UserModelInterface>('User', UserSchema);

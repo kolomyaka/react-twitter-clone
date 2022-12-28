@@ -1,12 +1,11 @@
 import express from 'express';
 import { validationResult } from 'express-validator';
-import {UserModel, UserModelDocumentInterface} from '../models/UserModel.js';
+import {UserModel, UserModelInterface} from '../models/UserModel.js';
 import { generateMD5 } from '../utils/generateHash.js';
-import mongoose from 'mongoose';
 import {sendActivationEmail} from "../core/mailer.js";
 import jwt from "jsonwebtoken";
-const isValidObjectId = mongoose.Types.ObjectId.isValid;
 import dotenv from "dotenv";
+import {isValidObjectId} from "../utils/isValidObjectId.js";
 dotenv.config()
 
 // Создаем контроллер для User
@@ -34,12 +33,12 @@ class UserController {
             const  userId  = req.params.id
 
             if (!userId) {
-                res.status(400).json({status: 'error', message: 'Не удается получить ID пользователя'})
+                res.status(404).json({status: 404, message: 'Не удается получить ID пользователя'})
                 return;
             }
 
             if (!isValidObjectId(userId)) {
-                res.status(400).json({status: 'error', message: 'Неверный ID'})
+                res.status(404).json({status: 404, message: 'Неверный ID'})
             }
 
             const user = await UserModel.findById(userId).exec()
@@ -49,7 +48,10 @@ class UserController {
                 data: user
             });
         } catch (e) {
-
+            res.json({
+                status: 500,
+                data: e
+            })
         }
     }
 
@@ -59,12 +61,12 @@ class UserController {
             const  userId  = req.params.id
 
             if (!userId) {
-                res.status(400).json({status: 'error', message: 'Не удается получить ID пользователя'})
+                res.status(404).json({status: 404, message: 'Не удается получить ID пользователя'})
                 return;
             }
 
             if (!isValidObjectId(userId)) {
-                res.status(400).json({status: 'error', message: 'Неверный ID'})
+                res.status(404).json({status: 404, message: 'Неверный ID'})
                 return;
             }
 
@@ -74,7 +76,10 @@ class UserController {
                 data: user
             });
         } catch (e) {
-
+            res.json({
+                status: 500,
+                data: e
+            })
         }
     }
 
@@ -84,7 +89,7 @@ class UserController {
             const  userId  = req.params.id
 
             if (!userId) {
-                res.status(400).json({status: 'error', message: 'Не удается получить ID пользователя'})
+                res.status(404).json({status: 404, message: 'Не удается получить ID пользователя'})
                 return;
             }
 
@@ -94,7 +99,10 @@ class UserController {
                 data: user
             });
         } catch (e) {
-
+            res.json({
+                status: 200,
+                data: e
+            })
         }
     }
 
@@ -104,7 +112,7 @@ class UserController {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                res.status(400).json({ status: 'error', errors: errors.array() })
+                res.status(404).json({ status: 404, errors: errors.array() })
                 return;
             }
             // Создаем объект для создания нового пользователя
@@ -138,14 +146,13 @@ class UserController {
             const hash = req.query.hash;
 
             if (!hash) {
-                res.status(400).send()
+                res.status(404).send()
                 return;
             }
             // Ищем пользователя по хешу, который передан в запросе
             const user = await UserModel.findOne({confirmHash: hash}).exec()
 
             if (user) {
-                console.log(user)
                 // Если находим, то активируем аккаунт
                 user.confirmed = true
                 user.save()
@@ -155,7 +162,7 @@ class UserController {
                     data: user
                 })
             } else {
-                res.status(400).json({status: 'error', message: "Пользователь не найден"})
+                res.status(404).json({status:404, message: "Пользователь не найден"})
             }
         } catch (e) {
             res.status(500).json({
@@ -168,10 +175,17 @@ class UserController {
     async authorizeToken(req: express.Request, res: express.Response): Promise<void> {
         try {
             // В ответ на запрос отдаем токен пользователя
+            let user;
+            if (req.user) {
+                user = (req.user as UserModelInterface).toJSON()
+            } else {
+                user = undefined
+            }
+
             res.json({
                 status: 200,
                 data: {
-                    message: `Выполнен вход в аккаунт ${req.body.username}`,
+                    user: user,
                     token: jwt.sign({user: req.user},
                         process.env.SECRET_KEY || '123',
                         {expiresIn: '30 days'})

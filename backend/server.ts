@@ -3,9 +3,10 @@ import dotenv from 'dotenv';
 import session from "express-session";
 import { registerValidations } from './validations/register.js';
 import {UserCtrl} from './controllers/UserController.js';
+import {TweetsCtrl} from "./controllers/TweetsController.js";
 import {passport} from "./core/passport.js";
 import './core/db.js'
-import {UserModelInterface} from "./models/UserModel";
+import {createTweetValidations} from "./validations/createTweet.js";
 
 dotenv.config();
 
@@ -26,11 +27,16 @@ app.get('/users/me', passport.authenticate('jwt', {session: false}), UserCtrl.ge
 app.get('/users/:id', UserCtrl.show);
 app.delete('/users/:id', UserCtrl.delete);
 
+// Tweets group
+app.get('/tweets', TweetsCtrl.index)
+app.get('/tweets/:id', TweetsCtrl.show)
+app.delete('/tweets/:id', TweetsCtrl.delete)
+app.post('/tweets', createTweetValidations, TweetsCtrl.create)
+
 // Authorize group
 app.post('/auth/signup', registerValidations, UserCtrl.create);
 app.get('/auth/verify', UserCtrl.verify)
 app.post('/auth/signin', passport.authenticate('local'), UserCtrl.authorizeToken)
-
 
 app.listen(process.env.PORT, (): void => {
     console.log(`SERVER RUNNING! PORT: ${process.env.PORT}`);
