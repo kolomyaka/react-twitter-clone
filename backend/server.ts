@@ -5,7 +5,7 @@ import { registerValidations } from './validations/register.js';
 import {UserCtrl} from './controllers/UserController.js';
 import {passport} from "./core/passport.js";
 import './core/db.js'
-import {log} from "util";
+import {UserModelInterface} from "./models/UserModel";
 
 dotenv.config();
 
@@ -16,26 +16,20 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: true }
 }));
-
 app.use(express.json());
 app.use(passport.initialize())
 app.use(passport.session());
+
+// User group
 app.get('/users', UserCtrl.index);
+app.get('/users/me', passport.authenticate('jwt'), UserCtrl.getUserInfo);
 app.get('/users/:id', UserCtrl.show);
 app.delete('/users/:id', UserCtrl.delete);
 
+// Authorize group
 app.post('/auth/signup', registerValidations, UserCtrl.create);
-// app.get('/auth/verify',registerValidations, UserCtrl.verify)
-app.post('/auth/signin',
-    passport.authenticate('local'),
-    (req, res) => {
-        res.json(req.user)
-    }
-);
-
-// app.patch('/users', UserCtrl.update);
-//
-
+app.get('/auth/verify',registerValidations, UserCtrl.verify)
+app.post('/auth/signin', passport.authenticate('local'), UserCtrl.authorizeToken)
 
 
 app.listen(process.env.PORT, (): void => {

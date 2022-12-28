@@ -1,10 +1,13 @@
 import express from 'express';
 import { validationResult } from 'express-validator';
-import { UserModel } from '../models/UserModel.js';
+import {UserModel, UserModelDocumentInterface} from '../models/UserModel.js';
 import { generateMD5 } from '../utils/generateHash.js';
 import mongoose from 'mongoose';
 import {sendActivationEmail} from "../core/mailer.js";
+import jwt from "jsonwebtoken";
 const isValidObjectId = mongoose.Types.ObjectId.isValid;
+import dotenv from "dotenv";
+dotenv.config()
 
 // Создаем контроллер для User
 class UserController {
@@ -14,12 +17,12 @@ class UserController {
 
             const users = await UserModel.find({}).exec();
             res.json({
-                status: 'success',
+                status: 200,
                 data: users
             });
         } catch (error) {
             res.json({
-                status: 'error',
+                status: 500,
                 message: JSON.stringify(error)
             });
         }
@@ -42,7 +45,7 @@ class UserController {
             const user = await UserModel.findById(userId).exec()
 
             res.json({
-                status: 'success',
+                status: 200,
                 data: user
             });
         } catch (e) {
@@ -67,7 +70,7 @@ class UserController {
 
             const user = await UserModel.findByIdAndDelete(userId).exec()
             res.json({
-                status: 'success',
+                status: 200,
                 data: user
             });
         } catch (e) {
@@ -87,7 +90,7 @@ class UserController {
 
             const user = await UserModel.findByIdAndDelete(userId).exec()
             res.json({
-                status: 'success',
+                status: 200,
                 data: user
             });
         } catch (e) {
@@ -117,16 +120,81 @@ class UserController {
             await sendActivationEmail(data.email, 'asdasd')
 
             res.json({
-                status: 'success',
+                status: 200,
                 data: user
             });
 
         } catch (error) {
-            console.log(error)
             res.json({
-                status: 'error',
+                status: 500,
                 message: JSON.stringify(error),
             });
+        }
+    }
+
+    async verify(req: express.Request, res: express.Response): Promise<void> {
+        try {
+            const hash = req.query.hash;
+
+            if (!hash) {
+                res.status(400).send()
+                return;
+            }
+            // Ищем пользователя по хешу, который передан в запросе
+            const user = await UserModel.findOne({confirmHash: hash}).exec()
+
+            if (user) {
+                // Если находим, то активируем аккаунт
+                user.confirmed = true
+                user.save()
+
+                res.json({
+                    status: 200
+                })
+            } else {
+                res.status(400).json({status: 'error', message: "Пользователь не найден"})
+            }
+        } catch (e) {
+            res.status(500).json({
+                status: 500,
+                message: e
+            })
+        }
+    }
+
+    async authorizeToken(req: express.Request, res: express.Response): Promise<void> {
+        try {
+            // В ответ на запрос отдаем токен пользователя
+            res.json({
+                status: 200,
+                data: {
+                    message: `Выполнен вход в аккаунт ${req.body.username}`,
+                    token: jwt.sign({user: req.user},
+                        process.env.SECRET_KEY || 'dQBgydD3jjDRMkU',
+                        {expiresIn: '30d'})
+                }
+            })
+        } catch (e) {
+            res.status(500).json({
+                status: 500,
+                message: e
+            })
+        }
+    }
+
+    async getUserInfo(req: express.Request, res: express.Response): Promise<void> {
+        try {
+            res.json({
+                status: 200,
+                data: {
+                    ...req.user
+                }
+            })
+        } catch (e) {
+            res.status(500).json({
+                status: 500,
+                message: e
+            })
         }
     }
 }

@@ -1,7 +1,9 @@
 import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
+import {Strategy as JWTstrategy, ExtractJwt } from 'passport-jwt';
 import {UserModel, UserModelInterface} from "../models/UserModel.js";
 import {generateMD5} from "../utils/generateHash.js";
+import jwt from 'jsonwebtoken'
 
 passport.use(
     new LocalStrategy(
@@ -14,17 +16,31 @@ passport.use(
            }
 
             if (user.password === generateMD5(password + process.env.SECRET_KEY)) {
-                console.log('here!')
                 return done(null, user)
             } else {
-                console.log('error :(')
-                return done(null, false)
+                return done(401, false)
             }
         } catch (e) {
             done(e, false)
         }
     }
 ))
+
+passport.use(
+    new JWTstrategy(
+        {
+            secretOrKey: process.env.SECRET_KEY || '123',
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+        },
+        async (payload, done) => {
+            try {
+                return done(null, payload.user)
+            } catch (e) {
+                done(e)
+            }
+        }
+    )
+)
 
 // @ts-ignore
 passport.serializeUser((user:UserModelInterface, done): void => {

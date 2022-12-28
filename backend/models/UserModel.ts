@@ -1,5 +1,5 @@
 import pkg from 'mongoose';
-const { model, Schema } = pkg;
+const { model, Schema, Document } = pkg;
 
 export interface UserModelInterface {
     _id?: string
@@ -13,6 +13,8 @@ export interface UserModelInterface {
     about?:string
     website?: string
 }
+
+export type UserModelDocumentInterface = Document & UserModelInterface
 
 // Описываем схему
 const UserSchema = new Schema<UserModelInterface>({
@@ -47,12 +49,12 @@ const UserSchema = new Schema<UserModelInterface>({
     website: String,
 });
 
-// UserSchema.set('toJSON', {
-//     transform: function(_, obj) {
-//         delete obj.password
-//         delete obj.confirmHash
-//         return obj
-//     }
-// })
+UserSchema.set('toJSON', {
+    transform: function(_, obj) {
+        delete obj.password
+        delete obj.confirmHash
+        return obj
+    }
+})
 
 export const UserModel = model('User', UserSchema);
