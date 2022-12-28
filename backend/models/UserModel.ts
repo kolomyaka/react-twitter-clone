@@ -1,7 +1,8 @@
 import pkg from 'mongoose';
 const { model, Schema } = pkg;
 
-interface UserModelInterface {
+export interface UserModelInterface {
+    _id?: string
     email:string
     fullname:string
     username:string
@@ -35,7 +36,7 @@ const UserSchema = new Schema<UserModelInterface>({
     },
     confirmHash: {
         required: true,
-        type: String
+        type: String,
     },
     confirmed: {
         type: Boolean,
@@ -45,5 +46,13 @@ const UserSchema = new Schema<UserModelInterface>({
     about: String,
     website: String,
 });
+
+// UserSchema.set('toJSON', {
+//     transform: function(_, obj) {
+//         delete obj.password
+//         delete obj.confirmHash
+//         return obj
+//     }
+// })
 
 export const UserModel = model('User', UserSchema);
