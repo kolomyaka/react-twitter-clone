@@ -22,13 +22,13 @@ app.use(passport.session());
 
 // User group
 app.get('/users', UserCtrl.index);
-app.get('/users/me', passport.authenticate('jwt'), UserCtrl.getUserInfo);
+app.get('/users/me', passport.authenticate('jwt', {session: false}), UserCtrl.getUserInfo);
 app.get('/users/:id', UserCtrl.show);
 app.delete('/users/:id', UserCtrl.delete);
 
 // Authorize group
 app.post('/auth/signup', registerValidations, UserCtrl.create);
-app.get('/auth/verify',registerValidations, UserCtrl.verify)
+app.get('/auth/verify', UserCtrl.verify)
 app.post('/auth/signin', passport.authenticate('local'), UserCtrl.authorizeToken)
 
 

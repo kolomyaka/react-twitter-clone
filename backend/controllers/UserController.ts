@@ -113,11 +113,12 @@ class UserController {
                 username: req.body.username,
                 fullname: req.body.fullname,
                 password: generateMD5(req.body.password + process.env.SECRET_KEY),
-                confirmHash: generateMD5(process.env.SECRET_KEY || Math.random().toString())
+                confirmHash: generateMD5(process.env.SECRET_KEY + Math.random().toString())
             };
             // Создаем нового пользователя
             const user = await UserModel.create(data);
-            await sendActivationEmail(data.email, 'asdasd')
+            console.log(process.env.API_URL)
+            await sendActivationEmail(data.email, `${process.env.API_URL}/auth/verify/?hash=${data.confirmHash}`)
 
             res.json({
                 status: 200,
@@ -144,12 +145,14 @@ class UserController {
             const user = await UserModel.findOne({confirmHash: hash}).exec()
 
             if (user) {
+                console.log(user)
                 // Если находим, то активируем аккаунт
                 user.confirmed = true
                 user.save()
 
                 res.json({
-                    status: 200
+                    status: 200,
+                    data: user
                 })
             } else {
                 res.status(400).json({status: 'error', message: "Пользователь не найден"})
@@ -170,8 +173,8 @@ class UserController {
                 data: {
                     message: `Выполнен вход в аккаунт ${req.body.username}`,
                     token: jwt.sign({user: req.user},
-                        process.env.SECRET_KEY || 'dQBgydD3jjDRMkU',
-                        {expiresIn: '30d'})
+                        process.env.SECRET_KEY || '123',
+                        {expiresIn: '30 days'})
                 }
             })
         } catch (e) {

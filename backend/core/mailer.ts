@@ -21,13 +21,14 @@ export const  sendActivationEmail = async (to: string, link: string) => {
     await transporter.sendMail({
         from:process.env.SMPT_USER,
         to,
-        subject: `Активация аккаунта на ${process.env.API_URL}`,
+        subject: `Подтвердите свою учетную запись в React Twitter clone`,
         text: '',
         html:
             `
                     <div>
-                        <h1>Для активации аккаунта перейдите по ссылке</h1>
-                        <a href="${link}">${link}</a>
+                        <h1>Для активации аккаунта перейдите 
+                            <a href="${link}">по ссылке</a>
+                        </h1>
                     </div>
             `
     })

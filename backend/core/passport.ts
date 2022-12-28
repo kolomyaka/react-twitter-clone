@@ -14,6 +14,10 @@ passport.use(
            if (!user) {
                return done(null, false)
            }
+            console.log(user)
+           if (!user.confirmed) {
+               throw new Error("Need activate account")
+           }
 
             if (user.password === generateMD5(password + process.env.SECRET_KEY)) {
                 return done(null, user)
@@ -30,13 +34,22 @@ passport.use(
     new JWTstrategy(
         {
             secretOrKey: process.env.SECRET_KEY || '123',
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+            jwtFromRequest: ExtractJwt.fromHeader('token')
         },
-        async (payload, done) => {
+        async (payload: {user: UserModelInterface}, done) => {
             try {
-                return done(null, payload.user)
+
+
+                const user = await UserModel.findById(payload.user._id).exec()
+                console.log(user)
+                console.log(payload.user._id)
+                if (user) {
+                    return done(null, payload.user)
+                }
+
+                done(null, false)
             } catch (e) {
-                done(e)
+                done(e, false)
             }
         }
     )
