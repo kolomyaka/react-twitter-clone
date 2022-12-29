@@ -60,6 +60,8 @@ class TweetsController {
 
     // Метод для удаления твита
     async delete(req: express.Request, res: express.Response): Promise<void> {
+        const user = req.user as UserModelInterface
+
         try {
             const tweetId = req.params.id
 
@@ -79,12 +81,23 @@ class TweetsController {
                 return;
             }
 
-            const tweet = await TweetModel.findByIdAndDelete(tweetId).exec()
+            const tweet = await TweetModel.findById(tweetId)
 
-            res.status(200).json({
-                status: 200,
-                data: tweet
-            })
+            if (tweet) {
+                if ((tweet.user as UserModelInterface)._id?.toString() === user._id) {
+                    tweet.remove()
+                    res.status(200).json({
+                        status: 200,
+                        data: tweet
+                    })
+                }
+            } else {
+
+                res.status(404).json({
+                    status: 404,
+                    message: 'Произошла ошибка удаления твита'
+                })
+            }
         } catch (e) {
             res.json({
                 status: 500,
@@ -114,7 +127,7 @@ class TweetsController {
                     return;
                 }
 
-                const data: { text: string; user: string } = {
+                const data: { text: string; user: string }= {
                     text: req.body.text,
                     user: user._id
                 }

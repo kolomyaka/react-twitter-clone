@@ -1,5 +1,6 @@
 import pkg from 'mongoose';
 import mongoose from "mongoose";
+import {UserModelInterface} from "./UserModel.js";
 
 const { model, Schema, Document } = pkg;
 
@@ -7,7 +8,7 @@ const { model, Schema, Document } = pkg;
 export interface TweetModelInterface extends mongoose.Document {
     id: string
     text: string
-    user: string | undefined
+    user: UserModelInterface | string
 }
 
 

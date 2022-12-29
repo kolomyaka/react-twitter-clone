@@ -30,8 +30,8 @@ app.delete('/users/:id', UserCtrl.delete);
 // Tweets group
 app.get('/tweets', TweetsCtrl.index)
 app.get('/tweets/:id', TweetsCtrl.show)
-app.delete('/tweets/:id', TweetsCtrl.delete)
-app.post('/tweets', createTweetValidations, TweetsCtrl.create)
+app.delete('/tweets/:id', passport.authenticate('jwt'), TweetsCtrl.delete)
+app.post('/tweets', passport.authenticate('jwt'), createTweetValidations, TweetsCtrl.create)
 
 // Authorize group
 app.post('/auth/signup', registerValidations, UserCtrl.create);
