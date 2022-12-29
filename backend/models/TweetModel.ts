@@ -24,6 +24,8 @@ const TweetSchema = new Schema({
         ref: "User",
         type: Schema.Types.ObjectId,
     },
+}, {
+    timestamps: true
 });
 
 

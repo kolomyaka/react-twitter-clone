@@ -106,6 +106,60 @@ class TweetsController {
         }
     }
 
+    // Метод для редактирования твита
+    async update(req: express.Request, res: express.Response): Promise<void> {
+        const user = req.user as UserModelInterface
+
+        try {
+            const tweetId = req.params.id
+
+            if (!tweetId) {
+                res.status(404).json({
+                    status: 404,
+                    message: "Не удалось получить ID твита"
+                })
+                return;
+            }
+
+            if (!isValidObjectId(tweetId)) {
+                res.status(404).json({
+                    status: 404,
+                    message: "Неверный ID"
+                })
+                return;
+            }
+
+            const tweet = await TweetModel.findById(tweetId)
+
+            if (tweet) {
+                if ((tweet.user as UserModelInterface)._id?.toString() === user._id) {
+                    tweet.text = req.body.text
+                    tweet.save()
+                    res.status(200).json({
+                        status: 200,
+                        data: tweet
+                    })
+                } else {
+                    res.status(403).json({
+                        status: 403,
+                        message: 'Вы не владелец этого твита'
+                    })
+                }
+            } else {
+                res.status(404).json({
+                    status: 404,
+                    message: 'Произошла ошибка редактирования твита'
+                })
+            }
+        } catch (e) {
+            console.log(e)
+            res.status(500).json({
+                status: 500,
+                data: e
+            })
+        }
+    }
+
     // Метод для создания твита
     async create(req: express.Request, res: express.Response): Promise<void> {
         try {

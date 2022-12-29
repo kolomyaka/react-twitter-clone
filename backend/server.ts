@@ -31,6 +31,7 @@ app.delete('/users/:id', UserCtrl.delete);
 app.get('/tweets', TweetsCtrl.index)
 app.get('/tweets/:id', TweetsCtrl.show)
 app.delete('/tweets/:id', passport.authenticate('jwt'), TweetsCtrl.delete)
+app.patch('/tweets/:id', passport.authenticate('jwt'), createTweetValidations, TweetsCtrl.update)
 app.post('/tweets', passport.authenticate('jwt'), createTweetValidations, TweetsCtrl.create)
 
 // Authorize group
