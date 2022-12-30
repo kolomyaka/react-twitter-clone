@@ -1,4 +1,4 @@
-import { IconButton, Paper, Typography } from '@mui/material'
+import {IconButton, Menu, MenuItem, Paper, Typography} from '@mui/material'
 import React from 'react'
 import CommentIcon from '@mui/icons-material/ModeCommentOutlined';
 import RepeatIcon from '@mui/icons-material/RepeatOutlined';
@@ -6,7 +6,9 @@ import LikeIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShareIcon from '@mui/icons-material/ReplyOutlined';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
+import {formatDate} from "../../utils/formatDate";
+import avaPlaceholder from '../../assets/ava-placeholder.png'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const СontentTweetWrapper = styled.div`
     margin: 7px 0px;
@@ -44,6 +46,7 @@ type Props = {
     text: string
     user: User
     id: string
+    date: Date
 }
 
 type User = {
@@ -56,21 +59,34 @@ const UserAvatarWrapper = styled('div')`
 
 `
 
-export const Tweet = ({ user, text, id }: Props) => {
+export const Tweet = ({ user, text, id, date }: Props) => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <>
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
-                <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                     <TweetWrapper>
-                        <UserAvatarWrapper>
-                            <img src={user.avatarUrl} style={{ borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
-                        </UserAvatarWrapper>
+                        <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                            <UserAvatarWrapper>
+                                <img src={user.avatarUrl ? user.avatarUrl : avaPlaceholder} style={{ width: 45, height: 45, borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
+                            </UserAvatarWrapper>
+                        </Link>
                         <СontentTweetWrapper>
-                            <Typography><b>{user.fullname}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>@{user.username} · 1ч</span></Typography>
-                            <Typography variant='body1'>
-                                {text}
-                            </Typography>
+                            <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                <Typography><b>{user.fullname}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>@{user.username} · {formatDate(date, "DD.MM HH:mm", true)}</span></Typography>
+                                <Typography variant='body1'>
+                                    {text}
+                                </Typography>
+                            </Link>
                             <FlexWrapper>
                                 <IconButton>
                                     <CommentIcon style={{ fontSize: '19px' }} />
@@ -86,9 +102,33 @@ export const Tweet = ({ user, text, id }: Props) => {
                                     <ShareIcon style={{ fontSize: '19px' }} />
                                 </IconButton>
                             </FlexWrapper>
+
                         </СontentTweetWrapper>
+                        <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                            style={{height: 'fit-content'}}
+                        >
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="long-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={open}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleClose}>
+                                Редактировать твит
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                                Удалить твит
+                            </MenuItem>
+                        </Menu>
                     </TweetWrapper>
-                </Link>
+
             </Paper >
         </>
     )

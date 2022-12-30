@@ -17,6 +17,8 @@ export enum AddTweetLoadingState {
 export interface Tweet {
     _id: string
     text: string
+    createdAt: Date
+    updatedAt: Date
     user: {
         fullname: string
         avatarUrl: string

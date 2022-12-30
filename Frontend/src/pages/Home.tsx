@@ -40,12 +40,12 @@ const SearchTextBlock = styled(TextField)`
   }
 
   input {
-    background-color: "#E6ECF0";
+    background-color: #E6ECF0;
     padding: 7px;
   }
   input:focus {
     border: none;
-    border-radius: 30;
+    border-radius: 30px;
   }
 
   div:focus {
@@ -117,7 +117,7 @@ export const Home = () => {
         <Grid item md={6.5} sm={8} xl={6}>
           <Paper
             square
-            sx={{ borderBottom: 0, borderTop: 0, height: "100%" }}
+            sx={{ borderBottom: 0, borderTop: 0, height: "100vh" }}
             variant="outlined"
           >
             <HeaderTitle />
@@ -134,6 +134,7 @@ export const Home = () => {
                   <Paper key={tweet._id}>
                     <Tweet
                       id={tweet._id}
+                      date={tweet.createdAt}
                       user={{
                         fullname: tweet.user.fullname,
                         username: tweet.user.username,

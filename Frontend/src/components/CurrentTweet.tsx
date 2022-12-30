@@ -3,13 +3,15 @@ import { useParams } from 'react-router';
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTweet } from '../store/slices/currentTweet/currentTweetSlice';
 import { selectLoadingStatus, selectTweetItem } from '../store/selectors/currentTweetSelector';
-import { CircularProgress, IconButton, Paper, Typography } from '@mui/material';
+import {CircularProgress, IconButton, Menu, MenuItem, Paper, Typography} from '@mui/material';
 import styled from 'styled-components';
 import CommentIcon from '@mui/icons-material/ModeCommentOutlined';
 import RepeatIcon from '@mui/icons-material/RepeatOutlined';
 import LikeIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShareIcon from '@mui/icons-material/ReplyOutlined';
-
+import avaPlaceholder from '../assets/ava-placeholder.png'
+import {formatDate} from "../utils/formatDate";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 const CenterLoader = styled("div")`
   text-align: center;
   margin: 30px 0;
@@ -17,8 +19,8 @@ const CenterLoader = styled("div")`
 
 const СontentTweetWrapper = styled.div`
     display: flex;
-    align-items: center;
-    margin: 7px 0px 20px 0;
+    //align-items: center;
+    margin: 7px 0px;
     width: 100%;
 
 `
@@ -27,6 +29,7 @@ const FlexWrapper = styled('div')`
     display: flex;
     align-items: flex-start;  
     flex-direction: column;
+    width: 100%;
 `
 
 const TweetsCounter = styled('span')`
@@ -67,6 +70,17 @@ export const CurrentTweet = (props: Props) => {
     const currentTweetData = useSelector(selectTweetItem);
     const isLoading = useSelector(selectLoadingStatus);
 
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
 
     useEffect(() => {
         if (id) {
@@ -89,16 +103,40 @@ export const CurrentTweet = (props: Props) => {
                 <TweetWrapper>
                     <СontentTweetWrapper>
                         <UserAvatarWrapper>
-                            <img src={currentTweetData.user.avatarUrl} style={{ borderRadius: '50%' }} alt='Аватар пользователя' />
+                            <img src={currentTweetData.user.avatarUrl ? currentTweetData.user.avatarUrl : avaPlaceholder} style={{ width: 45, height: 45, borderRadius: '50%' }} alt='Аватар пользователя' />
                         </UserAvatarWrapper>
                         <FlexWrapper>
                             <Typography><b>{currentTweetData.user.fullname}</b></Typography>
                             <Typography sx={{ color: '#9e9e9e' }}>@{currentTweetData.user.username}</Typography>
                         </FlexWrapper>
+                        <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                            style={{height: 'fit-content'}}
+                        >
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="long-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={open}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={handleClose}>
+                                Редактировать твит
+                            </MenuItem>
+                            <MenuItem onClick={handleClose}>
+                                Удалить твит
+                            </MenuItem>
+                        </Menu>
                     </СontentTweetWrapper>
-                    <Typography variant='body1' style={{ wordBreak: 'break-word' }}>
+                    <Typography variant='body1' style={{ wordBreak: 'break-word', margin: '7px 0' }}>
                         {currentTweetData.text}
                     </Typography>
+                    <Typography sx={{ color: '#9e9e9e' }}>{formatDate(currentTweetData.createdAt, 'HH:MM DD MMM YYYY г.')}</Typography>
                 </TweetWrapper>
                 <Paper variant='outlined' square sx={{ borderLeft: 'none', borderRight: 'none' }}>
                     <IconsButtonsWrapper>
