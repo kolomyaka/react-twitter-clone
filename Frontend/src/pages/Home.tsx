@@ -102,7 +102,7 @@ export const Home = () => {
   const dispatch = useDispatch();
   const tweets = useSelector(selectTweetsItems);
   const tweetsLoadingStatus = useSelector(selectloadingStatus);
-
+  
   useEffect(() => {
     dispatch(getTweetsFetch());
     dispatch(getTagsFetch());

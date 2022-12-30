@@ -11,7 +11,7 @@ class TweetsController {
     // Метод для получения всех твитов
     async index(_: any, res: express.Response): Promise<void> {
         try {
-            const tweets = await TweetModel.find({}).exec()
+            const tweets = await TweetModel.find({}).populate('user').sort({'createdAt': -1}).exec()
 
             res.json({
                 status: 200,
@@ -44,7 +44,7 @@ class TweetsController {
                 })
             }
 
-            const tweets = await TweetModel.findById(tweetId).exec()
+            const tweets = await TweetModel.findById(tweetId).populate('user').exec()
 
             res.json({
                 status: 200,
@@ -190,7 +190,7 @@ class TweetsController {
 
                 res.json({
                     status: 200,
-                    data: tweet
+                    data: await tweet.populate('user')
                 })
             }
 
