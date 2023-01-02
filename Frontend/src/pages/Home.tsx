@@ -42,10 +42,10 @@ const SearchTextBlock = styled(TextField)`
   input {
     background-color: #E6ECF0;
     padding: 7px;
+    border-radius: 30px;
   }
   input:focus {
     border: none;
-    border-radius: 30px;
   }
 
   div:focus {

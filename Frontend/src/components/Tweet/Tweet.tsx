@@ -13,18 +13,16 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 const СontentTweetWrapper = styled.div`
     margin: 7px 0px;
     width: 100%;
-    &:hover {
-    }
 `
 
 const FlexWrapper = styled('div')`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 450px;
     position: relative;
     top: 0;
     left: -8px;
+    margin: 0 20px 0 0;
     
 `
 

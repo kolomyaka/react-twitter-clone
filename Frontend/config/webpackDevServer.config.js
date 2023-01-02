@@ -99,7 +99,7 @@ module.exports = function (proxy, allowedHost) {
       disableDotRule: true,
       index: paths.publicUrlOrPath,
     },
-    // `proxy` is run between `before` and `after` `webpack-dev-server` hooks
+    // `proxy` is run between `before` and `after` `webpack-dev-server` hoc
     proxy,
     onBeforeSetupMiddleware(devServer) {
       // Keep `evalSourceMapMiddleware`

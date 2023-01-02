@@ -11,7 +11,9 @@ import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import PeopleIcon from "@mui/icons-material/PeopleOutline";
 import MessageIcon from "@mui/icons-material/ChatBubbleOutline";
-import { Modal } from "../components/Modal/Modal";
+import { Modal } from "../../components/Modal/Modal";
+import { LoginModal } from "./components/LoginModal";
+import { RegisterModal } from "./components/RegisterModal";
 
 const Wrapper = styled("div")(
   ({ theme }) => `
@@ -141,12 +143,12 @@ export const SignIn: React.FC = () => {
               variant="h4"
               fontWeight={700}
               fontSize={32}
-              mb={"45px"}
+              mb={"35px"}
               mt={"15px"}
             >
               Узнайте, что происходит в мире прямо сейчас
             </Typography>
-            <Typography fontWeight={700}>
+            <Typography fontWeight={700} mb={'25px'}>
               Присоединяйтесь к Твиттеру прямо сейчас!
             </Typography>
             <Button
@@ -168,79 +170,8 @@ export const SignIn: React.FC = () => {
               Войти
             </Button>
           </LoginContent>
-          <Modal setPadding={2} setWidth={'auto'} title='Войти' visible={visibleModal === 'signIn'} handleClickClose={handleCloseModal}>
-            <FormControl component="fieldset" fullWidth>
-              <FormGroup aria-label="position" row>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="email"
-                  label="Электронная почта"
-                  type="email"
-                  fullWidth
-                  variant="filled"
-                />
-                <TextField
-                  variant="filled"
-                  margin="dense"
-                  id="password"
-                  label="Пароль"
-                  type="password"
-                  fullWidth
-                />
-                <Button
-                  style={{ borderRadius: 15, marginTop: 10 }}
-                  onClick={handleCloseModal}
-                  variant="contained"
-                  fullWidth
-                  color="primary"
-                >
-                  Войти
-                </Button>
-              </FormGroup>
-            </FormControl>
-          </Modal>
-          <Modal setPadding={2} setWidth={'auto'} title='Создайте учетную запись' visible={visibleModal === 'signUp'} handleClickClose={handleCloseModal}>
-            <FormControl component="fieldset" fullWidth>
-              <FormGroup aria-label="position" row>
-                <TextFieldEl
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="Имя"
-                  type="name"
-                  fullWidth
-                  variant="filled"
-                />
-                <TextFieldEl
-                  variant="filled"
-                  margin="dense"
-                  id="email"
-                  label="Электронная почта"
-                  type="email"
-                  fullWidth
-                />
-                <TextFieldEl
-                  variant="filled"
-                  margin="dense"
-                  id="password"
-                  label="Пароль"
-                  type="password"
-                  fullWidth
-                />
-                <Button
-                  style={{ borderRadius: 15, marginTop: 10 }}
-                  onClick={handleCloseModal}
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                >
-                  Регистрация
-                </Button>
-              </FormGroup>
-            </FormControl>
-
-          </Modal>
+          <LoginModal open={visibleModal === 'signIn'} handleCloseModal={handleCloseModal} />
+          <RegisterModal open={visibleModal === 'signUp'} handleCloseModal={handleCloseModal} />
         </LoginSide>
       </ContentBox>
     </Wrapper>
