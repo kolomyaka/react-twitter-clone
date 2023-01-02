@@ -8,7 +8,7 @@ import * as yup from "yup";
 import {Notification} from "../../../components/Notification";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSignIn} from "../../../store/slices/User/UserSlice";
-import {selectUserStatus} from "../../../store/selectors/userSelector";
+import {selectUserErrorMessage, selectUserStatus} from "../../../store/selectors/userSelector";
 import {LoadingState} from "../../../types";
 import {useSnackbar} from "notistack";
 
@@ -36,6 +36,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const loadingStatus = useSelector(selectUserStatus)
+    const errorMessage = useSelector(selectUserErrorMessage)
+
+    console.log(loadingStatus, errorMessage)
 
     const onSubmit = async (openNotification: (text:string, type: AlertColor) => void, data: LoginFormModalProps) => {
         try {
@@ -54,10 +57,10 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
                 })
                 break;
             case LoadingState.ERROR:
-                enqueueSnackbar("Неверный логин или пароль", {variant: 'error'})
+                enqueueSnackbar(errorMessage, {variant: 'error'})
         }
 
-    }, [loadingStatus])
+    }, [loadingStatus, errorMessage])
 
     return (
         <Notification>

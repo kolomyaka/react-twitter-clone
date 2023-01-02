@@ -174,13 +174,12 @@ class UserController {
     async authorizeToken(req: express.Request, res: express.Response, user: UserModelInterface): Promise<void> {
         try {
             // В ответ на запрос отдаем токен пользователя
-
             res.json({
                 status: 200,
                 data: {
                     user: user,
-                    token: jwt.sign({user: req.user},
-                        process.env.SECRET_KEY || '123',
+                    token: jwt.sign({user: user},
+                        process.env.SECRET_KEY || 'dQBgydD3jjDRMkU',
                         {expiresIn: '30 days'})
                 }
             })
@@ -194,7 +193,7 @@ class UserController {
 
     async getUserInfo(req: express.Request, res: express.Response): Promise<void> {
         try {
-            res.json({
+            res.status(200).json({
                 status: 200,
                 data: {
                     ...req.user

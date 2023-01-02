@@ -22,3 +22,5 @@ export const authApi = {
         return data
     }
 }
+// @ts-ignore
+window.authApi = authApi

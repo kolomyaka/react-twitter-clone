@@ -33,7 +33,7 @@ passport.use(
 passport.use(
     new JWTstrategy(
         {
-            secretOrKey: process.env.SECRET_KEY || '123',
+            secretOrKey: process.env.SECRET_KEY,
             jwtFromRequest: ExtractJwt.fromHeader('token')
         },
         async (payload: {user: UserModelInterface}, done): Promise<void> => {

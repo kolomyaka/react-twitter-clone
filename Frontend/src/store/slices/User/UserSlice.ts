@@ -5,7 +5,8 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState:UserState = {
     data: undefined,
     token: '',
-    status: LoadingState.NEVER
+    status: LoadingState.NEVER,
+    error_message: '',
 }
 
 export const userSlice = createSlice({
@@ -15,9 +16,13 @@ export const userSlice = createSlice({
         setUserData(state, action) {
             state.data = action.payload
             state.status = LoadingState.SUCCESS
+            state.error_message = ''
         },
         setUserLoadingState(state,action) {
             state.status = action.payload
+        },
+        setUserErrorMessage(state,action) {
+            state.error_message = action.payload
         },
         fetchSignIn(state, action) {
 
@@ -25,6 +30,6 @@ export const userSlice = createSlice({
     }
 })
 
-export const {setUserData, setUserLoadingState, fetchSignIn} = userSlice.actions;
+export const {setUserData, setUserLoadingState, fetchSignIn, setUserErrorMessage} = userSlice.actions;
 
 export default userSlice.reducer;

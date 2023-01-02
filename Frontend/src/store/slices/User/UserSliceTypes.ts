@@ -19,6 +19,7 @@ export interface UserState {
     data: User | undefined
     token: string
     status: LoadingState
+    error_message: string
 }
 
 export enum UserActionsType {
