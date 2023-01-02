@@ -12,17 +12,17 @@ passport.use(
            const user = await UserModel.findOne({$or: [{email: username}, {username}]}).exec();
 
            if (!user) {
-               return done(null, false)
+               return done(null, false, {message: 'Неверный логин или пароль'})
            }
-            console.log(user)
+
            if (!user.confirmed) {
-               throw new Error("Need activate account")
+               return done(null, false, {message: 'Активация аккаунта не выполнена'})
            }
 
             if (user.password === generateMD5(password + process.env.SECRET_KEY)) {
                 return done(null, user)
             } else {
-                return done(401, false)
+                return done(null, false, {message: 'Неверный логин или пароль'})
             }
         } catch (e) {
             done(e, false)

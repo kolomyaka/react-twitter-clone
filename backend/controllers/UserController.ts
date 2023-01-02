@@ -125,7 +125,6 @@ class UserController {
             };
             // Создаем нового пользователя
             const user = await UserModel.create(data);
-            console.log(process.env.API_URL)
             await sendActivationEmail(data.email, `${process.env.API_URL}/auth/verify/?hash=${data.confirmHash}`)
 
             res.json({
@@ -172,15 +171,9 @@ class UserController {
         }
     }
 
-    async authorizeToken(req: express.Request, res: express.Response): Promise<void> {
+    async authorizeToken(req: express.Request, res: express.Response, user: UserModelInterface): Promise<void> {
         try {
             // В ответ на запрос отдаем токен пользователя
-            let user;
-            if (req.user) {
-                user = (req.user as UserModelInterface).toJSON()
-            } else {
-                user = undefined
-            }
 
             res.json({
                 status: 200,

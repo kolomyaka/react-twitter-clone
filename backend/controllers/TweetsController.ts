@@ -152,7 +152,7 @@ class TweetsController {
                 })
             }
         } catch (e) {
-            console.log(e)
+            console.log(e, 'here')
             res.status(500).json({
                 status: 500,
                 data: e

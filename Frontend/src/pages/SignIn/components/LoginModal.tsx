@@ -18,7 +18,7 @@ interface LoginModalProps {
 }
 
 const LoginFormSchema = yup.object({
-    email: yup.string().email('Неверная почта').required("Введите почту"),
+    email: yup.string().required("Введите почту"),
     password: yup.string().min(6, "Минимальная длина пароля 6 символов").required(),
 }).required();
 
@@ -76,9 +76,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
                                         error={!!errors.email}
                                         margin="dense"
                                         id="email"
-                                        label="Электронная почта"
-                                        type="email"
-
+                                        label="Электронная почта или логин"
+                                        type='text'
                                         fullWidth
                                         variant="filled"
 

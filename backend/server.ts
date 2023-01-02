@@ -7,6 +7,7 @@ import {TweetsCtrl} from "./controllers/TweetsController.js";
 import {passport} from "./core/passport.js";
 import './core/db.js'
 import {createTweetValidations} from "./validations/createTweet.js";
+import flash from 'express-flash'
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: true }
 }));
+app.use(flash());
 app.use(express.json());
 app.use(passport.initialize())
 app.use(passport.session());
@@ -37,7 +39,24 @@ app.post('/tweets', passport.authenticate('jwt'), createTweetValidations, Tweets
 // Authorize group
 app.post('/auth/signup', registerValidations, UserCtrl.create);
 app.get('/auth/verify', UserCtrl.verify)
-app.post('/auth/signin', passport.authenticate('local'), UserCtrl.authorizeToken)
+app.post('/auth/signin', (req, res, next) => {
+    passport.authenticate('local', (err, user,info) => {
+        if (err) {
+            return next(err)
+        }
+
+        if (info) {
+            res.status(404).json({
+                status: 404,
+                message: info.message
+            })
+            return;
+        }
+
+        UserCtrl.authorizeToken(req,res, user)
+
+    })(req,res,next)
+})
 
 app.listen(process.env.PORT, (): void => {
     console.log(`SERVER RUNNING! PORT: ${process.env.PORT}`);
