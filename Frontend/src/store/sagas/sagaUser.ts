@@ -1,6 +1,6 @@
 import {call, put, takeEvery} from "redux-saga/effects";
-import {authApi, ResponseUserData} from "../../services/authApi";
-import {fetchSignIn, UserActionsType, UserState} from "../slices/User/UserSliceTypes";
+import {authApi} from "../../services/authApi";
+import {fetchSignIn, UserActionsType} from "../slices/User/UserSliceTypes";
 import {setUserData, setUserErrorMessage, setUserLoadingState} from "../slices/User/UserSlice";
 import {LoadingState} from "../../types";
 

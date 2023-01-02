@@ -4,7 +4,6 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState:UserState = {
     data: undefined,
-    token: '',
     status: LoadingState.NEVER,
     error_message: '',
 }

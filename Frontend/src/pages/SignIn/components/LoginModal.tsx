@@ -38,11 +38,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
     const loadingStatus = useSelector(selectUserStatus)
     const errorMessage = useSelector(selectUserErrorMessage)
 
-    console.log(loadingStatus, errorMessage)
-
     const onSubmit = async (openNotification: (text:string, type: AlertColor) => void, data: LoginFormModalProps) => {
         try {
-            // const userData = await authApi.signIn(data)
             dispatch(fetchSignIn(data))
         } catch (e) {
             enqueueSnackbar("Произошла ошибка, попробуйте снова", {variant: 'error'})
@@ -55,6 +52,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
                 enqueueSnackbar('Успешная авторизация', {
                     variant: 'success'
                 })
+                handleCloseModal()
                 break;
             case LoadingState.ERROR:
                 enqueueSnackbar(errorMessage, {variant: 'error'})

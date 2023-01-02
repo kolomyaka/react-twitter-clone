@@ -17,7 +17,6 @@ export interface User {
 
 export interface UserState {
     data: User | undefined
-    token: string
     status: LoadingState
     error_message: string
 }

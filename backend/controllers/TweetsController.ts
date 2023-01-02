@@ -82,7 +82,6 @@ class TweetsController {
             }
 
             const tweet = await TweetModel.findById(tweetId)
-
             if (tweet) {
                 if ((tweet.user as UserModelInterface)._id?.toString() === user._id) {
                     tweet.remove()
