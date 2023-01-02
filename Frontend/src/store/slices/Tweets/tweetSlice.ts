@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoadingState, Tweet, TweetsState, AddTweetLoadingState } from "./tweetSliceTypes";
+import { Tweet, TweetsState } from "./tweetSliceTypes";
+import {LoadingState} from "../../../types";
 
 
 
 const initialState: TweetsState = {
     items: [],
     loadingStatus: LoadingState.NEVER,
-    addTweetLoadingStatus: AddTweetLoadingState.NEVER,
+    addTweetLoadingStatus: LoadingState.NEVER,
 }
 
 // Создание slice
@@ -26,13 +27,13 @@ export const tweetsSlice = createSlice({
             state.loadingStatus = LoadingState.ERROR;
         },
         setTextForNewTweet(state, action: PayloadAction<string>) {
-            state.addTweetLoadingStatus = AddTweetLoadingState.LOADING;
+            state.addTweetLoadingStatus = LoadingState.LOADING;
         },
         addTweet(state, action: PayloadAction<Tweet>) {
             state.items = [action.payload, ...state.items]
-            state.addTweetLoadingStatus = AddTweetLoadingState.LOADED;
+            state.addTweetLoadingStatus = LoadingState.LOADED;
         },
-        setTweetLoadingState(state, action: PayloadAction<AddTweetLoadingState>) {
+        setTweetLoadingState(state, action: PayloadAction<LoadingState>) {
             state.addTweetLoadingStatus = action.payload;
         }
     }

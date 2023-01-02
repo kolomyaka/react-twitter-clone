@@ -9,4 +9,4 @@ axios.interceptors.request.use((config) => {
     (err: Error | null) => Promise.reject(err)
 )
 
-export { axios };
+export { axios as api };

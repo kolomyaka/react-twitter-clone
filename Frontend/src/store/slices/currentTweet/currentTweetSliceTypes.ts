@@ -1,5 +1,5 @@
 import { Tweet } from './../Tweets/tweetSliceTypes';
-import { LoadingState } from './../Tags/tagsSliceTypes';
+import {LoadingState} from "../../../types";
 
 
 

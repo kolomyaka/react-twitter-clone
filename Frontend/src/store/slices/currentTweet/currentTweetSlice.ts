@@ -1,7 +1,7 @@
 import { Tweet } from './../Tweets/tweetSliceTypes';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoadingState } from "../Tweets/tweetSliceTypes";
 import { CurrentTweetState } from "./currentTweetSliceTypes";
+import {LoadingState} from "../../../types";
 
 
 const initialState: CurrentTweetState = {

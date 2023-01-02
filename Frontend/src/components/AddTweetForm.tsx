@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setTextForNewTweet } from '../store/slices/Tweets/tweetSlice';
 import { useSelector } from 'react-redux';
 import { selectAddTweetLoadingStatus } from '../store/selectors/tweetSelectors';
-import { AddTweetLoadingState } from '../store/slices/Tweets/tweetSliceTypes';
+import {LoadingState} from "../types";
 
 const AddTweetWrapper = styled('div')`
     display: flex;
@@ -128,13 +128,13 @@ export const AddTweetForm = () => {
                                 onClick={handleClickAddTweet}
                                 disabled={!text || text.length > MAX_LIMIT}
                                 variant='contained' sx={{ borderRadius: '20px' }}>
-                                {addTweetIsLoading === AddTweetLoadingState.LOADING ? <CircularProgress size={17} /> : "Твитнуть"}
+                                {addTweetIsLoading === LoadingState.LOADING ? <CircularProgress size={17} /> : "Твитнуть"}
                             </Button>
                         </FlexWrapper>
                     </AddTweetFooter>
                 </AddTweetTextField>
             </AddTweetWrapper>
-            {addTweetIsLoading === AddTweetLoadingState.ERROR ? <Alert severity="error">Ошибка при добавлении поста! 😥</Alert> : null}
+            {addTweetIsLoading === LoadingState.ERROR ? <Alert severity="error">Ошибка при добавлении поста! 😥</Alert> : null}
 
         </>
     )

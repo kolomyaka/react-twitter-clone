@@ -1,12 +1,16 @@
-import {FormControl, FormGroup, TextField, Snackbar, AlertColor} from "@mui/material";
+import {AlertColor, FormControl, FormGroup, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {Modal} from "../../../components/Modal/Modal";
-import React from "react";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import React, {useEffect} from "react";
+import {Controller, useForm} from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import {authApi} from "../../../services/authApi";
 import {Notification} from "../../../components/Notification";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchSignIn} from "../../../store/slices/User/UserSlice";
+import {selectUserStatus} from "../../../store/selectors/userSelector";
+import {LoadingState} from "../../../types";
+import {useSnackbar} from "notistack";
 
 interface LoginModalProps {
     open: boolean
@@ -24,18 +28,36 @@ export interface LoginFormModalProps {
 }
 
 export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}): React.ReactElement => {
+    const dispatch = useDispatch()
     const { control, handleSubmit, formState:{ errors } } = useForm<LoginFormModalProps>({
         resolver: yupResolver(LoginFormSchema)
     });
+
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+    const loadingStatus = useSelector(selectUserStatus)
+
     const onSubmit = async (openNotification: (text:string, type: AlertColor) => void, data: LoginFormModalProps) => {
         try {
-            const userData = await authApi.signIn(data)
+            // const userData = await authApi.signIn(data)
+            dispatch(fetchSignIn(data))
         } catch (e) {
-            openNotification("Неверный логин или пароль", 'error')
+            enqueueSnackbar("Произошла ошибка, попробуйте снова", {variant: 'error'})
         }
     };
 
-    console.log(errors)
+    useEffect(() => {
+        switch (loadingStatus) {
+            case LoadingState.SUCCESS:
+                enqueueSnackbar('Успешная авторизация', {
+                    variant: 'success'
+                })
+                break;
+            case LoadingState.ERROR:
+                enqueueSnackbar("Неверный логин или пароль", {variant: 'error'})
+        }
+
+    }, [loadingStatus])
 
     return (
         <Notification>
@@ -46,36 +68,40 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
                         <FormGroup aria-label="position" row>
 
                             <Controller
+                                defaultValue=''
                                 render={({ field }) =>
                                     <TextField
+                                        {...field}
                                         helperText={errors.email?.message}
                                         error={!!errors.email}
-                                        autoFocus
                                         margin="dense"
                                         id="email"
                                         label="Электронная почта"
                                         type="email"
+
                                         fullWidth
                                         variant="filled"
-                                        {...field}
+
                                     />}
                                 name="email"
                                 control={control}
                             />
-                            <Controller render={({field}) =>
+                            <Controller
+                                render={({field}) =>
                                 <TextField
                                     helperText={errors.password?.message}
                                     error={!!errors.password}
                                     margin="dense"
                                     id="password"
                                     label="Пароль"
+                                    defaultValue=''
                                     type="password"
                                     fullWidth
                                     variant="filled"
                                     {...field}
                                 />}
-                                        name={'password'}
-                                        control={control}
+                                name={'password'}
+                                control={control}
                             />
                             <Button
                                 type={'submit'}

@@ -1,7 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { tweetsApi } from '../../services/tweetsApi';
 import { getTweetsError, getTweetsSuccess, addTweet, setTweetLoadingState } from '../slices/Tweets/tweetSlice'
-import {AddTweetLoadingState, postNewTweetAction, Tweet} from '../slices/Tweets/tweetSliceTypes';
+import { postNewTweetAction, Tweet} from '../slices/Tweets/tweetSliceTypes';
+import {LoadingState} from "../../types";
 
 function* workGetTweetsFetch(): Iterator<any> {
     try {
@@ -27,7 +28,7 @@ function* addTweetRequest({ payload: text }: postNewTweetAction): Iterator<any> 
         }
     } catch (error) {
         console.log(error);
-        yield put(setTweetLoadingState(AddTweetLoadingState.ERROR));
+        yield put(setTweetLoadingState(LoadingState.ERROR));
     }
 }
 

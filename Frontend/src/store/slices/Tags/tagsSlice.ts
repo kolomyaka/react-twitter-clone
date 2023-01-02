@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoadingState, Tag, TagsState } from "./tagsSliceTypes";
-
+import { Tag, TagsState } from "./tagsSliceTypes";
+import {LoadingState} from "../../../types";
 
 const initialState: TagsState = {
     items: [],
@@ -8,7 +8,6 @@ const initialState: TagsState = {
 }
 
 // Создание slice для тегов
-
 export const tagsSlice = createSlice({
     name: 'tagsSlice',
     initialState,
