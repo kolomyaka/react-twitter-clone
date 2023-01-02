@@ -1,7 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import tweetsSliceReducer from './slices/Tweets/tweetSlice';
 import tagsSliceReducer from './slices/Tags/tagsSlice';
-import userSliceReducer from './slices/User/UserSlice'
+import userSliceReducer from './slices/User/UserSlice';
+import usersSliceReducer from './slices/Users/UsersSlice';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './saga';
 import currentTweetSliceReducer from './slices/currentTweet/currentTweetSlice';
@@ -10,7 +11,8 @@ const rootReducer = combineReducers({
     tweets: tweetsSliceReducer,
     tags: tagsSliceReducer,
     currentTweet: currentTweetSliceReducer,
-    user: userSliceReducer
+    user: userSliceReducer,
+    users: usersSliceReducer,
 })
 
 const saga = createSagaMiddleware();

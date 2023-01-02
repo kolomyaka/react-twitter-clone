@@ -28,6 +28,7 @@ import { getTagsFetch } from "../store/slices/Tags/tagsSlice";
 import { HeaderTitle } from "../components/HeaderTitle";
 import { Route, Routes } from 'react-router'
 import { CurrentTweet } from '../components/CurrentTweet';
+import {Users} from "../components/Users";
 
 const SearchTextBlock = styled(TextField)`
   * {
@@ -64,33 +65,13 @@ const RightSide = styled("div")`
   padding-top: 15px;
 `;
 
-const RightSideBlock = styled("div")`
-  background-color: #f5f8fa;
-  margin-top: 20px;
-  border-radius: 20px;
-`;
-
-const RightSideContent = styled("div")`
-  cursor: pointer;
-  border-radius: 20px;
-  div {
-    &:hover {
-      transition: all 300ms ease-in-out;
-      background-color: #e6ecf0;
-    }
-  }
-`;
 
 const CenterLoader = styled("div")`
   text-align: center;
   margin-top: 20px;
 `;
 
-const FlexWrapper = styled.div`
-  display: flex;
-  align-items: ${(props: FlexWrapperProps) => props.align};
-  flex-direction: ${(props: FlexWrapperProps) => props.direction};
-`;
+
 export type FlexWrapperProps = {
   direction?: string;
   align?: string;
@@ -166,77 +147,8 @@ export const Home = () => {
                 ),
               }}
             />
-            <Tags />
-            <RightSideBlock>
-              <Paper
-                square
-                variant="outlined"
-                sx={{
-                  backgroundColor: "#F5F8FA",
-                  border: "none",
-                  borderRadius: "20px",
-                }}
-              >
-                <Typography
-                  variant="h6"
-                  sx={{ padding: "13px", fontWeight: "700", fontSize: "1" }}
-                >
-                  Кого читать
-                </Typography>
-              </Paper>
-              <RightSideContent>
-                <Paper
-                  square
-                  variant="outlined"
-                  sx={{
-                    backgroundColor: "#F5F8FA",
-                    padding: "13px",
-                    border: "none",
-                  }}
-                >
-                  <FlexWrapper align="center">
-                    <img
-                      src="https://i.pravatar.cc/35"
-                      alt="userAvatar"
-                      style={{ borderRadius: "50%", margin: "5px 13px 0 0" }}
-                    />
-                    <FlexWrapper direction="column">
-                      <div style={{ fontSize: "15px", fontWeight: 700 }}>
-                        Dock of Shame
-                      </div>
-                      <div style={{ fontSize: "12px", color: "#9e9e9e" }}>
-                        @FavDockOfShame
-                      </div>
-                    </FlexWrapper>
-                    <IconButton sx={{ marginLeft: "40px" }}>
-                      <AddPersonIcon color="primary" />
-                    </IconButton>
-                  </FlexWrapper>
-                </Paper>
-                <Paper
-                  square
-                  variant="outlined"
-                  sx={{
-                    backgroundColor: "#F5F8FA",
-                    border: "none",
-                    borderEndEndRadius: "20px",
-                    borderBottomLeftRadius: "20px",
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      padding: "13px",
-                      fontWeight: "400",
-                      color: "#1976d2",
-                      fontSize: "15px",
-                    }}
-                  >
-                    Показать еще
-                  </Typography>
-                </Paper>
-              </RightSideContent>
-            </RightSideBlock>
+            {/*<Tags />*/}
+            <Users />
           </RightSide>
         </Grid>
       </Grid>
