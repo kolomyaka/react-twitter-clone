@@ -1,6 +1,7 @@
 import {Action} from "redux";
 import {LoadingState} from "../../../types";
 import {LoginFormModalProps} from "../../../pages/SignIn/components/LoginModal";
+import {RegisterFormModalProps} from "../../../pages/SignIn/components/RegisterModal";
 
 export interface User {
     _id?: string
@@ -24,7 +25,8 @@ export interface UserState {
 export enum UserActionsType {
     SET_USER_DATA = 'userSlice/setUserData',
     SET_LOADING_STATE = 'userSlice/setUserLoadingState',
-    FETCH_SIGN_IN = 'userSlice/fetchSignIn'
+    FETCH_SIGN_IN = 'userSlice/fetchSignIn',
+    FETCH_SIGN_UP = 'userSlice/fetchSignUp'
 }
 
 export interface SetUserActionInterface extends Action<UserActionsType> {
@@ -42,4 +44,8 @@ export interface fetchSignIn extends Action<UserActionsType> {
     payload: LoginFormModalProps
 }
 
+export interface fetchSignUp extends Action<UserActionsType> {
+    type: UserActionsType.FETCH_SIGN_UP
+    payload: RegisterFormModalProps
+}
 

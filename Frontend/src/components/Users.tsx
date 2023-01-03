@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectUsersItems} from "../store/selectors/usersSelector";
 import {fetchUsers} from "../store/slices/Users/UsersSlice";
 import avaPlaceholder from '../assets/ava-placeholder.png'
+import {UserPhoto} from "./UserPhoto";
 
 const RightSideBlock = styled("div")`
   background-color: #f5f8fa;
@@ -74,11 +75,7 @@ export const Users: React.FC = () => {
                                 }}
                             >
                                 <FlexWrapper align="center">
-                                    <img
-                                        src={avaPlaceholder}
-                                        alt="userAvatar"
-                                        style={{ width: 35, height:35, borderRadius: "50%", margin: "5px 13px 0 0" }}
-                                    />
+                                    <UserPhoto size={35} />
                                     <FlexWrapper direction="column">
                                         <div style={{ fontSize: "15px", fontWeight: 700 }}>
                                             {user.fullname}

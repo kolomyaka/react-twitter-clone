@@ -12,6 +12,7 @@ function App() {
   const isAuth = useSelector(selectIsAuth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const checkAuth = async () => {
       const {data} = await authApi.getMe()
       dispatch(setUserData(data))
@@ -21,11 +22,10 @@ function App() {
     checkAuth()
   }, [])
 
-
   useEffect(() => {
       console.log('isAuth = ', isAuth)
       if (isAuth) {
-          navigate('/home')
+          navigate('/')
       } else {
           navigate('/signin')
       }
@@ -34,7 +34,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/*" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
       </Routes>
     </div>

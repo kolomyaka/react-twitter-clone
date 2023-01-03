@@ -11,6 +11,7 @@ import {fetchSignIn} from "../../../store/slices/User/UserSlice";
 import {selectUserErrorMessage, selectUserStatus} from "../../../store/selectors/userSelector";
 import {LoadingState} from "../../../types";
 import {useSnackbar} from "notistack";
+import {FormInput} from "../../../components/FormInput";
 
 interface LoginModalProps {
     open: boolean
@@ -18,12 +19,12 @@ interface LoginModalProps {
 }
 
 const LoginFormSchema = yup.object({
-    email: yup.string().required("Введите почту"),
+    username: yup.string().required("Введите почту"),
     password: yup.string().min(6, "Минимальная длина пароля 6 символов").required(),
 }).required();
 
 export interface LoginFormModalProps {
-    email: string
+    username: string
     password: string
 }
 
@@ -35,10 +36,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-    const loadingStatus = useSelector(selectUserStatus)
-    const errorMessage = useSelector(selectUserErrorMessage)
-
-    const onSubmit = async (openNotification: (text:string, type: AlertColor) => void, data: LoginFormModalProps) => {
+    const onSubmit = async (data: LoginFormModalProps) => {
         try {
             dispatch(fetchSignIn(data))
         } catch (e) {
@@ -46,78 +44,40 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
         }
     };
 
-    useEffect(() => {
-        switch (loadingStatus) {
-            case LoadingState.SUCCESS:
-                enqueueSnackbar('Успешная авторизация', {
-                    variant: 'success'
-                })
-                handleCloseModal()
-                break;
-            case LoadingState.ERROR:
-                enqueueSnackbar(errorMessage, {variant: 'error'})
-        }
-
-    }, [loadingStatus, errorMessage])
-
     return (
-        <Notification>
-            {openNotification => (
-                <Modal setPadding={2} setWidth={'500px'} title='Войти' visible={open} handleClickClose={handleCloseModal}>
-                <form onSubmit={handleSubmit(onSubmit.bind(null, openNotification))}>
-                    <FormControl component="fieldset" fullWidth>
-                        <FormGroup aria-label="position" row>
-
-                            <Controller
-                                defaultValue=''
-                                render={({ field }) =>
-                                    <TextField
-                                        {...field}
-                                        helperText={errors.email?.message}
-                                        error={!!errors.email}
-                                        margin="dense"
-                                        id="email"
-                                        label="Электронная почта или логин"
-                                        type='text'
-                                        fullWidth
-                                        variant="filled"
-
-                                    />}
-                                name="email"
-                                control={control}
-                            />
-                            <Controller
-                                render={({field}) =>
-                                <TextField
-                                    helperText={errors.password?.message}
-                                    error={!!errors.password}
-                                    margin="dense"
-                                    id="password"
-                                    label="Пароль"
-                                    defaultValue=''
-                                    type="password"
-                                    fullWidth
-                                    variant="filled"
-                                    {...field}
-                                />}
-                                name={'password'}
-                                control={control}
-                            />
-                            <Button
-                                type={'submit'}
-                                style={{ borderRadius: 15, marginTop: 10 }}
-                                // onClick={handleCloseModal}
-                                variant="contained"
-                                fullWidth
-                                color="primary"
-                            >
-                                Войти
-                            </Button>
-                        </FormGroup>
-                    </FormControl>
-                </form>
-            </Modal>
-            )}
-        </Notification>
+        <Modal setPadding={2} setWidth={'500px'} title='Войти' visible={open} handleClickClose={handleCloseModal}>
+            <form onSubmit={handleSubmit(data => onSubmit(data))}>
+                <FormControl component="fieldset" fullWidth>
+                    <FormGroup aria-label="position" row>
+                        <FormInput
+                            helperText={errors.username?.message}
+                            errors={!!errors.username}
+                            label={'Введите почту или пароль'}
+                            id={'username'}
+                            control={control}
+                            name={'username'}
+                        />
+                        <FormInput
+                            helperText={errors.password?.message}
+                            errors={!!errors.password}
+                            label={'Пароль'}
+                            type={'password'}
+                            id={'password'}
+                            control={control}
+                            name={'password'}
+                        />
+                        <Button
+                            type={'submit'}
+                            style={{ borderRadius: 15, marginTop: 10 }}
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                        >
+                            Войти
+                        </Button>
+                    </FormGroup>
+                </FormControl>
+            </form>
+        </Modal>
     )
 }

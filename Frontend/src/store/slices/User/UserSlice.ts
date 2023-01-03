@@ -14,7 +14,6 @@ export const userSlice = createSlice({
     reducers: {
         setUserData(state, action) {
             state.data = action.payload
-            state.status = LoadingState.SUCCESS
             state.error_message = ''
         },
         setUserLoadingState(state,action) {
@@ -25,10 +24,13 @@ export const userSlice = createSlice({
         },
         fetchSignIn(state, action) {
 
+        },
+        fetchSignUp(state,action) {
+            state.status = LoadingState.LOADING
         }
     }
 })
 
-export const {setUserData, setUserLoadingState, fetchSignIn, setUserErrorMessage} = userSlice.actions;
+export const {setUserData, setUserLoadingState, fetchSignIn, setUserErrorMessage, fetchSignUp} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,19 +1,18 @@
-import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, {useEffect, useState} from "react";
+import {styled} from "@mui/material/styles";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import {
-  FormControl,
-  FormGroup,
-  TextField,
-  Typography,
-} from "@mui/material";
+import {TextField, Typography,} from "@mui/material";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import PeopleIcon from "@mui/icons-material/PeopleOutline";
 import MessageIcon from "@mui/icons-material/ChatBubbleOutline";
-import { Modal } from "../../components/Modal/Modal";
-import { LoginModal } from "./components/LoginModal";
-import { RegisterModal } from "./components/RegisterModal";
+import {LoginModal} from "./components/LoginModal";
+import {RegisterModal} from "./components/RegisterModal";
+import {LoadingState} from "../../types";
+import {useSelector} from "react-redux";
+import {selectUserErrorMessage, selectUserStatus} from "../../store/selectors/userSelector";
+import {useSnackbar} from "notistack";
+import {useNavigate} from "react-router";
 
 const Wrapper = styled("div")(
   ({ theme }) => `
@@ -90,9 +89,9 @@ export const TextFieldEl = styled(TextField)(
 )
 
 export const SignIn: React.FC = () => {
-
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp'>();  // Указываем, что можем принимать только строку, в зависимости от которой отображаем мод. окно
-
+  const navigate = useNavigate()
   const handleClickOpenSignIn = (): void => {  // Функция для входа в аккаунт
     setVisibleModal('signIn');
   };
@@ -104,6 +103,30 @@ export const SignIn: React.FC = () => {
   const handleCloseModal = (): void => {
     setVisibleModal(undefined)
   }
+
+  const loadingStatus = useSelector(selectUserStatus);
+  const errorMessage = useSelector(selectUserErrorMessage)
+
+  useEffect(() => {
+    switch (loadingStatus) {
+        case LoadingState.SUCCESS:
+            enqueueSnackbar('Успешная авторизация', {
+                variant: 'success'
+            })
+            handleCloseModal()
+            navigate('/')
+            break;
+        case LoadingState.ERROR:
+            enqueueSnackbar(errorMessage, {variant: 'error'})
+            break;
+        case LoadingState.LOADED:
+            enqueueSnackbar('На указанную почту было отправлено письмо для подтверждения аккаунта', {
+                variant: 'success',
+                autoHideDuration: 6000
+            })
+            handleCloseModal()
+    }
+  }, [loadingStatus, errorMessage])
 
   return (
     <Wrapper>

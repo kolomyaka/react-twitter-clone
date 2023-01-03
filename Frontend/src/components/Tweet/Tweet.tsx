@@ -9,26 +9,12 @@ import { Link } from 'react-router-dom';
 import {formatDate} from "../../utils/formatDate";
 import avaPlaceholder from '../../assets/ava-placeholder.png'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {TweetFooterIcons} from "./TweetFooterIcons";
+import {UserPhoto} from "../UserPhoto";
 
 const СontentTweetWrapper = styled.div`
     margin: 7px 0px;
     width: 100%;
-`
-
-const FlexWrapper = styled('div')`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    top: 0;
-    left: -8px;
-    margin: 0 20px 0 0;
-    
-`
-
-const TweetsCounter = styled('span')`
-    font-size: 20px;
-    padding-left: 5px;
 `
 
 const TweetWrapper = styled('div')`
@@ -74,33 +60,16 @@ export const Tweet = ({ user, text, id, date }: Props) => {
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
                     <TweetWrapper>
                         <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-                            <UserAvatarWrapper>
-                                <img src={user.avatarUrl ? user.avatarUrl : avaPlaceholder} style={{ width: 45, height: 45, borderRadius: '50%', margin: '7px 10px' }} alt='Аватар пользователя' />
-                            </UserAvatarWrapper>
+                            <UserPhoto size={48} src={user.avatarUrl} />
                         </Link>
                         <СontentTweetWrapper>
-                            <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                            <Link to={`/tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                                 <Typography><b>{user.fullname}</b><span style={{ color: '#9e9e9e', marginLeft: '5px' }}>@{user.username} · {formatDate(date, "DD.MM HH:mm", true)}</span></Typography>
                                 <Typography variant='body1'>
                                     {text}
                                 </Typography>
                             </Link>
-                            <FlexWrapper>
-                                <IconButton>
-                                    <CommentIcon style={{ fontSize: '19px' }} />
-                                    <TweetsCounter>1</TweetsCounter>
-                                </IconButton>
-                                <IconButton>
-                                    <RepeatIcon style={{ fontSize: '19px' }} />
-                                </IconButton>
-                                <IconButton>
-                                    <LikeIcon style={{ fontSize: '19px' }} />
-                                </IconButton>
-                                <IconButton>
-                                    <ShareIcon style={{ fontSize: '19px' }} />
-                                </IconButton>
-                            </FlexWrapper>
-
+                            <TweetFooterIcons />
                         </СontentTweetWrapper>
                         <IconButton
                             aria-label="more"
