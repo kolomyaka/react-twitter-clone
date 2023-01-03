@@ -114,10 +114,10 @@ export const SignIn: React.FC = () => {
                 variant: 'success'
             })
             handleCloseModal()
-            navigate('/')
+            navigate('/home')
             break;
         case LoadingState.ERROR:
-            enqueueSnackbar(errorMessage, {variant: 'error'})
+            enqueueSnackbar(errorMessage, {variant: 'error', preventDuplicate: true})
             break;
         case LoadingState.LOADED:
             enqueueSnackbar('На указанную почту было отправлено письмо для подтверждения аккаунта', {
@@ -193,8 +193,12 @@ export const SignIn: React.FC = () => {
               Войти
             </Button>
           </LoginContent>
-          <LoginModal open={visibleModal === 'signIn'} handleCloseModal={handleCloseModal} />
-          <RegisterModal open={visibleModal === 'signUp'} handleCloseModal={handleCloseModal} />
+            {
+                visibleModal === 'signIn' && <LoginModal open={true} handleCloseModal={handleCloseModal} />
+            }
+            {
+                visibleModal === 'signUp' && <RegisterModal open={true} handleCloseModal={handleCloseModal} />
+            }
         </LoginSide>
       </ContentBox>
     </Wrapper>

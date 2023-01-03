@@ -23,7 +23,7 @@ export const userSlice = createSlice({
             state.error_message = action.payload
         },
         fetchSignIn(state, action) {
-
+            state.status = LoadingState.LOADING
         },
         fetchSignUp(state,action) {
             state.status = LoadingState.LOADING
