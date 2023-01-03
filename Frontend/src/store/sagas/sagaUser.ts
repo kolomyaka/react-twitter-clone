@@ -11,7 +11,7 @@ function* fetchSignInRequest({payload}:fetchSignIn): Iterator<any> {
 
         if (userData) {
             // В случае если получили данные от сервера добавляем в наш state
-            yield put(setUserData(userData));
+            yield put(setUserData(userData['user']));
             yield put(setUserLoadingState('SUCCESS'))
             window.localStorage.setItem('token', userData['token'])
         }

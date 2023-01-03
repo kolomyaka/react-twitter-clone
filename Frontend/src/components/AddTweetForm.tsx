@@ -88,7 +88,7 @@ export const AddTweetForm = () => {
                         onChange={handleChangeTextarea}
                         aria-label="empty textarea"
                         placeholder="Что происходит?"
-                        style={{ minHeight: '60px' }}
+                        style={{ minHeight: '60px', fontFamily: 'inherit' }}
                         value={text}
                     />
                     <AddTweetFooter>

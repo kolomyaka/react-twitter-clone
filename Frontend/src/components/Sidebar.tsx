@@ -23,7 +23,7 @@ const IconsList = styled("ul")`
   top: 0;
   left: 0;
   max-width: 230px;
-
+  
 `;
 
 const IconsListItem = styled("li")`

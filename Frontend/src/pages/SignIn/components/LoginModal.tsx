@@ -1,15 +1,13 @@
-import {AlertColor, FormControl, FormGroup, TextField} from "@mui/material";
+import {FormControl, FormGroup, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {Modal} from "../../../components/Modal/Modal";
 import React, {useEffect} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import {Notification} from "../../../components/Notification";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSignIn} from "../../../store/slices/User/UserSlice";
-import {selectUserErrorMessage, selectUserStatus} from "../../../store/selectors/userSelector";
-import {LoadingState} from "../../../types";
+import {selectUserErrorMessage, selectUserIsLoading, selectUserStatus} from "../../../store/selectors/userSelector";
 import {useSnackbar} from "notistack";
 import {FormInput} from "../../../components/FormInput";
 
@@ -35,7 +33,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
     });
 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
+    const userIsLoading = useSelector(selectUserIsLoading)
     const onSubmit = async (data: LoginFormModalProps) => {
         try {
             dispatch(fetchSignIn(data))
@@ -68,6 +66,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({open, handleCloseModal}):
                         />
                         <Button
                             type={'submit'}
+                            disabled={userIsLoading}
                             style={{ borderRadius: 15, marginTop: 10 }}
                             variant="contained"
                             fullWidth

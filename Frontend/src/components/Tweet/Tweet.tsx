@@ -83,7 +83,6 @@ export const Tweet = ({ user, text, id, date }: Props) => {
                         <Menu
                             id="long-menu"
                             anchorEl={anchorEl}
-                            keepMounted
                             open={open}
                             onClose={handleClose}
                         >

@@ -9,7 +9,7 @@ import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import {FormInput} from "../../../components/FormInput";
 import {fetchSignUp} from "../../../store/slices/User/UserSlice";
-import {selectUserErrorMessage, selectUserStatus} from "../../../store/selectors/userSelector";
+import {selectUserErrorMessage, selectUserIsLoading, selectUserStatus} from "../../../store/selectors/userSelector";
 
 type RegisterModalProps = {
     open: boolean
@@ -27,9 +27,9 @@ export interface RegisterFormModalProps {
 const RegisterFormSchema = yup.object({
     fullname: yup.string().required('Введите имя'),
     username: yup.string().required('Введите логин'),
-    email: yup.string().required("Введите почту"),
+    email: yup.string().email('Неверная почта').required("Введите почту"),
     password: yup.string().min(6, "Минимальная длина пароля 6 символов").required(),
-    password2: yup.string().min(6, "Минимальная длина пароля 6 символов").required(),
+    password2: yup.string().min(6, "Минимальная длина пароля 6 символов").required().oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
 }).required();
 
 export const RegisterModal: React.FC<RegisterModalProps> = ({open, handleCloseModal}): React.ReactElement => {
@@ -38,9 +38,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({open, handleCloseMo
         resolver: yupResolver(RegisterFormSchema)
     });
 
-    const loadingStatus = useSelector(selectUserStatus)
-    // const errorMessage = useSelector(selectUserErrorMessage)
-
+    const userIsLoading = useSelector(selectUserIsLoading)
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const onSubmit = async (data: RegisterFormModalProps) => {
@@ -104,6 +102,7 @@ export const RegisterModal: React.FC<RegisterModalProps> = ({open, handleCloseMo
                             variant="contained"
                             fullWidth
                             color="primary"
+                            disabled={userIsLoading}
                         >
                             Регистрация
                         </Button>

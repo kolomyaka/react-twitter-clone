@@ -29,6 +29,7 @@ import { HeaderTitle } from "../components/HeaderTitle";
 import { Route, Routes } from 'react-router'
 import { CurrentTweet } from '../components/CurrentTweet';
 import {Users} from "../components/Users";
+import {UserInfo} from "../components/UserInfo";
 
 const SearchTextBlock = styled(TextField)`
   * {
@@ -71,6 +72,13 @@ const CenterLoader = styled("div")`
   margin-top: 20px;
 `;
 
+const SidebarContainer = styled('div')`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+`
 
 export type FlexWrapperProps = {
   direction?: string;
@@ -86,14 +94,17 @@ export const Home = () => {
   
   useEffect(() => {
     dispatch(getTweetsFetch());
-    dispatch(getTagsFetch());
+    // dispatch(getTagsFetch());
   }, [dispatch]);
 
   return (
     <Container maxWidth="xl">
       <Grid container spacing={2}>
         <Grid item md={3} sm={2} xl={3}>
-          <Sidebar />
+          <SidebarContainer>
+            <Sidebar />
+            <UserInfo />
+          </SidebarContainer>
         </Grid>
         <Grid item md={6.5} sm={8} xl={6}>
           <Paper

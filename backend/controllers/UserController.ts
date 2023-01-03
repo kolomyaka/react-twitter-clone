@@ -121,7 +121,7 @@ class UserController {
                 username: req.body.username,
                 fullname: req.body.fullname,
                 password: generateMD5(req.body.password + process.env.SECRET_KEY),
-                confirmHash: generateMD5(process.env.SECRET_KEY + Math.random().toString())
+                confirmHash: generateMD5(req.body.username + req.body.password + process.env.SECRET_KEY)
             };
             // Создаем нового пользователя
             const user = await UserModel.create(data);
