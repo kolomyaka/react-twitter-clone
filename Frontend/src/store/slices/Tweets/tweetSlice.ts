@@ -33,12 +33,19 @@ export const tweetsSlice = createSlice({
             state.items = [action.payload, ...state.items]
             state.addTweetLoadingStatus = LoadingState.LOADED;
         },
+        removeTweet(state, action: PayloadAction<Tweet>) {
+            state.items = state.items.filter(item => item._id !== action.payload._id)
+            state.loadingStatus = LoadingState.LOADED
+        },
         setTweetLoadingState(state, action: PayloadAction<LoadingState>) {
             state.addTweetLoadingStatus = action.payload;
+        },
+        deleteTweetFetch(state, action) {
+            state.loadingStatus = LoadingState.LOADING
         }
     }
 })
 
-export const { getTweetsFetch, getTweetsSuccess, getTweetsError, setTextForNewTweet, addTweet, setTweetLoadingState } = tweetsSlice.actions;
+export const { getTweetsFetch, getTweetsSuccess, getTweetsError, setTextForNewTweet, addTweet, setTweetLoadingState,deleteTweetFetch, removeTweet } = tweetsSlice.actions;
 
 export default tweetsSlice.reducer;

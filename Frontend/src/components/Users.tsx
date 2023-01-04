@@ -2,7 +2,6 @@ import {IconButton, Paper, Typography} from "@mui/material";
 import AddPersonIcon from "@mui/icons-material/PersonAddOutlined";
 import React, {useEffect} from "react";
 import styled from "styled-components";
-import {FlexWrapperProps} from "../pages/Home";
 import {useDispatch, useSelector} from "react-redux";
 import {selectUsersItems} from "../store/selectors/usersSelector";
 import {fetchUsers} from "../store/slices/Users/UsersSlice";
@@ -14,6 +13,11 @@ const RightSideBlock = styled("div")`
   margin-top: 20px;
   border-radius: 20px;
 `;
+
+type FlexWrapperProps = {
+    direction?: string;
+    align?: string;
+};
 
 const RightSideContent = styled("div")`
   cursor: pointer;

@@ -27,10 +27,13 @@ export const userSlice = createSlice({
         },
         fetchSignUp(state,action) {
             state.status = LoadingState.LOADING
+        },
+        fetchUserData(state) {
+            state.status = LoadingState.LOADING
         }
     }
 })
 
-export const {setUserData, setUserLoadingState, fetchSignIn, setUserErrorMessage, fetchSignUp} = userSlice.actions;
+export const {setUserData, setUserLoadingState, fetchSignIn, setUserErrorMessage, fetchSignUp, fetchUserData} = userSlice.actions;
 
 export default userSlice.reducer;

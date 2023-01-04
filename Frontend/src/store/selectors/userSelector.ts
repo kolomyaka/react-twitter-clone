@@ -12,4 +12,6 @@ export const selectUserErrorMessage = (state:RootState): UserState['error_messag
 
 export const selectUserIsLoading = (state:RootState): boolean => selectUserState(state).status === LoadingState.LOADING
 
+export const userIsReady = (state:RootState): boolean => selectUserState(state).status === LoadingState.SUCCESS
+
 export const selectUserStatus = (state:RootState): UserState['status'] => selectUserState(state).status;

@@ -26,7 +26,8 @@ export enum UserActionsType {
     SET_USER_DATA = 'userSlice/setUserData',
     SET_LOADING_STATE = 'userSlice/setUserLoadingState',
     FETCH_SIGN_IN = 'userSlice/fetchSignIn',
-    FETCH_SIGN_UP = 'userSlice/fetchSignUp'
+    FETCH_SIGN_UP = 'userSlice/fetchSignUp',
+    FETCH_USER_DATA = 'userSlice/fetchUserData'
 }
 
 export interface SetUserActionInterface extends Action<UserActionsType> {

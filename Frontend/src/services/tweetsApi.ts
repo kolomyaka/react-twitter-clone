@@ -21,6 +21,10 @@ export const tweetsApi = {
     async addTweet(payload: string): Promise<Tweet> {
         const { data } = await api.post<Response<Tweet>>(`/tweets`, {text: payload});
         return data.data;
+    },
+    async deleteTweet(id: string): Promise<any> {
+        const {data} = await api.delete(`/tweets/${id}`);
+        return data.data
     }
 }
 

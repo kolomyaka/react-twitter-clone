@@ -11,6 +11,7 @@ import avaPlaceholder from '../../assets/ava-placeholder.png'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {TweetFooterIcons} from "./TweetFooterIcons";
 import {UserPhoto} from "../UserPhoto";
+import {TweetMenuDropdown} from "./TweetMenuDropdown";
 
 const СontentTweetWrapper = styled.div`
     margin: 7px 0px;
@@ -31,29 +32,17 @@ type Props = {
     user: User
     id: string
     date: Date
+    userId: string | undefined
 }
 
 type User = {
     fullname: string
     avatarUrl: string
     username: string
+    _id: string
 }
 
-const UserAvatarWrapper = styled('div')`
-
-`
-
-export const Tweet = ({ user, text, id, date }: Props) => {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+export const Tweet = ({ user, text, id, date, userId }: Props) => {
 
     return (
         <>
@@ -71,28 +60,9 @@ export const Tweet = ({ user, text, id, date }: Props) => {
                             </Link>
                             <TweetFooterIcons />
                         </СontentTweetWrapper>
-                        <IconButton
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                            onClick={handleClick}
-                            style={{height: 'fit-content'}}
-                        >
-                            <MoreVertIcon />
-                        </IconButton>
-                        <Menu
-                            id="long-menu"
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose}>
-                                Редактировать твит
-                            </MenuItem>
-                            <MenuItem onClick={handleClose}>
-                                Удалить твит
-                            </MenuItem>
-                        </Menu>
+                        {
+                            user._id === userId && <TweetMenuDropdown id={id} />
+                        }
                     </TweetWrapper>
 
             </Paper >

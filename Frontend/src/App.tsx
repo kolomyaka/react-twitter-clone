@@ -1,27 +1,42 @@
 import React, {useEffect} from "react";
 import SignIn from "./pages/SignIn/SignIn";
-import { Routes, Route } from "react-router-dom";
-import { Home } from "./pages/Home";
+import {Route, Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectIsAuth} from "./store/selectors/userSelector";
-import {useNavigate} from "react-router";
-import {authApi} from "./services/authApi";
-import {setUserData} from "./store/slices/User/UserSlice";
+import {selectIsAuth, selectUserStatus, userIsReady} from "./store/selectors/userSelector";
+import {useLocation, useNavigate} from "react-router";
+import {fetchUserData} from "./store/slices/User/UserSlice";
 import {Layout} from "./components/Layout/Layout";
 import {AddTweetForm} from "./components/AddTweetForm";
 import {HomeLayout} from "./components/Layout/HomeLayout";
 import {CurrentTweet} from "./components/CurrentTweet";
+import styled from "styled-components";
+import {LoadingState} from "./types";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import {Typography} from "@mui/material";
+import {FlexWrapper} from "./components/StyledComponents/FlexWrapper";
+
+const Centered = styled('div')`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
 
 function App() {
   const isAuth = useSelector(selectIsAuth)
+  const isReady = useSelector(userIsReady)
+  const userLoadingStatus = useSelector(selectUserStatus)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const location = useLocation()
 
-  const checkAuth = async () => {
+  const checkAuth = () => {
       let token = localStorage.getItem('token')
       if (token) {
-          const {data} = await authApi.getMe()
-          dispatch(setUserData(data))
+          dispatch(fetchUserData())
+          if (location.pathname === '/') {
+              navigate('/home')
+          }
       } else {
           navigate('/signin')
       }
@@ -31,11 +46,34 @@ function App() {
     checkAuth()
   }, [isAuth])
 
+  if (!isReady && userLoadingStatus !== LoadingState.NEVER && userLoadingStatus !== LoadingState.ERROR) {
+      return (
+          <Centered>
+              <FlexWrapper>
+                  <TwitterIcon color="primary" style={{width: 80, height: 80}} />
+                  {
+                      userLoadingStatus === LoadingState.LOADED && <FlexWrapper>
+                          <Typography
+                              variant="h4"
+                              align={'center'}
+                              fontWeight={700}
+                              fontSize={32}
+                              mb={"35px"}
+                              mt={"15px"}
+                          >
+                              Письмо с кодом активации было отправлено вам на почту
+                          </Typography>
+                      </FlexWrapper>
+                  }
+              </FlexWrapper>
+          </Centered>
+      )
+  }
+
   return (
     <div className="App">
       <Routes>
           <Route path="/signin" element={<SignIn />} />
-
           <Route path={'/home'} element={<Layout headElement={<AddTweetForm />} contentElement={<HomeLayout />} />} />
           <Route path={'/tweet/:id'} element={<Layout headElement={<CurrentTweet />} />} />
           <Route path={'/search'} element={<Layout headElement={<AddTweetForm />} />} />

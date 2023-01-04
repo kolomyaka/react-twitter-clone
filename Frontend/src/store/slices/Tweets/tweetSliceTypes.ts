@@ -9,6 +9,7 @@ export interface Tweet {
         fullname: string
         avatarUrl: string
         username: string
+        _id: string
     }
 }
 
@@ -20,5 +21,10 @@ export interface TweetsState {
 
 export interface postNewTweetAction {
     type: 'tweetsSlice/postNewTweet'
+    payload: string
+}
+
+export interface deleteTweetAction {
+    type: 'tweetsSlice/deleteTweetFetch'
     payload: string
 }

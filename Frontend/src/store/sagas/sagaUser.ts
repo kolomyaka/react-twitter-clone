@@ -39,9 +39,27 @@ function* fetchSignUpRequest({payload}:fetchSignUp): Iterator<any> {
     }
 }
 
+function* fetchUserDataRequest(): Iterator<any> {
+    try {
+        // В случае вызова редюсера с авторизацией пользователя отрабатывает воркер с запросом
+        const userData = yield call(authApi.getMe);
+
+        if (userData) {
+            // В случае если получили данные от сервера добавляем в наш state
+            yield put(setUserData(userData));
+            yield put(setUserLoadingState(LoadingState.SUCCESS))
+        }
+
+    } catch (error:any) {
+        yield put(setUserLoadingState(LoadingState.ERROR));
+        if (error) {yield put(setUserErrorMessage(error.response.data.errors[0].msg))}
+    }
+}
+
 function* userSaga() {
     yield takeEvery(UserActionsType.FETCH_SIGN_IN, fetchSignInRequest)
     yield takeEvery(UserActionsType.FETCH_SIGN_UP, fetchSignUpRequest)
+    yield takeEvery(UserActionsType.FETCH_USER_DATA, fetchUserDataRequest)
 }
 
 export default userSaga;
