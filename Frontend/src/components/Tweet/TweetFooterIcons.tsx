@@ -14,6 +14,7 @@ const FlexWrapper = styled('div')`
     top: 0;
     left: -8px;
     margin: 0 20px 0 0;
+    max-width: 600px;
 `
 
 const TweetsCounter = styled('span')`

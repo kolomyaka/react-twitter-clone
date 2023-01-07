@@ -8,6 +8,8 @@ import { setTextForNewTweet } from '../store/slices/Tweets/tweetSlice';
 import { useSelector } from 'react-redux';
 import { selectAddTweetLoadingStatus } from '../store/selectors/tweetSelectors';
 import {LoadingState} from "../types";
+import {UploadImages} from "./UploadImages";
+import {FlexWrapper} from "./StyledComponents/FlexWrapper";
 
 const AddTweetWrapper = styled('div')`
     display: flex;
@@ -52,10 +54,6 @@ const AddTweetFooter = styled('div')`
     margin-bottom: 15px;
 `
 
-const FlexWrapper = styled('div')`
-    display: flex;
-    align-items: center;
-`
 
 
 export const AddTweetForm = () => {
@@ -92,10 +90,8 @@ export const AddTweetForm = () => {
                         value={text}
                     />
                     <AddTweetFooter>
-                        <FlexWrapper>
-                            <IconButton>
-                                <ImageIcon color='primary' />
-                            </IconButton>
+                        <FlexWrapper alignItems={'flex-start'} row={true}>
+                            <UploadImages />
                             <IconButton>
                                 <SmileIcon color='primary' />
                             </IconButton>

@@ -1,24 +1,27 @@
 import express from 'express';
+import multer from 'multer';
 import dotenv from 'dotenv';
 import session from "express-session";
 import { registerValidations } from './validations/register.js';
 import {UserCtrl} from './controllers/UserController.js';
 import {TweetsCtrl} from "./controllers/TweetsController.js";
 import {passport} from "./core/passport.js";
-import './core/db.js'
 import {createTweetValidations} from "./validations/createTweet.js";
-import flash from 'express-flash'
+import {UploadFileCtrl} from "./controllers/UploadFileController.js";
+import './core/db.js'
+
 
 dotenv.config();
 
 const app = express();
+const storage = multer.memoryStorage()
+const upload = multer({storage})
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
     cookie: { secure: true }
 }));
-app.use(flash());
 app.use(express.json());
 app.use(passport.initialize())
 app.use(passport.session());
@@ -57,6 +60,8 @@ app.post('/auth/signin', (req, res, next) => {
 
     })(req,res,next)
 })
+
+app.post('/upload', upload.single('avatar'), UploadFileCtrl.upload)
 
 app.listen(process.env.PORT, (): void => {
     console.log(`SERVER RUNNING! PORT: ${process.env.PORT}`);
