@@ -6,7 +6,8 @@ import {LoadingState} from "../../../types";
 export interface CurrentTweetState {
     data?: Tweet | null;
     currentId?: string;
-    loadingStatus: LoadingState
+    loadingStatus: LoadingState;
+    errorMessage: string
 }
 
 export type setCurrentTweetAction = {

@@ -92,9 +92,9 @@ export const AddTweetForm = () => {
                     <AddTweetFooter>
                         <FlexWrapper alignItems={'flex-start'} row={true}>
                             <UploadImages />
-                            <IconButton>
-                                <SmileIcon color='primary' />
-                            </IconButton>
+                            {/*<IconButton>*/}
+                            {/*    <SmileIcon color='primary' />*/}
+                            {/*</IconButton>*/}
                         </FlexWrapper>
                         <FlexWrapper>
                             {

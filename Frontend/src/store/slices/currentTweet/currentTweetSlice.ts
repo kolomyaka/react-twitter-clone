@@ -6,7 +6,8 @@ import {LoadingState} from "../../../types";
 
 const initialState: CurrentTweetState = {
     data: null,
-    loadingStatus: LoadingState.NEVER
+    loadingStatus: LoadingState.NEVER,
+    errorMessage: ''
 }
 
 export const currentTweetSlice = createSlice({
@@ -23,10 +24,13 @@ export const currentTweetSlice = createSlice({
         },
         setCurrentTweetError(state) {
             state.loadingStatus = LoadingState.ERROR;
+        },
+        setCurrentTweetErrorMessage(state, action) {
+            state.errorMessage = action.payload
         }
     }
 })
 
-export const { setCurrentTweet, getCurrentTweetData, setCurrentTweetError } = currentTweetSlice.actions;
+export const { setCurrentTweet, getCurrentTweetData, setCurrentTweetError, setCurrentTweetErrorMessage } = currentTweetSlice.actions;
 
 export default currentTweetSlice.reducer; 

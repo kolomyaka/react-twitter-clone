@@ -32,8 +32,8 @@ function* addTweetRequest({ payload: text }: postNewTweetAction): Iterator<any> 
             // В случае если получили данные от сервера добавляем в наш state
             yield put(addTweet(data));
         }
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        console.log(error.response);
         yield put(setTweetLoadingState(LoadingState.ERROR));
     }
 }
