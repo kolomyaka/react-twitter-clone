@@ -10,6 +10,7 @@ import { selectAddTweetLoadingStatus } from '../store/selectors/tweetSelectors';
 import {LoadingState} from "../types";
 import {UploadImages} from "./UploadImages";
 import {FlexWrapper} from "./StyledComponents/FlexWrapper";
+import {UploadImage} from "../utils/uploadImage";
 
 const AddTweetWrapper = styled('div')`
     display: flex;
@@ -54,6 +55,10 @@ const AddTweetFooter = styled('div')`
     margin-bottom: 15px;
 `
 
+export interface ImageObj {
+    file: File
+    blobUrl: string
+}
 
 
 export const AddTweetForm = () => {
@@ -63,9 +68,11 @@ export const AddTweetForm = () => {
     const textLimitPercent = Math.round((text.length / MAX_LIMIT) * 100);
     const maxLength = MAX_LIMIT - text.length;
     const addTweetIsLoading = useSelector(selectAddTweetLoadingStatus);
+    const [images, setImages] = useState<ImageObj[]>([]);
 
     const handleClickAddTweet = () => {
-        dispatch(setTextForNewTweet(text));
+        UploadImage(images)
+        // dispatch(setTextForNewTweet(text));
         setText('')
     }
 
@@ -91,7 +98,7 @@ export const AddTweetForm = () => {
                     />
                     <AddTweetFooter>
                         <FlexWrapper alignItems={'flex-start'} row={true}>
-                            <UploadImages />
+                            <UploadImages images={images} onChangeImages={(images) => setImages(images)} />
                             {/*<IconButton>*/}
                             {/*    <SmileIcon color='primary' />*/}
                             {/*</IconButton>*/}

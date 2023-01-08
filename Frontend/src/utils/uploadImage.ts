@@ -1,10 +1,15 @@
 import {api} from "../core/axios";
+import {ImageObj} from "../components/AddTweetForm";
 
-export const UploadImage = async (image: any) => {
+export const UploadImage = async (images: ImageObj[]) => {
     const formData = new FormData()
-    formData.append('image', image)
 
-    const { data } = await api.post('upload', formData, {
+    images.forEach(image => {
+        console.log(image.file)
+        formData.append('images', image.file);
+    });
+
+    const { data } = await api.post('/upload', formData, {
         headers: {
             'Content-Type': "multipart/form-data"
         }

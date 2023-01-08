@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import { FlexWrapper } from "./StyledComponents/FlexWrapper";
 import styled from "styled-components";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import {ImageObj} from "./AddTweetForm";
 
 const TweetMedia = styled('img')`
   width: 60px;
@@ -44,25 +45,29 @@ const RemoveTweetMediaItem = styled(HighlightOffIcon)`
     background-color: rgba(0, 0, 0, 0.48);
     color: #fff;
   }
-  
-  
 `
 
-export const UploadImages = () => {
+interface UploadImagesProps {
+    images: ImageObj []
+    onChangeImages: (images: ImageObj[]) => void
+}
 
-    const [images, setImages] = useState<string[]>([]);
+export const UploadImages: React.FC<UploadImagesProps> = ({onChangeImages, images}) => {
+
 
     const handleCapture = (e: any) => {
         const file = e.target.files[0]
         if (file) {
             const fileObj = new Blob([file])
             // uploadImage
-            setImages(prev => [...prev, URL.createObjectURL(fileObj)])
+            onChangeImages([...images,
+                {blobUrl: URL.createObjectURL(fileObj), file}
+            ])
         }
     }
 
     const removeMediaHandler = (e: React.MouseEvent<SVGElement>, url: string) => {
-        setImages(prev => prev.filter(image => image !== url))
+        onChangeImages(images.filter(image => image.blobUrl !== url))
     }
 
     return (
@@ -78,10 +83,10 @@ export const UploadImages = () => {
                 </FlexWrapper>
                 <TweetMediaContainer>
                     {
-                        images.map(url => (
-                            <TweetMediaItem>
-                                <TweetMedia src={url} />
-                                <RemoveTweetMediaItem onClick={(e) => removeMediaHandler(e, url)} />
+                        images.map((imageObj, idx) => (
+                            <TweetMediaItem key={imageObj.blobUrl+idx}>
+                                <TweetMedia src={imageObj.blobUrl} />
+                                <RemoveTweetMediaItem onClick={(e) => removeMediaHandler(e, imageObj.blobUrl)} />
                             </TweetMediaItem>
                         ))
                     }

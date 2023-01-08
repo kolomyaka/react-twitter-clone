@@ -61,7 +61,7 @@ app.post('/auth/signin', (req, res, next) => {
     })(req,res,next)
 })
 
-app.post('/upload', upload.single('avatar'), UploadFileCtrl.upload)
+app.post('/upload', upload.array('images', 4), UploadFileCtrl.upload)
 
 app.listen(process.env.PORT, (): void => {
     console.log(`SERVER RUNNING! PORT: ${process.env.PORT}`);
