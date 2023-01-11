@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Tweet, TweetsState } from "./tweetSliceTypes";
+import {Tweet, TweetContent, TweetsState} from "./tweetSliceTypes";
 import {LoadingState} from "../../../types";
 
 
@@ -26,8 +26,8 @@ export const tweetsSlice = createSlice({
         getTweetsError(state) {
             state.loadingStatus = LoadingState.ERROR;
         },
-        setTextForNewTweet(state, action: PayloadAction<string>) {
-            state.addTweetLoadingStatus = LoadingState.LOADING;
+        setContentForNewTweet(state, action: PayloadAction<TweetContent>) {
+
         },
         addTweet(state, action: PayloadAction<Tweet>) {
             state.items = [action.payload, ...state.items]
@@ -46,6 +46,6 @@ export const tweetsSlice = createSlice({
     }
 })
 
-export const { getTweetsFetch, getTweetsSuccess, getTweetsError, setTextForNewTweet, addTweet, setTweetLoadingState,deleteTweetFetch, removeTweet } = tweetsSlice.actions;
+export const { getTweetsFetch, getTweetsSuccess, getTweetsError, setContentForNewTweet, addTweet, setTweetLoadingState,deleteTweetFetch, removeTweet } = tweetsSlice.actions;
 
 export default tweetsSlice.reducer;

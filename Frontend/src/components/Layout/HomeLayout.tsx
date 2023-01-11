@@ -34,6 +34,7 @@ export const HomeLayout:React.FC = () => {
                                 userId={user?._id}
                                 id={tweet._id}
                                 date={tweet.createdAt}
+                                images={tweet.images}
                                 user={{
                                     fullname: tweet.user.fullname,
                                     username: tweet.user.username,

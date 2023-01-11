@@ -7,11 +7,10 @@ import ShareIcon from '@mui/icons-material/ReplyOutlined';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import {formatDate} from "../../utils/formatDate";
-import avaPlaceholder from '../../assets/ava-placeholder.png'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {TweetFooterIcons} from "./TweetFooterIcons";
 import {UserPhoto} from "../UserPhoto";
 import {TweetMenuDropdown} from "./TweetMenuDropdown";
+import {TweetMedia} from "../UploadImages";
 
 const СontentTweetWrapper = styled.div`
     margin: 7px 0px;
@@ -27,12 +26,20 @@ const TweetWrapper = styled('div')`
     }
 `
 
+export const TweetImagesContainer = styled('div')`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+`
+
 type Props = {
     text: string
     user: User
     id: string
     date: Date
     userId: string | undefined
+    images?: string[]
 }
 
 type User = {
@@ -42,7 +49,9 @@ type User = {
     _id: string
 }
 
-export const Tweet = ({ user, text, id, date, userId }: Props) => {
+
+
+export const Tweet = ({ user, text, id, date, userId, images }: Props) => {
 
     return (
         <>
@@ -57,6 +66,13 @@ export const Tweet = ({ user, text, id, date, userId }: Props) => {
                                 <Typography variant='body1'>
                                     {text}
                                 </Typography>
+                                <TweetImagesContainer>
+                                    {
+                                        images && images.map((image_url, idx) => (
+                                            <TweetMedia width={'100%'} height={'auto'} src={image_url}></TweetMedia>
+                                        ))
+                                    }
+                                </TweetImagesContainer>
                             </Link>
                             <TweetFooterIcons />
                         </СontentTweetWrapper>

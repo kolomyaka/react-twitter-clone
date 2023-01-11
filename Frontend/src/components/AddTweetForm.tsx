@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
-import ImageIcon from '@mui/icons-material/ImageOutlined';
-import SmileIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import React, {useState} from 'react'
 import styled from 'styled-components';
-import { Alert, Button, CircularProgress, IconButton, TextareaAutosize } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { setTextForNewTweet } from '../store/slices/Tweets/tweetSlice';
-import { useSelector } from 'react-redux';
-import { selectAddTweetLoadingStatus } from '../store/selectors/tweetSelectors';
+import {Alert, Button, CircularProgress, TextareaAutosize} from '@mui/material';
+import {useDispatch, useSelector} from 'react-redux';
+import {setContentForNewTweet, setTweetLoadingState} from '../store/slices/Tweets/tweetSlice';
+import {selectAddTweetLoadingStatus} from '../store/selectors/tweetSelectors';
 import {LoadingState} from "../types";
 import {UploadImages} from "./UploadImages";
 import {FlexWrapper} from "./StyledComponents/FlexWrapper";
@@ -70,10 +67,12 @@ export const AddTweetForm = () => {
     const addTweetIsLoading = useSelector(selectAddTweetLoadingStatus);
     const [images, setImages] = useState<ImageObj[]>([]);
 
-    const handleClickAddTweet = () => {
-        UploadImage(images)
-        // dispatch(setTextForNewTweet(text));
+    const handleClickAddTweet = async () => {
+        dispatch(setTweetLoadingState(LoadingState.LOADING))
+        const {data: url} = await UploadImage(images)
+        dispatch(setContentForNewTweet({text, url}));
         setText('')
+        setImages([])
     }
 
     const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -103,7 +102,7 @@ export const AddTweetForm = () => {
                             {/*    <SmileIcon color='primary' />*/}
                             {/*</IconButton>*/}
                         </FlexWrapper>
-                        <FlexWrapper>
+                        <FlexWrapper row={true}>
                             {
                                 text && (
                                     <>
@@ -129,7 +128,7 @@ export const AddTweetForm = () => {
                             }
                             <Button
                                 onClick={handleClickAddTweet}
-                                disabled={!text || text.length > MAX_LIMIT}
+                                disabled={!text || text.length > MAX_LIMIT || addTweetIsLoading === LoadingState.LOADING}
                                 variant='contained' sx={{ borderRadius: '20px' }}>
                                 {addTweetIsLoading === LoadingState.LOADING ? <CircularProgress size={17} /> : "Твитнуть"}
                             </Button>

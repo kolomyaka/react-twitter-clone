@@ -179,10 +179,12 @@ class TweetsController {
                     return;
                 }
 
-                const data: { text: string; user: string }= {
+                const data: { text: string; user: string, images: string[] }= {
                     text: req.body.text,
+                    images: req.body.url,
                     user: user._id
                 }
+
 
                 const tweet = await TweetModel.create(data)
 

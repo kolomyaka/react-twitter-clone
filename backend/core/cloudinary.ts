@@ -11,4 +11,20 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_SECRET_KEY
 });
 
+
+
+export const uploads = (file: string, folder: string) => {
+    return new Promise((resolve,reject) => {
+        cloudinary.uploader.upload_stream({resource_type: 'auto'}, (error, result) => {
+            if (error || !result) {
+                return reject({
+                    status: 500,
+                    message: error || 'Ошибка сохранения файла. Попробуйте снова'
+                })
+            }
+            resolve(result.url)
+        }).end(file)
+    })
+}
+
 export default cloudinary

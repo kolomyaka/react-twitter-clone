@@ -1,10 +1,11 @@
-import {Tweet, TweetsState} from '../store/slices/Tweets/tweetSliceTypes';
+import {Tweet, TweetContent, TweetsState} from '../store/slices/Tweets/tweetSliceTypes';
 import {api} from "../core/axios";
 
 interface Response<T> {
     status: number
     data: T
 }
+
 
 export const tweetsApi = {
     async fetchTweets(): Promise<Tweet[]> {
@@ -18,8 +19,8 @@ export const tweetsApi = {
         const { data } = await api.get<Response<Tweet>>(`/tweets/${id}`);
         return data.data;
     },
-    async addTweet(payload: string): Promise<Tweet> {
-        const { data } = await api.post<Response<Tweet>>(`/tweets`, {text: payload});
+    async addTweet(payload: TweetContent): Promise<Tweet> {
+        const { data } = await api.post<Response<Tweet>>(`/tweets`, {text: payload.text, url: payload.url});
         return data.data;
     },
     async deleteTweet(id: string): Promise<any> {

@@ -24,10 +24,11 @@ function* workGetTweetsFetch(): Iterator<any> {
     }
 }
 
-function* addTweetRequest({ payload: text }: postNewTweetAction): Iterator<any> {
+function* addTweetRequest({ payload }: postNewTweetAction): Iterator<any> {
     try {
+        console.log(payload, 'saga')
         // Полученный твит отправляем запросом на сервер
-        const data = yield call(tweetsApi.addTweet, text);
+        const data = yield call(tweetsApi.addTweet, payload);
         if (data) {
             // В случае если получили данные от сервера добавляем в наш state
             yield put(addTweet(data));
@@ -54,7 +55,7 @@ function* deleteTweet({ payload: id }: deleteTweetAction): Iterator<any> {
 
 function* tweetsSaga() {
     yield takeEvery('tweetsSlice/getTweetsFetch', workGetTweetsFetch);
-    yield takeEvery('tweetsSlice/setTextForNewTweet', addTweetRequest);
+    yield takeEvery('tweetsSlice/setContentForNewTweet', addTweetRequest);
     yield takeEvery('tweetsSlice/deleteTweetFetch', deleteTweet);
 }
 

@@ -12,6 +12,8 @@ import ShareIcon from '@mui/icons-material/ReplyOutlined';
 import avaPlaceholder from '../assets/ava-placeholder.png'
 import {formatDate} from "../utils/formatDate";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {TweetMedia} from "./UploadImages";
+import {TweetImagesContainer} from "./Tweet/Tweet";
 const CenterLoader = styled("div")`
   text-align: center;
   margin: 30px 0;
@@ -136,6 +138,13 @@ export const CurrentTweet = (props: Props) => {
                     <Typography variant='body1' style={{ wordBreak: 'break-word', margin: '7px 0' }}>
                         {currentTweetData.text}
                     </Typography>
+                    <TweetImagesContainer>
+                        {
+                            currentTweetData && currentTweetData.images && currentTweetData.images.map((image_url, idx) => (
+                                <TweetMedia width={'100%'} height={'auto'} src={image_url}></TweetMedia>
+                            ))
+                        }
+                    </TweetImagesContainer>
                     <Typography sx={{ color: '#9e9e9e' }}>{formatDate(currentTweetData.createdAt, 'HH:MM DD MMM YYYY г.')}</Typography>
                 </TweetWrapper>
                 <Paper variant='outlined' square sx={{ borderLeft: 'none', borderRight: 'none' }}>

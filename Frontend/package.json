@@ -53,6 +53,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "json-server": "^0.17.0",
+    "medium-zoom": "^1.0.8",
     "mini-css-extract-plugin": "^2.4.5",
     "moment": "^2.29.4",
     "notistack": "^2.0.8",

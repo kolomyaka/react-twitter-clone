@@ -5,6 +5,7 @@ export interface Tweet {
     text: string
     createdAt: Date
     updatedAt: Date
+    images: string[]
     user: {
         fullname: string
         avatarUrl: string
@@ -21,8 +22,14 @@ export interface TweetsState {
 
 export interface postNewTweetAction {
     type: 'tweetsSlice/postNewTweet'
-    payload: string
+    payload: TweetContent
 }
+
+export interface TweetContent {
+    text: string
+    url: string[]
+}
+
 
 export interface deleteTweetAction {
     type: 'tweetsSlice/deleteTweetFetch'

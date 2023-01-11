@@ -5,10 +5,11 @@ import { FlexWrapper } from "./StyledComponents/FlexWrapper";
 import styled from "styled-components";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {ImageObj} from "./AddTweetForm";
+import {useSnackbar} from "notistack";
 
-const TweetMedia = styled('img')`
-  width: 60px;
-  height: 60px;
+export const TweetMedia = styled('img')`
+  width: ${props => props.width ? props.width : '60px'};
+  height:  ${props => props.height ? props.height : '60px'};
   border-radius: 6px;
   overflow: hidden;
   object-fit: cover;
@@ -53,10 +54,19 @@ interface UploadImagesProps {
 }
 
 export const UploadImages: React.FC<UploadImagesProps> = ({onChangeImages, images}) => {
-
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
     const handleCapture = (e: any) => {
         const file = e.target.files[0]
+
+        if (images.length > 3) {
+            enqueueSnackbar('Максимальное кол-во вложений: 4', {
+                variant: 'error',
+                preventDuplicate: true
+            })
+            return;
+        }
+
         if (file) {
             const fileObj = new Blob([file])
             // uploadImage
