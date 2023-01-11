@@ -7,12 +7,18 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {ImageObj} from "./AddTweetForm";
 import {useSnackbar} from "notistack";
 
-export const TweetMedia = styled('img')`
+export const TweetMedia = styled('img').attrs({
+    "data-media": true
+})`
   width: ${props => props.width ? props.width : '60px'};
   height:  ${props => props.height ? props.height : '60px'};
   border-radius: 6px;
   overflow: hidden;
   object-fit: cover;
+  position: relative;
+  &&.medium-zoom-image--opened {
+    z-index: 1;
+  }
 `
 
 const TweetMediaContainer = styled('div')`

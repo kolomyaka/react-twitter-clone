@@ -1,5 +1,5 @@
 import {IconButton, Menu, MenuItem, Paper, Typography} from '@mui/material'
-import React from 'react'
+import React, {useEffect} from 'react'
 import CommentIcon from '@mui/icons-material/ModeCommentOutlined';
 import RepeatIcon from '@mui/icons-material/RepeatOutlined';
 import LikeIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -11,6 +11,7 @@ import {TweetFooterIcons} from "./TweetFooterIcons";
 import {UserPhoto} from "../UserPhoto";
 import {TweetMenuDropdown} from "./TweetMenuDropdown";
 import {TweetMedia} from "../UploadImages";
+import mediumZoom from 'medium-zoom'
 
 const СontentTweetWrapper = styled.div`
     margin: 7px 0px;
@@ -53,6 +54,13 @@ type User = {
 
 export const Tweet = ({ user, text, id, date, userId, images }: Props) => {
 
+    useEffect(() => {
+        mediumZoom('[data-media]', {
+            background: "rgba(0,0,0, .2)",
+            margin: 24,
+        })
+    }, [])
+
     return (
         <>
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
@@ -66,14 +74,14 @@ export const Tweet = ({ user, text, id, date, userId, images }: Props) => {
                                 <Typography variant='body1'>
                                     {text}
                                 </Typography>
-                                <TweetImagesContainer>
-                                    {
-                                        images && images.map((image_url, idx) => (
-                                            <TweetMedia width={'100%'} height={'auto'} src={image_url}></TweetMedia>
-                                        ))
-                                    }
-                                </TweetImagesContainer>
                             </Link>
+                            <TweetImagesContainer>
+                                {
+                                    images && images.map((image_url, idx) => (
+                                        <TweetMedia width={'100%'} height={'auto'} src={image_url}></TweetMedia>
+                                    ))
+                                }
+                            </TweetImagesContainer>
                             <TweetFooterIcons />
                         </СontentTweetWrapper>
                         {

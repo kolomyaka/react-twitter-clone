@@ -38,8 +38,6 @@ export const HeaderTitle = () => {
                     position: "sticky",
                     top: 0,
                     left: 0,
-                    zIndex: 1000,
-
                 }}
             >
                 <Typography variant="h6" sx={{ fontWeight: 700, borderRadius: 0 }}>
