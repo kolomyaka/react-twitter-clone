@@ -32,6 +32,7 @@ export const TweetImagesContainer = styled('div')`
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
+  margin: 10px 0;
 `
 
 type Props = {
@@ -65,7 +66,7 @@ export const Tweet = ({ user, text, id, date, userId, images }: Props) => {
         <>
             <Paper square sx={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none' }} variant='outlined'>
                     <TweetWrapper>
-                        <Link to={`tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                        <Link to={`/tweet/${id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
                             <UserPhoto size={48} src={user.avatarUrl} />
                         </Link>
                         <СontentTweetWrapper>

@@ -1,17 +1,18 @@
 import ImageIcon from "@mui/icons-material/ImageOutlined";
 import {IconButton} from "@mui/material";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { FlexWrapper } from "./StyledComponents/FlexWrapper";
 import styled from "styled-components";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {ImageObj} from "./AddTweetForm";
 import {useSnackbar} from "notistack";
+import mediumZoom from "medium-zoom";
 
 export const TweetMedia = styled('img').attrs({
     "data-media": true
 })`
-  width: ${props => props.width ? props.width : '60px'};
-  height:  ${props => props.height ? props.height : '60px'};
+  width: ${props => props.width ? props.width : '80px'};
+  height:  ${props => props.height ? props.height : '80px'};
   border-radius: 6px;
   overflow: hidden;
   object-fit: cover;
@@ -85,6 +86,13 @@ export const UploadImages: React.FC<UploadImagesProps> = ({onChangeImages, image
     const removeMediaHandler = (e: React.MouseEvent<SVGElement>, url: string) => {
         onChangeImages(images.filter(image => image.blobUrl !== url))
     }
+
+    useEffect(() => {
+        mediumZoom('[data-media]', {
+            background: "rgba(0,0,0, .2)",
+            margin: 24,
+        })
+    }, [])
 
     return (
         <>

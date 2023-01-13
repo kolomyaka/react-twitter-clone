@@ -87,8 +87,11 @@ export const UserInfo = () => {
                 }}
                 onClose={handleClose}
             >
+                <MenuItem>
+                    Мой профиль
+                </MenuItem>
                 <MenuItem onClick={logoutHandler}>
-                    Выйти с аккаунта
+                    Выйти
                 </MenuItem>
             </Menu>
         </>

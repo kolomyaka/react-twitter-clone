@@ -8,6 +8,7 @@ import {LoadingState} from "../types";
 import {UploadImages} from "./UploadImages";
 import {FlexWrapper} from "./StyledComponents/FlexWrapper";
 import {UploadImage} from "../utils/uploadImage";
+import {UserPhoto} from "./UserPhoto";
 
 const AddTweetWrapper = styled('div')`
     display: flex;
@@ -85,7 +86,8 @@ export const AddTweetForm = () => {
         <>
             <AddTweetWrapper>
                 <AddTweetAvatar>
-                    <img style={{ borderRadius: '50%', margin: '7px 10px' }} src='https://i.pravatar.cc/45' alt="userAvatar" />
+                    <UserPhoto size={45} margin={'7px 10px'} />
+
                 </AddTweetAvatar>
                 <AddTweetTextField>
                     <TextareaAutosize

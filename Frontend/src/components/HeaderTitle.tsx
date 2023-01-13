@@ -2,6 +2,7 @@ import { IconButton, Paper, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router";
 import ArrowBackIcon from '@mui/icons-material/ArrowBackOutlined';
 import styled from "styled-components";
+import {HeaderTitleText} from "./HeaderTitleText";
 
 
 const FlexWrapper = styled.div`
@@ -24,7 +25,7 @@ export const HeaderTitle = () => {
     return (
         <FlexWrapper align='center'>
             <div>
-                {location.pathname.includes('/tweet')
+                {location.pathname.includes('/tweet') || location.pathname.includes('/user')
                     ? <IconButton onClick={() => navigate(-1)} style={{ marginLeft: '10px', paddingTop: '10px' }}><ArrowBackIcon style={{ color: '#000' }} /></IconButton>
                     : <></>
                 }
@@ -41,7 +42,7 @@ export const HeaderTitle = () => {
                 }}
             >
                 <Typography variant="h6" sx={{ fontWeight: 700, borderRadius: 0 }}>
-                    {location.pathname.includes('/tweet') ? 'Твитнуть' : "Главная"}
+                    <HeaderTitleText pathname={location.pathname} />
                 </Typography>
             </Paper>
         </FlexWrapper>

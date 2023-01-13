@@ -13,7 +13,7 @@ import styled from "styled-components";
 
 
 const RightSide = styled("div")`
-  position: sticky;
+  position: fixed;
   top: 0;
   padding-top: 15px;
 `;
@@ -30,6 +30,7 @@ const SidebarContainer = styled('div')`
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  position: fixed;
 `
 
 const SearchTextBlock = styled(TextField)`
@@ -66,14 +67,14 @@ export const Layout = ({headElement, contentElement}: any) => {
     return (
         <>
             <Container maxWidth="xl">
-                <Grid container spacing={2}>
-                    <Grid item md={3} sm={2} xl={3}>
+                <Grid container spacing={2.5}>
+                    <Grid item md={2.5}  xl={3}>
                         <SidebarContainer>
                             <Sidebar />
                             <UserInfo />
                         </SidebarContainer>
                     </Grid>
-                    <Grid item md={6.5} sm={8} xl={6}>
+                    <Grid item md={6.7}  xl={6}>
                         <Paper
                             square
                             sx={{ borderBottom: 0, borderTop: 0, height: "100vh" }}
@@ -84,7 +85,7 @@ export const Layout = ({headElement, contentElement}: any) => {
                             {contentElement}
                         </Paper>
                     </Grid>
-                    <Grid item md={2.5} sm={2} xl={3}>
+                    <Grid item md={2.5}  xl={3}>
                         <RightSide>
                             <SearchTextBlock
                                 fullWidth
