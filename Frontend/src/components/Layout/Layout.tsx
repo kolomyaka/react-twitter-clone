@@ -66,18 +66,18 @@ export const Layout = ({headElement, contentElement}: any) => {
 
     return (
         <>
-            <Container maxWidth="xl">
-                <Grid container spacing={2.5}>
-                    <Grid item md={2.5}  xl={3}>
+            <Container maxWidth={'xl'}>
+                <Grid container spacing={2}>
+                    <Grid item md={3}  xl={2.5}>
                         <SidebarContainer>
                             <Sidebar />
                             <UserInfo />
                         </SidebarContainer>
                     </Grid>
-                    <Grid item md={6.7}  xl={6}>
+                    <Grid item md={6}  xl={7} sx={{paddingLeft: '0px !important'}}>
                         <Paper
                             square
-                            sx={{ borderBottom: 0, borderTop: 0, height: "100vh" }}
+                            sx={{ borderBottom: 0, borderTop: 0, height: '100%', minHeight: '100vh'}}
                             variant="outlined"
                         >
                             <HeaderTitle />
@@ -85,7 +85,7 @@ export const Layout = ({headElement, contentElement}: any) => {
                             {contentElement}
                         </Paper>
                     </Grid>
-                    <Grid item md={2.5}  xl={3}>
+                    <Grid item md={3}  xl={2.5}>
                         <RightSide>
                             <SearchTextBlock
                                 fullWidth

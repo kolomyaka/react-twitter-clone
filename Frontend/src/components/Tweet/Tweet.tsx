@@ -33,6 +33,7 @@ export const TweetImagesContainer = styled('div')`
   gap: 15px;
   flex-wrap: wrap;
   margin: 10px 0;
+  max-width: 645px;
 `
 
 type Props = {

@@ -78,7 +78,7 @@ function App() {
           <Route path={'/home'} element={<Layout headElement={<AddTweetForm />} contentElement={<HomeLayout />} />} />
           <Route path={'/tweet/:id'} element={<Layout headElement={<CurrentTweet />} />} />
           <Route path={'/search'} element={<Layout headElement={<AddTweetForm />} />} />
-          <Route path={'/user'} element={<Layout headElement={<HeadUserProfile />} />} />
+          <Route path={'/user/:id'} element={<Layout contentElement={<HeadUserProfile />} />} />
           <Route path={'*'} element={<>Not found</>} />
       </Routes>
     </div>

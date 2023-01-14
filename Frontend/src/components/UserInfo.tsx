@@ -7,23 +7,29 @@ import {selectUserData} from "../store/selectors/userSelector";
 import React from "react";
 import {setUserData, setUserLoadingState} from "../store/slices/User/UserSlice";
 import {LoadingState} from "../types";
+import {useNavigate} from "react-router";
 
 
 const UserInfoContainer = styled('div')`
   display: flex;
   align-items: center;
+  gap: 12px;
 `
 
-const UserData = styled('div')`
+export const UserData = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 0 12px;
+  //margin: 0 12px;
 `
 
-export const UserFullName = styled('span')`
+interface UserFullNameProps {
+    fontSize?: string
+}
+
+export const UserFullName = styled('span')<UserFullNameProps>`
   font-weight: 700;
-  font-size: 15px;
+  font-size: ${props => props.fontSize ? props.fontSize : '15px'};
   overflow: hidden;
   text-overflow: ellipsis;
   color: #000;
@@ -40,6 +46,7 @@ export const UserInfo = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -53,6 +60,11 @@ export const UserInfo = () => {
         localStorage.removeItem('token')
         dispatch(setUserLoadingState(LoadingState.NEVER))
         dispatch(setUserData(undefined))
+    }
+
+    const profileHandler = () => {
+        setAnchorEl(null)
+        navigate(`/user/${userData?._id}`)
     }
 
     return (
@@ -87,7 +99,7 @@ export const UserInfo = () => {
                 }}
                 onClose={handleClose}
             >
-                <MenuItem>
+                <MenuItem onClick={profileHandler}>
                     Мой профиль
                 </MenuItem>
                 <MenuItem onClick={logoutHandler}>
