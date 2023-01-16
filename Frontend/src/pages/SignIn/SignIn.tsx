@@ -9,10 +9,11 @@ import MessageIcon from "@mui/icons-material/ChatBubbleOutline";
 import {LoginModal} from "./components/LoginModal";
 import {RegisterModal} from "./components/RegisterModal";
 import {LoadingState} from "../../types";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectUserErrorMessage, selectUserStatus} from "../../store/selectors/userSelector";
 import {useSnackbar} from "notistack";
 import {useNavigate} from "react-router";
+import {fetchUserData} from "../../store/slices/User/UserSlice";
 
 const Wrapper = styled("div")(
   ({ theme }) => `
@@ -92,6 +93,8 @@ export const SignIn: React.FC = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
   const [visibleModal, setVisibleModal] = useState<'signIn' | 'signUp'>();  // Указываем, что можем принимать только строку, в зависимости от которой отображаем мод. окно
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const handleClickOpenSignIn = (): void => {  // Функция для входа в аккаунт
     setVisibleModal('signIn');
   };
@@ -106,6 +109,14 @@ export const SignIn: React.FC = () => {
 
   const loadingStatus = useSelector(selectUserStatus);
   const errorMessage = useSelector(selectUserErrorMessage)
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            dispatch(fetchUserData())
+        }
+    }, []);
+
+
 
   useEffect(() => {
     switch (loadingStatus) {

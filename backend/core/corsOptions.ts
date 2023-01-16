@@ -1,5 +1,5 @@
 export const corsOpts = {
-    origin: '*',
+    origin: 'http://localhost:3000',
 
     methods: [
         'GET',

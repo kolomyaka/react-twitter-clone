@@ -20,7 +20,9 @@ axios.interceptors.response.use(
     async (err) => {
 
         if (err.response.status === 401){
-            window.location.href = '/signin'
+            if (window.location.pathname !== '/signin') {
+                window.location.href = '/signin'
+            }
             return Promise.reject(err);
         }
 

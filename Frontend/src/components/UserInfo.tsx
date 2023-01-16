@@ -58,6 +58,7 @@ export const UserInfo = () => {
 
     const logoutHandler = () => {
         localStorage.removeItem('token')
+
         dispatch(setUserLoadingState(LoadingState.NEVER))
         dispatch(setUserData(undefined))
     }
