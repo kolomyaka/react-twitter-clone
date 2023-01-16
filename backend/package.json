@@ -10,6 +10,7 @@
     "@types/nodemailer": "^6.4.7",
     "@types/nodemailer-smtp-transport": "^2.7.5",
     "cloudinary": "^1.33.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
@@ -36,6 +37,7 @@
   "author": "",
   "description": "",
   "devDependencies": {
+    "@types/cors": "^2.8.13",
     "@types/express-flash": "^0.0.2",
     "@types/express-session": "^1.17.5",
     "@types/jsonwebtoken": "^9.0.0",

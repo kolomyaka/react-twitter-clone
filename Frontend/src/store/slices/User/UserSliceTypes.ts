@@ -27,7 +27,8 @@ export enum UserActionsType {
     SET_LOADING_STATE = 'userSlice/setUserLoadingState',
     FETCH_SIGN_IN = 'userSlice/fetchSignIn',
     FETCH_SIGN_UP = 'userSlice/fetchSignUp',
-    FETCH_USER_DATA = 'userSlice/fetchUserData'
+    FETCH_USER_DATA = 'userSlice/fetchUserData',
+    CONFIRM_USER = 'userSlice/confirmUser'
 }
 
 export interface SetUserActionInterface extends Action<UserActionsType> {
@@ -43,6 +44,11 @@ export interface SetLoadingStateActionInterface extends Action<UserActionsType> 
 export interface fetchSignIn extends Action<UserActionsType> {
     type: UserActionsType.FETCH_SIGN_IN
     payload: LoginFormModalProps
+}
+
+export interface fetchConfirm extends Action<UserActionsType> {
+    type: UserActionsType.CONFIRM_USER
+    payload: string
 }
 
 export interface fetchSignUp extends Action<UserActionsType> {

@@ -13,7 +13,8 @@ export interface UserModelInterface extends mongoose.Document {
     confirmed:boolean
     location?:string
     about?:string
-    website?: string
+    website?: string,
+    tweets: string[]
 };
 
 // Описываем схему
@@ -47,6 +48,10 @@ const UserSchema = new Schema({
     location: String,
     about: String,
     website: String,
+    tweets: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Tweet'
+    }]
 }, {
     timestamps: true
 });

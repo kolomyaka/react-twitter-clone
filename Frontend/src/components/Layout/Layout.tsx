@@ -8,8 +8,13 @@ import {CurrentTweet} from "../CurrentTweet";
 import {Tweet} from "../Tweet/Tweet";
 import SearchIcon from "@mui/icons-material/Search";
 import {Users} from "../Users";
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
+import {fetchUserData} from "../../store/slices/User/UserSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {LoadingState} from "../../types";
+import {LoadingScreen} from "../LoadingScreen";
+import {selectUserStatus, userIsReady} from "../../store/selectors/userSelector";
 
 
 const RightSide = styled("div")`
@@ -63,6 +68,20 @@ const SearchTextBlock = styled(TextField)`
 `;
 
 export const Layout = ({headElement, contentElement}: any) => {
+
+    const isReady = useSelector(userIsReady)
+    const userLoadingStatus = useSelector(selectUserStatus)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchUserData())
+    }, [])
+
+    if (!isReady && userLoadingStatus !== LoadingState.NEVER && userLoadingStatus !== LoadingState.ERROR) {
+        return (
+            <LoadingScreen userLoadingStatus={userLoadingStatus} />
+        )
+    }
 
     return (
         <>

@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectloadingStatus, selectTweetsItems} from "../../store/selectors/tweetSelectors";
 import {getTweetsFetch} from "../../store/slices/Tweets/tweetSlice";
 import {selectUserData} from "../../store/selectors/userSelector";
+import {fetchUserData} from "../../store/slices/User/UserSlice";
 
 
 const CenterLoader = styled("div")`
@@ -23,7 +24,7 @@ export const HomeLayout:React.FC = () => {
     useEffect(() => {
         dispatch(getTweetsFetch());
         // dispatch(getTagsFetch());
-    }, [dispatch]);
+    }, []);
 
     return (
         <>

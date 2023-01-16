@@ -26,5 +26,9 @@ export const authApi = {
         const {data} = await api.get<ResponseApi<any>>('/users/me')
         return data.data
     },
+    async confirmUser(hash: string): Promise<Boolean> {
+        const {data} = await api.get<ResponseApi<User>>(`/auth/verify/?hash=${hash}`)
+        return data.data.confirmed
+    }
 
 }

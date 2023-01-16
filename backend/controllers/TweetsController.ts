@@ -188,6 +188,10 @@ class TweetsController {
 
                 const tweet = await TweetModel.create(data)
 
+                if (user.tweets) {
+                    user.tweets.push(tweet._id)
+                }
+
                 res.json({
                     status: 200,
                     data: await tweet.populate('user')

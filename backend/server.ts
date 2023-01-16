@@ -2,14 +2,16 @@ import express from 'express';
 import multer from 'multer';
 import dotenv from 'dotenv';
 import session from "express-session";
-import { registerValidations } from './validations/register.js';
+import cors from 'cors'
+
+import {registerValidations} from './validations/register.js';
 import {UserCtrl} from './controllers/UserController.js';
 import {TweetsCtrl} from "./controllers/TweetsController.js";
 import {passport} from "./core/passport.js";
 import {createTweetValidations} from "./validations/createTweet.js";
 import {UploadFileCtrl} from "./controllers/UploadFileController.js";
+import {corsOpts} from "./core/corsOptions.js";
 import './core/db.js'
-
 
 dotenv.config();
 
@@ -22,18 +24,31 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: true }
 }));
+app.use(cors(corsOpts));
 app.use(express.json());
 app.use(passport.initialize())
 app.use(passport.session());
 
+function authenticateJwt(req: Express.Request, res:Express.Response, next: any) {
+    passport.authenticate('jwt', function(err, user, info) {
+        if (err) return next(err);
+        if (!user) {
+            return next()
+        };
+        req.user = user;
+        next();
+    })(req, res, next);
+}
+
+
 // User group
-app.get('/users', UserCtrl.index);
-app.get('/users/me', passport.authenticate('jwt', {session: false}), UserCtrl.getUserInfo);
+app.get('/users', passport.authenticate('jwt'), UserCtrl.index);
+app.get('/users/me', authenticateJwt, UserCtrl.getUserInfo);
 app.get('/users/:id', UserCtrl.show);
 app.delete('/users/:id', UserCtrl.delete);
 
 // Tweets group
-app.get('/tweets', TweetsCtrl.index)
+app.get('/tweets',passport.authenticate('jwt'), TweetsCtrl.index)
 app.get('/tweets/:id', TweetsCtrl.show)
 app.delete('/tweets/:id', passport.authenticate('jwt'), TweetsCtrl.delete)
 app.patch('/tweets/:id', passport.authenticate('jwt'), createTweetValidations, TweetsCtrl.update)

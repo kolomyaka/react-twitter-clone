@@ -1,6 +1,6 @@
 import {call, put, takeEvery} from "redux-saga/effects";
 import {authApi} from "../../services/authApi";
-import {fetchSignIn, fetchSignUp, UserActionsType} from "../slices/User/UserSliceTypes";
+import {fetchConfirm, fetchSignIn, fetchSignUp, UserActionsType} from "../slices/User/UserSliceTypes";
 import {setUserData, setUserErrorMessage, setUserLoadingState} from "../slices/User/UserSlice";
 import {LoadingState} from "../../types";
 
@@ -52,7 +52,19 @@ function* fetchUserDataRequest(): Iterator<any> {
 
     } catch (error:any) {
         yield put(setUserLoadingState(LoadingState.ERROR));
-        if (error) {yield put(setUserErrorMessage(error.response.data.errors[0].msg))}
+        if (error) {yield put(setUserErrorMessage(error.response.data.message))}
+    }
+}
+
+function* fetchConfirmRequest({payload}: fetchConfirm): Iterator<any> {
+    try {
+        const userConfirmed = yield call(authApi.confirmUser, payload)
+
+        if (userConfirmed) {
+            yield put(setUserLoadingState(LoadingState.CONFIRMED))
+        }
+    } catch (e) {
+
     }
 }
 
@@ -60,6 +72,7 @@ function* userSaga() {
     yield takeEvery(UserActionsType.FETCH_SIGN_IN, fetchSignInRequest)
     yield takeEvery(UserActionsType.FETCH_SIGN_UP, fetchSignUpRequest)
     yield takeEvery(UserActionsType.FETCH_USER_DATA, fetchUserDataRequest)
+    yield takeEvery(UserActionsType.CONFIRM_USER, fetchConfirmRequest)
 }
 
 export default userSaga;

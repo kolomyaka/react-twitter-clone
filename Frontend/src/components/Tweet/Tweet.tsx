@@ -80,7 +80,7 @@ export const Tweet = ({ user, text, id, date, userId, images }: Props) => {
                             <TweetImagesContainer>
                                 {
                                     images && images.map((image_url, idx) => (
-                                        <TweetMedia width={'100%'} height={'auto'} src={image_url}></TweetMedia>
+                                        <TweetMedia key={idx} width={'100%'} height={'auto'} src={image_url}></TweetMedia>
                                     ))
                                 }
                             </TweetImagesContainer>

@@ -10,7 +10,6 @@ interface ResponseApi {
 export const usersApi = {
     async fetchUsers(): Promise<User[]> {
         const {data} = await api.get<ResponseApi>('/users/')
-        console.log(data)
         return data.data
     },
 

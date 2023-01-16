@@ -21,7 +21,7 @@ type BackgroundAvatarProps = {
 const BackgroundAvatar = styled('div')<BackgroundAvatarProps>`
   height: 200px;
   width: 100%;
-  background: ${(props: BackgroundAvatarProps) => props.backgroundColor?props.backgroundColor:'rgba(0,0,0,.3)'};
+  background: ${(props: BackgroundAvatarProps) => props.backgroundColor?props.backgroundColor:'rgb(151,166,180)'};
   position: relative;
 `
 

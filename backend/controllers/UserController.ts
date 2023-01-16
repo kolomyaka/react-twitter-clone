@@ -41,7 +41,7 @@ class UserController {
                 res.status(404).json({status: 404, message: 'Неверный ID'})
             }
 
-            const user = await UserModel.findById(userId).exec()
+            const user = await UserModel.findById(userId).populate('tweets').exec()
 
             res.json({
                 status: 200,
@@ -125,7 +125,7 @@ class UserController {
             };
             // Создаем нового пользователя
             const user = await UserModel.create(data);
-            await sendActivationEmail(data.email, `${process.env.API_URL}/auth/verify/?hash=${data.confirmHash}`)
+            await sendActivationEmail(data.email, `${process.env.FRONTEND_URL}/user/activate/${data.confirmHash}`)
 
             res.json({
                 status: 200,
@@ -193,6 +193,14 @@ class UserController {
 
     async getUserInfo(req: express.Request, res: express.Response): Promise<void> {
         try {
+            if (!req.user) {
+                res.status(401).json({
+                    status: 401,
+                    message: 'Ошибка валидации'
+                })
+                return
+            };
+
             res.status(200).json({
                 status: 200,
                 data: {
