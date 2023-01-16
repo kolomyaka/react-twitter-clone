@@ -30,5 +30,4 @@ export const authApi = {
         const {data} = await api.get<ResponseApi<User>>(`/auth/verify/?hash=${hash}`)
         return data.data.confirmed
     }
-
 }

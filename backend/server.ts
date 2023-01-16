@@ -50,6 +50,7 @@ app.delete('/users/:id', UserCtrl.delete);
 // Tweets group
 app.get('/tweets',passport.authenticate('jwt'), TweetsCtrl.index)
 app.get('/tweets/:id', TweetsCtrl.show)
+app.get('/tweets/user/:id', TweetsCtrl.getUserTweets)
 app.delete('/tweets/:id', passport.authenticate('jwt'), TweetsCtrl.delete)
 app.patch('/tweets/:id', passport.authenticate('jwt'), createTweetValidations, TweetsCtrl.update)
 app.post('/tweets', passport.authenticate('jwt'), createTweetValidations, TweetsCtrl.create)

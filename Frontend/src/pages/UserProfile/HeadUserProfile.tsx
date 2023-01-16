@@ -6,13 +6,19 @@ import styled from "styled-components";
 import analyze from 'rgbaster'
 import {FlexWrapper} from "../../components/StyledComponents/FlexWrapper";
 import {UserData, UserFullName, UserUsername} from "../../components/UserInfo";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectUserData} from "../../store/selectors/userSelector";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import {UserTweets} from "./components/UserTweets";
+import {selectloadingStatus, selectTweetsItems} from "../../store/selectors/tweetSelectors";
+import {useParams} from "react-router";
+import {getTweetsFetch} from "../../store/slices/Tweets/tweetSlice";
+import {usersApi} from "../../services/usersApi";
+import {User} from "../../store/slices/User/UserSliceTypes";
+import {LoadingScreen} from "../../components/LoadingScreen";
 
 type BackgroundAvatarProps = {
     backgroundColor: string | undefined
@@ -73,10 +79,14 @@ function TabPanel(props: TabPanelProps) {
 
 export const HeadUserProfile:React.FC = () => {
 
-    const [backgroundColor, setBackgroundColor] = useState(undefined);
-    const userData = useSelector(selectUserData);
+    const params = useParams()
+    const userId = params.id
 
+    const [backgroundColor, setBackgroundColor] = useState(undefined);
+    // const userData = useSelector(selectUserData);
+    const [userData, setUserData] = useState<User | undefined>()
     const [value, setValue] = React.useState(0);
+    const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -91,6 +101,25 @@ export const HeadUserProfile:React.FC = () => {
         analyzeUserAvatar()
     }, [])
 
+
+    // Get user Tweets
+    const tweets = useSelector(selectTweetsItems);
+    const dispatch = useDispatch()
+    const tweetsLoadingStatus = useSelector(selectloadingStatus);
+
+    useEffect(() => {
+        if (userId) {
+            dispatch(getTweetsFetch(userId))
+            usersApi.getUserInfo(userId).then((user) => {
+                setUserData(user)
+                setIsLoading(false)
+            })
+        }
+    }, [userId])
+
+    if (isLoading) {
+        return <LoadingScreen />
+    }
 
     return (
         <>
@@ -162,7 +191,7 @@ export const HeadUserProfile:React.FC = () => {
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <UserTweets user={userData} />
+                    <UserTweets tweetsLoadingStatus={tweetsLoadingStatus} tweets={tweets} user={userData} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     Item Two

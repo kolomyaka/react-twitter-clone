@@ -16,7 +16,7 @@ export const tweetsSlice = createSlice({
     name: 'tweetsSlice',
     initialState,
     reducers: {
-        getTweetsFetch(state) {
+        getTweetsFetch(state, action: PayloadAction<string | undefined>) {
             state.loadingStatus = LoadingState.LOADING;
         },
         getTweetsSuccess(state, action: PayloadAction<Tweet[]>) {

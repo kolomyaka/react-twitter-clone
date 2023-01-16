@@ -8,8 +8,8 @@ interface Response<T> {
 
 
 export const tweetsApi = {
-    async fetchTweets(): Promise<Tweet[]> {
-        const { data } = await api.get<Response<Tweet[]>>('/tweets');
+    async fetchTweets(userId: string | undefined): Promise<Tweet[]> {
+        const { data } = await api.get<Response<Tweet[]>>(userId ? `/tweets/user/${userId}` : '/tweets');
         return data.data;
     },
     // То что в конечном итоге вернет функция (Объяснение типизации в запросах)

@@ -7,12 +7,12 @@ import {
     setTweetLoadingState,
     getTweetsFetch, removeTweet
 } from '../slices/Tweets/tweetSlice'
-import {deleteTweetAction, postNewTweetAction, Tweet} from '../slices/Tweets/tweetSliceTypes';
+import {deleteTweetAction, getTweetsFetchAction, postNewTweetAction, Tweet} from '../slices/Tweets/tweetSliceTypes';
 import {LoadingState} from "../../types";
 
-function* workGetTweetsFetch(): Iterator<any> {
+function* workGetTweetsFetch({payload: userId}: getTweetsFetchAction): Iterator<any> {
     try {
-        const data = yield call(tweetsApi.fetchTweets);
+        const data = yield call(tweetsApi.fetchTweets, userId);
         // Сохраняем данные полученные от сервера в slice
         if (data) {
             yield put(getTweetsSuccess(data));

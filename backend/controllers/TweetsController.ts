@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import {TweetModel, TweetModelInterface} from "../models/TweetModel.js";
 import {isValidObjectId} from "../utils/isValidObjectId.js";
 import {validationResult} from "express-validator";
-import {UserModelInterface} from "../models/UserModel";
+import {UserModel, UserModelInterface} from "../models/UserModel.js";
 dotenv.config()
 
 // Создаем контроллер для Tweet
@@ -45,6 +45,39 @@ class TweetsController {
             }
 
             const tweets = await TweetModel.findById(tweetId).populate('user').exec()
+
+            res.json({
+                status: 200,
+                data: tweets
+            })
+        } catch (error) {
+            res.json({
+                status: 500,
+                message: JSON.stringify(error)
+            });
+        }
+    }
+
+    // Метод для получения твита
+    async getUserTweets(req: express.Request, res: express.Response): Promise<void> {
+        try {
+            const userId = req.params.id
+
+            if (!userId) {
+                res.status(404).json({
+                    status: 404,
+                    message: "Не удалось получить ID пользователя"
+                })
+            }
+
+            if (!isValidObjectId(userId)) {
+                res.status(404).json({
+                    status: 404,
+                    message: "Неверный ID"
+                })
+            }
+
+            const tweets = await TweetModel.find({user: userId}).populate('user').exec()
 
             res.json({
                 status: 200,
@@ -158,6 +191,7 @@ class TweetsController {
         }
     }
 
+
     // Метод для создания твита
     async create(req: express.Request, res: express.Response): Promise<void> {
         try {
@@ -199,6 +233,7 @@ class TweetsController {
             }
 
         } catch (error) {
+            console.log(error)
             res.json({
                 status: 500,
                 message: JSON.stringify(error),

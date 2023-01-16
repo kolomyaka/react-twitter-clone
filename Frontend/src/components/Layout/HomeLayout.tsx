@@ -9,7 +9,7 @@ import {selectUserData} from "../../store/selectors/userSelector";
 import {fetchUserData} from "../../store/slices/User/UserSlice";
 
 
-const CenterLoader = styled("div")`
+export const CenterLoader = styled("div")`
   text-align: center;
   margin-top: 20px;
 `;
@@ -23,7 +23,6 @@ export const HomeLayout:React.FC = () => {
 
     useEffect(() => {
         dispatch(getTweetsFetch());
-        // dispatch(getTagsFetch());
     }, []);
 
     return (

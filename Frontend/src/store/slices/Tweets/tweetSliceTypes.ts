@@ -1,4 +1,6 @@
 import {LoadingState} from "../../../types";
+import {Action} from "redux";
+import {UserActionsType} from "../User/UserSliceTypes";
 
 export interface Tweet {
     _id: string
@@ -12,6 +14,10 @@ export interface Tweet {
         username: string
         _id: string
     }
+}
+
+export enum TweetsActionsType {
+    FETCH_TWEETS = 'tweetsSlice/fetchTweets'
 }
 
 export interface TweetsState {
@@ -28,6 +34,11 @@ export interface postNewTweetAction {
 export interface TweetContent {
     text: string
     url: string[]
+}
+
+export interface getTweetsFetchAction extends Action<TweetsActionsType> {
+    type: TweetsActionsType.FETCH_TWEETS,
+    payload?: string | undefined
 }
 
 
