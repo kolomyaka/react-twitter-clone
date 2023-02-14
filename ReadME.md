@@ -16,8 +16,3 @@
 ```bash
     npm run nodemon
 ```
-
-Для остановки всех активных серверов
-```bash
-killall node
-```
