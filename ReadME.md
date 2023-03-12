@@ -10,9 +10,3 @@
 ```bash
     npm run json-server
 ```
-
- Бек:
- 1) Nodemon
-```bash
-    npm run nodemon
-```
