@@ -40,6 +40,10 @@ function authenticateJwt(req: Express.Request, res:Express.Response, next: any) 
     })(req, res, next);
 }
 
+app.get('/', (_req: express.Request, res: express.Response) => {
+    return res.send('Express Typescript on Vercel')
+})
+
 
 // User group
 app.get('/users', passport.authenticate('jwt'), UserCtrl.index);
