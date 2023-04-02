@@ -29,8 +29,8 @@
     "typescript": "^4.6.4"
   },
   "scripts": {
-    "start": "nodemon src/index.ts",
-    "dev": "ts-node index.ts",
+    "start": "nodemon /api/index.ts",
+    "dev": "ts-node api/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon"
   },

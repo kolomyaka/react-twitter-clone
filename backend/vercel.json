@@ -3,11 +3,12 @@
   "name": "react.twitter.clone",
   "builds": [
     {
-      "src": "index.ts",
+      "src": "/api/index.ts",
       "use": "@vercel/node",
       "config": { "includeFiles": ["dist/**"] }
     }
   ],
+  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }],
   "routes": [
     {
       "src": "/(.*)",

@@ -4,14 +4,14 @@ import dotenv from 'dotenv';
 import session from "express-session";
 import cors from 'cors'
 
-import {registerValidations} from './validations/register.js';
-import {UserCtrl} from './controllers/UserController.js';
-import {TweetsCtrl} from "./controllers/TweetsController.js";
-import {passport} from "./core/passport.js";
-import {createTweetValidations} from "./validations/createTweet.js";
-import {UploadFileCtrl} from "./controllers/UploadFileController.js";
-import {corsOpts} from "./core/corsOptions.js";
-import './core/db.js'
+import {registerValidations} from '../validations/register.js';
+import {UserCtrl} from '../controllers/UserController.js';
+import {TweetsCtrl} from "../controllers/TweetsController.js";
+import {passport} from "../core/passport.js";
+import {createTweetValidations} from "../validations/createTweet.js";
+import {UploadFileCtrl} from "../controllers/UploadFileController.js";
+import {corsOpts} from "../core/corsOptions.js";
+import '../core/db.js'
 
 dotenv.config();
 
