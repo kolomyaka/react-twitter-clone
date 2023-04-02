@@ -44,6 +44,10 @@ app.get('/', (_req: express.Request, res: express.Response) => {
     return res.send('Express Typescript on Vercel')
 })
 
+app.get('/ping', (_req: express.Request, res: express.Response) => {
+    return res.send('pong 🏓')
+})
+
 
 // User group
 app.get('/users', passport.authenticate('jwt'), UserCtrl.index);
