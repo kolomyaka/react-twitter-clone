@@ -3,7 +3,6 @@ import {Strategy as LocalStrategy} from 'passport-local';
 import {Strategy as JWTstrategy, ExtractJwt } from 'passport-jwt';
 import {UserModel, UserModelInterface} from "../models/UserModel.js";
 import {generateMD5} from "../utils/generateHash.js";
-import jwt from 'jsonwebtoken'
 
 passport.use(
     new LocalStrategy(
@@ -33,7 +32,7 @@ passport.use(
 passport.use(
     new JWTstrategy(
         {
-            secretOrKey: process.env.SECRET_KEY,
+            secretOrKey: process.env.SECRET_KEY || '',
             jwtFromRequest: ExtractJwt.fromHeader('token')
         },
         async (payload: {user: UserModelInterface}, done): Promise<void> => {

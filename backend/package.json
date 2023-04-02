@@ -29,7 +29,7 @@
     "typescript": "^4.6.4"
   },
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "ts-node server.ts",
     "dev": "ts-node server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon"

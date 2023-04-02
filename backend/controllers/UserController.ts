@@ -110,6 +110,7 @@ class UserController {
     // Метод для создания пользователя
     async create(req: express.Request, res: express.Response): Promise<void> {
         try {
+            console.log('here')
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 res.status(404).json({ status: 404, errors: errors.array() })
@@ -123,16 +124,18 @@ class UserController {
                 password: generateMD5(req.body.password + process.env.SECRET_KEY),
                 confirmHash: generateMD5(req.body.username + req.body.password + process.env.SECRET_KEY)
             };
+
             // Создаем нового пользователя
-            const user = await UserModel.create(data);
+            // const user = await UserModel.create(data);
             await sendActivationEmail(data.email, `${process.env.FRONTEND_URL}/user/activate/${data.confirmHash}`)
 
             res.json({
                 status: 200,
-                data: user
+                data: 'success'// user
             });
 
         } catch (error) {
+            console.log('error controller', error)
             res.json({
                 status: 500,
                 message: JSON.stringify(error),
@@ -184,6 +187,7 @@ class UserController {
                 }
             })
         } catch (e) {
+            console.log('here')
             res.status(500).json({
                 status: 500,
                 message: e
@@ -199,7 +203,7 @@ class UserController {
                     message: 'Ошибка валидации'
                 })
                 return
-            };
+            }
 
             res.status(200).json({
                 status: 200,

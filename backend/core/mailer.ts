@@ -5,21 +5,24 @@ import Mail from "nodemailer/lib/mailer";
 dotenv.config()
 
 let transporter: Mail<SMTPTransport.SentMessageInfo>;
+
+
 transporter = nodemailer.createTransport({
     // @ts-ignore
-    host: process.env.SMPT_HOST,
-    port: process.env.SMPT_PORT,
-    secure: false,
+    service: 'gmail',
+    host: process.env.SMPT_HOST, // 587
+    port: process.env.SMPT_PORT, // gjqhrtdwysqpejgr
     auth: {
-        user: process.env.SMPT_USER,
-        pass: process.env.SMPT_PASSWORD
+        type: 'login',
+        user: process.env.SMPT_USER, // react.twitter.clonee@gmail.com
+        pass: process.env.SMPT_PASSWORD // Qwerty5!
     }
 });
 
 
 export const  sendActivationEmail = async (to: string, link: string) => {
     await transporter.sendMail({
-        from:process.env.SMPT_USER,
+        from:'react.twitter.clonee@gmail.com',
         to,
         subject: `Подтвердите свою учетную запись в React Twitter clone`,
         text: '',
