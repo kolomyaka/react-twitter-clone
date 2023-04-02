@@ -4,14 +4,14 @@ import dotenv from 'dotenv';
 import session from "express-session";
 import cors from 'cors'
 
-import {registerValidations} from '../validations/register.js';
-import {UserCtrl} from '../controllers/UserController.js';
-import {TweetsCtrl} from "../controllers/TweetsController.js";
-import {passport} from "../core/passport.js";
-import {createTweetValidations} from "../validations/createTweet.js";
-import {UploadFileCtrl} from "../controllers/UploadFileController.js";
-import {corsOpts} from "../core/corsOptions.js";
-import '../core/db.js'
+import {registerValidations} from './validations/register.js';
+import {UserCtrl} from './controllers/UserController.js';
+import {TweetsCtrl} from "./controllers/TweetsController.js";
+import {passport} from "./core/passport.js";
+import {createTweetValidations} from "./validations/createTweet.js";
+import {UploadFileCtrl} from "./controllers/UploadFileController.js";
+import {corsOpts} from "./core/corsOptions.js";
+import './core/db.js'
 
 dotenv.config();
 const app = express();
@@ -29,11 +29,11 @@ app.use(passport.initialize())
 app.use(passport.session());
 
 function authenticateJwt(req: Express.Request, res:Express.Response, next: any) {
-    passport.authenticate('jwt', function(err, user, info) {
+    passport.authenticate('jwt', function(err, user) {
         if (err) return next(err);
         if (!user) {
             return next()
-        };
+        }
         req.user = user;
         next();
     })(req, res, next);
