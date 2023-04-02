@@ -2,7 +2,7 @@
 
 Responsive MERN Twitter clone app with authorization and state management using React, MongoDB and Meterial UI [LIMITED FUNCTIONALITY]
 
-STACK: MERN: NodeJS, MongoDB, Mongoose, JWTToken, Multer, Yup, React, Redux Toolkit, React Router, react-hook-form, MUI, Redux saga, styled-components
+STACK: MERN: NodeJS, MongoDB, Mongoose, JWTToken, Multer, Yup, React, Redux Toolkit, React Router, react-hook-form, MUI, Redux saga, styled-components, nodemailer (Google SMPT)
 
 ## Usage
 
