@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "react.twitter.clone",
+  "builds": [
+    { "src": "server.ts", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
