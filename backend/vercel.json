@@ -3,13 +3,13 @@
   "name": "react.twitter.clone",
   "builds": [
     {
-      "src": "*.(js,ts)",
+      "src": "api/index.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "api/index.ts",
       "dest": "/"
     }
   ]
