@@ -1,4 +1,4 @@
-MERN Twitter clone
+# MERN Twitter clone
 
 Responsive MERN Twitter clone app with authorization and state management using React, MongoDB and Meterial UI [LIMITED FUNCTIONALITY]
 
