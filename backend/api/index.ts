@@ -14,7 +14,6 @@ import {corsOpts} from "../core/corsOptions.js";
 import '../core/db.js'
 
 dotenv.config();
-
 const app = express();
 const storage = multer.memoryStorage()
 const upload = multer({storage})
